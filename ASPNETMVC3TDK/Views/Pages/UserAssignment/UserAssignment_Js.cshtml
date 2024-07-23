@@ -1,0 +1,1050 @@
+<script>
+    var myTable;
+    var editDisabledFields = [];
+    var initAppId = "@ApplicationSettings.Instance.Alias"
+    var form = document.getElementById('assign_form');
+    var selectedAppId = '';
+  /*  var newselectedAppId = '';*/
+    var validator = FormValidation.formValidation(
+        form,
+        {
+            fields: {
+                'USERNAME': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Username is required'
+                        },
+                    },
+
+                },
+                'ROLE': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Role is required'
+                        },
+                        stringLength: {
+                            max: 100, // Set the maximum length constraint
+                            message: 'The Function Name must not exceed 100 characters'
+                        }
+                    }
+                },
+            },
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger(),
+                bootstrap: new FormValidation.plugins.Bootstrap5({
+                    rowSelector: '.fv-row',
+                    eleInvalidClass: '',
+                    eleValidClass: ''
+                })
+            }
+        }
+    );
+
+
+    var username_data = '';
+    var role_data = '';
+    //loadRole(initAppId);
+
+    $(document).ready(function () {
+
+        loadDataTable();
+        // Memuat pilihan aplikasi pada combo box aplikasi
+        $('#sc_applicationName').select2();
+        $('#sc_applicationName').append($('<option>', {
+            value: "",
+            text: "--  Select All --"
+        }));
+        $.ajax({
+            url: "MasterFunctionApi/GetListApplications",
+            type: "POST",
+            dataType: "json",
+            success: function (response) {
+                // Append options to select tag
+                $.each(response, function (index, item) {
+                    $('#sc_applicationName').append($('<option>', {
+                        value: item.id,
+                        text: item.text
+                    }));
+                });
+
+                // Select the desired option
+                $('#sc_applicationName').val(initAppId);
+
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+
+
+        //$('#input_sc_role').select2({
+        //    allowClear: false,
+        //    width: "100%",
+        //    minimumInputLength: 0,
+        //    dropdownParent: $("#modal-form"),
+        //    ajax:
+        //    {
+        //        type: 'POST',
+        //        url: 'UserAssignmentApi/GetListRole',
+        //        dataType: 'json',
+        //        delay: 1000,
+        //        async: false,
+        //        data: function (params) {
+
+        //            var aSearch = {
+        //                PARAM_1: "ROLE"
+        //                , PARAM_2: $('#input_sc_app_id').val()
+        //                , PARAM_3: params.term
+
+        //            }
+        //            return aSearch;
+        //        },
+        //        processResults: function (data, params) {
+
+        //            return { results: data };
+
+        //        },
+        //        cache: true
+        //    },
+        //    minimumInputLength: 0,
+        //    escapeMarkup: function (markup) {
+        //        return markup;
+        //    }
+        //});
+
+        /*$("#input_sc_app_id").select2({
+            allowClear: false,
+            width: "100%",
+            minimumInputLength: 0,
+            dropdownParent: $("#modal-form"),
+            ajax:
+            {
+                type: 'POST',
+                url: 'MasterFunctionApi/GetListApplications',
+                dataType: 'json',
+                delay: 1000,
+                async: false,
+                data: function (params) {
+
+                    var aSearch = {
+                        PARAM_1: params.term
+                    }
+                    return aSearch;
+                },
+                processResults: function (data, params) {
+                    return { results: data };
+                },
+                cache: true
+
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            }
+
+        });*/
+
+
+        // Event listener untuk combo box aplikasi
+        $('#sc_applicationName').change(function () {
+            selectedAppId = $(this).val();
+            //loadRole(selectedAppId);
+            console.log(selectedAppId);
+        });
+
+        $('#input_sc_username').select2({
+            allowClear: false,
+            width: "100%",
+            minimumInputLength: 0,
+            dropdownParent: $("#modal-form"),
+            ajax: {
+                type:'POST',
+                url: 'UserAssignmentApi/GetListUsername',
+                dataType: 'json',
+                delay: 1000,
+                async: false,
+                data: function (params) {
+                    var aSearch = {
+                        PARAM_1: params.term
+                    }
+                    return aSearch;
+                },
+                processResults: function (data, params) {
+                    return { results: data };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            }
+        });
+
+
+    });
+
+   /* $('#input_sc_app_id').select2({
+        allowClear: false,
+        width: "100%",
+        tags: true,
+        ajax:
+        {
+            type: 'POST',
+            url: 'MasterFunctionApi/GetListApplications',
+            dataType: 'json',
+            delay: 1000,
+            async: true,
+            data: null,
+            processResults: function (data, params) {
+
+                return { results: data };
+            },
+            cache: true
+        },
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+    });*/
+
+
+
+
+  /*  $('#input_sc_username').select2();
+    $('#input_sc_username').append($('<option>', {
+        value: "",
+        text: "--  Select All --"
+    }));
+    $.ajax({
+        url: "UserAssignmentApi/GetListUsername",
+        type: "POST",
+        dataType: "json",
+        success: function (response) {
+            // Append options to select tag
+            $.each(response, function (index, item) {
+                $('#input_sc_username').append($('<option>', {
+                    value: item.id,
+                    text: item.text
+                }));
+            });
+
+            // Select the desired option
+            $('#input_sc_username').val(response[0].id);
+
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+
+
+   $('#input_sc_username').select2({
+        allowClear: true,
+        width: "100%",
+        minimumInputLength: 0,
+
+        ajax: {
+            url: 'UserAssignmentApi/GetListUsername',
+            dataType: 'json',
+            delay: 500,
+            async: true,
+            data: null,
+            processResults: function (data, params) {
+                return { results: data };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) {
+            return markup;
+        }
+    });*/
+
+   /* $('#input_sc_role').select2({
+        allowClear: false,
+        width: "100%",
+        tags: true,
+        ajax: {
+            type: 'POST',
+            url: 'UserAssignmentApi/GetListRole',
+            dataType: 'json',
+            delay: 1000,
+            async: true,
+            data: function (params) {
+                return {
+                    APPLICATION: $('#input_sc_app_id').val() // Mengambil nilai app_id saat ini
+                 // Menambahkan parameter pencarian (opsional)
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        },
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+    });*/
+
+    //$('#input_sc_role').select2({
+    //    allowClear: false,
+    //    width: "100%",
+    //    minimumInputLength: 0,
+    //    dropdownParent: $("#modal-form"),
+    //    ajax:
+    //    {
+    //        type: 'POST',
+    //        url: 'UserAssignmentApi/GetListRole',
+    //        dataType: 'json',
+    //        delay: 1000,
+    //        async: false,
+    //        data: function (params) {
+
+    //            var aSearch = {
+    //                PARAM_1: "ROLE"
+    //                , PARAM_2: $('#input_sc_app_id').val()
+    //                , PARAM_3: params.term
+
+    //            }
+    //            return aSearch;
+    //        },
+    //        processResults: function (data, params) {
+
+    //            return { results: data };
+
+    //        },
+    //        cache: true
+    //    },
+    //    minimumInputLength: 0,
+    //    escapeMarkup: function (markup) {
+    //        return markup;
+    //    }
+    //});
+
+    // Event handler saat nilai input app_id berubah
+   /* $('#input_sc_app_id').on('change', function () {
+        $('#input_sc_role').val(null); // Menghapus nilai role saat app_id berubah
+    });*/
+
+    // Fungsi untuk mengambil dan mengisi pilihan role
+   /* function loadRole(appId) {
+        $.ajax({
+            url: 'UserAssignmentApi/GetListRole',
+            type: "POST",
+            dataType: "json",
+            data: { APPLICATION: appId},
+            success: function (response) {
+
+              *//*  // Mengosongkan dan menambahkan opsi default
+                $('#input_sc_role').empty().append($('<option>', {
+                    value: "",
+                    text: "-- Select --"
+                }));*//*
+
+                // Menambahkan opsi role dari respons server
+                $.each(response, function (index, item) {
+                    $('#input_sc_role').append($('<option>', {
+                        value: item.id,
+                        text: item.text
+                    }));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+                alert("An error occurred while loading roles. Please try again later.");
+            }
+        });
+    }*/
+        // Fungsi untuk memuat tabel dengan data
+        function loadDataTable() {
+            // Menampilkan tabel
+            $('#datatable').show();
+            myTable = $('#datatable').DataTable({
+                sDom: 'lt<"bottom"><"row"<"col-sm-4 info-custom"i><"col-sm-7 pagination-custom"p><"col-sm-1 paginate-go">>',
+                order: [[1, 'ASC']],
+                processing: true,
+                serverSide: true,
+                scroll: true,
+                pagingType: 'full_numbers',
+                responsive: false,
+                ajax: {
+                    type: 'POST',
+                    url: 'UserAssignmentApi/GetDatatables',
+                    data: function (d) {
+                        d.USERNAME = $('#sc_userName').val();
+                        d.ROLE = $('#sc_userRole').val();
+                        d.APPLICATION = $('#sc_applicationName').val();
+                        d.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+                    }
+                },
+                columns: [
+                    {
+                        'data': null,
+                        bSortable: false,
+                        className: 'text-center',
+                        'render': function (data, type, full, meta) {
+                            return '<input type="checkbox" class="select-checkbox">';
+                        }
+                    },
+                    { 'data': 'USERNAME', 'name': 'USERNAME', bSortable: true, className: 'text-center' },
+                    { 'data': 'FULL_NAME', 'name': 'FULL_NAME', bSortable: true, className: 'text-left' },
+                    { 'data': 'ROLE', 'name': 'ROLE', bSortable: false, className: 'text-left' },
+                ],
+            });
+
+            $('#checkAll').on('change', function () {
+                var isChecked = $(this).prop('checked');
+                var checkboxes = $('#datatable tbody .select-checkbox');
+                checkboxes.prop('checked', isChecked);
+                checkboxes.closest('tr').toggleClass('selected', isChecked);
+
+                var checkedboxes = $('#datatable tbody .select-checkbox:checked');
+                var editButton = $('#editButton');
+                var deleteButton = $('#deleteButton');
+
+                if (checkedboxes.length === 1) {
+                    editButton.prop('disabled', false);
+                } else {
+                    editButton.prop('disabled', true);
+                }
+
+                if (checkedboxes.length > 0) {
+                    deleteButton.prop('disabled', false);
+                } else {
+                    deleteButton.prop('disabled', true);
+                }
+            });
+
+            $('#datatable tbody').on('change', '.select-checkbox', function () {
+                var checkbox = $(this);
+                var isChecked = checkbox.prop('checked');
+                var row = checkbox.closest('tr');
+
+                // Toggle the 'selected' class based on the checkbox state
+                if (isChecked) {
+                    row.addClass('selected');
+                } else {
+                    row.removeClass('selected');
+                }
+
+                var checkedboxes = $('#datatable tbody .select-checkbox:checked');
+                var editButton = $('#editButton');
+                var deleteButton = $('#deleteButton');
+
+                if (checkedboxes.length === 1) {
+                    editButton.prop('disabled', false);
+                } else {
+                    editButton.prop('disabled', true);
+                }
+
+                if (checkedboxes.length > 0) {
+                    deleteButton.prop('disabled', false);
+                } else {
+                    deleteButton.prop('disabled', true);
+                }
+
+                var allChecked = checkedboxes.length === $('#datatable tbody .select-checkbox').length;
+                $('#checkAll').prop('checked', allChecked);
+            });
+        }
+
+
+    function showModalAdd() {
+        resetForm();
+        $("#MODE").val("ADD");
+        $("#modal-form-title").html("Assign User");
+        $("#modal-form").modal("show");
+
+        $("#input_sc_app_id").removeAttr("disabled").prop("readonly", true);
+        var selectedAppId = $('#sc_applicationName').val();
+        $("#input_sc_app_id").select2({
+            allowClear: false,
+            width: "100%",
+            minimumInputLength: 0,
+            dropdownParent: $("#modal-form"),
+            ajax:
+            {
+                type: 'POST',
+                url: 'MasterFunctionApi/GetListApplications',
+                dataType: 'json',
+                delay: 1000,
+                async: false,
+                data: function (params) {
+
+                    var aSearch = {
+                        PARAM_1: params.term
+                    }
+                    return aSearch;
+                },
+                processResults: function (data, params) {
+                    return { results: data };
+                },
+                cache: true
+
+
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            }
+
+        });
+        $("#input_sc_app_id").append($('<option>', {
+            value: "",
+            text: "--  Select All --"
+        }));
+        $.ajax({
+            url: "MasterFunctionApi/GetListApplications",
+            type: "POST",
+            dataType: "json",
+            success: function (response) {
+                // Append options to select tag
+                $.each(response, function (index, item) {
+                    $("#input_sc_app_id").append($('<option>', {
+                        value: item.id,
+                        text: item.text
+                    }));
+                });
+
+                // Select the desired option
+               /* $("#input_sc_app_id").val(newselectedAppId);*/
+                $("#input_sc_app_id").val(selectedAppId).trigger('change');
+                console.log(selectedAppId);
+
+
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+
+
+
+        $("#input_sc_role").removeAttr("disabled");
+        $('#input_sc_role').select2({
+            allowClear: false,
+            width: "100%",
+            minimumInputLength: 0,
+            dropdownParent: $("#modal-form"),
+            ajax:
+            {
+                type: 'POST',
+                url: 'UserAssignmentApi/GetListRole',
+                dataType: 'json',
+                delay: 1000,
+                async: false,
+                data: function (params) {
+
+                    var aSearch = {
+                        PARAM_1: "ROLE"
+                        , PARAM_2: $('#input_sc_app_id').val()
+                        , PARAM_3: params.term
+
+                    }
+                    return aSearch;
+                },
+                processResults: function (data, params) {
+
+                    return { results: data };
+
+                },
+                cache: true
+            },
+            minimumInputLength: 0,
+            escapeMarkup: function (markup) {
+                return markup;
+            }
+        });
+        $('#input_sc_app_id').on('change', function () {
+            var selectedAppId = $(this).val();
+            $('#input_sc_role').val('').trigger('change'); // Clear and trigger change event to update roles
+        });
+
+        $("#input_sc_username").val("").trigger("change");
+        $("#input_sc_username").removeAttr("disabled");
+        $('#input_sc_username').select2({
+            allowClear: false,
+            width: "100%",
+            minimumInputLength: 0,
+            dropdownParent: $("#modal-form"),
+            ajax: {
+                type: 'POST',
+                url: 'UserAssignmentApi/GetListUsername',
+                dataType: 'json',
+                delay: 1000,
+                async: false,
+                data: function (params) {
+
+                    var aSearch = {
+                        PARAM_1: params.term
+                    }
+                    return aSearch;
+                },
+                processResults: function (data, params) {
+                    return { results: data };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            }
+        });
+
+       
+        $("#input_sc_fullname").prop("disabled", true);
+        $("#is-active-wrapper").hide();
+        setTimeout(function () {
+            $("#input_sc_app_id").focus();
+        }, 500);
+
+    }
+
+
+    function showModalEdit() {
+        var appId;
+        resetForm();
+        var selectedRowsData = myTable.rows('.selected').data();
+        console.log(selectedRowsData);
+        if (selectedRowsData.length === 1) {
+            var rowData = selectedRowsData[0];
+            if (!rowData.USERNAME ) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Incomplete Data',
+                    text: 'Please select a row with complete data to edit.',
+                });
+                return; // Hentikan proses jika ada data yang belum diisi
+            }
+
+            // Mengatur nilai selectedAppId dari elemen rowData.APPLICATION
+            $("#input_sc_app_id").val(rowData.APPLICATION).attr("disabled", true);
+            $.ajax({
+                url: "MasterFunctionApi/GetListApplications",
+                type: "POST",
+                dataType: "json",
+                success: function (response) {
+                    // Append options to select tag
+                    $.each(response, function (index, item) {
+                        $("#input_sc_app_id").append($('<option>', {
+                            value: item.id,
+                            text: item.text
+                        }));
+                    });
+
+                    $("#input_sc_app_id").val(rowData.APPLICATION).trigger('change');
+                    appId = $("#input_sc_app_id").val();
+                    console.log(appId);
+
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+
+            $("#input_sc_role").val(rowData.ROLE).attr("disabled", true);
+            $.ajax({
+                url: "UserAssignmentApi/GetListRole",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    PARAM_1: "ROLE",
+                    PARAM_2: rowData.APPLICATION,
+                    PARAM_3: ''
+                },
+                success: function (response) {
+                    $.each(response, function (index, item) {
+                        $("#input_sc_role").append($('<option>', {
+                            value: item.id,
+                            text: item.text
+                        }));
+                    });
+
+                    // Set nilai peran yang sedang diedit ke elemen input_sc_role dan pilihnya
+                    $("#input_sc_role").val(rowData.ROLE).trigger('change');
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+
+
+            //$.ajax({
+            //    url: "UserAssignmentApi/GetListRole",
+            //    type: "POST",
+            //    dataType: "json",
+            //    data: { APPLICATION: 'ARKTDK' },
+            //    success: function (response) {
+            //        console.log("test");
+            //        console.log(response);
+            //        $.each(response, function (index, item) {
+            //            $("#input_sc_role").append($('<option>', {
+            //                value: item.id,
+            //                text: item.text
+            //            }));
+            //        });
+
+            //        // Set nilai peran yang sedang diedit ke elemen input_sc_role dan pilihnya
+            //        $("#input_sc_role").val(rowData.ROLE).trigger('change');
+            //    },
+            //    error: function (xhr, status, error) {
+            //        console.error("Error:", error);
+            //    }
+            //});
+
+
+
+            username_data = rowData.USERNAME
+            $("#input_sc_username").val(rowData.USERNAME);
+            $("#input_sc_username").select2('destroy');
+            $('#input_sc_username').select2({
+                allowClear: false,
+                width: "100%",
+                minimumInputLength: 0,
+                dropdownParent: $("#modal-form"),
+                ajax: {
+                    type: 'POST',
+                    url: 'UserAssignmentApi/GetListUsername',
+                    dataType: 'json',
+                    delay: 1000,
+                    async: false,
+                    data: function (params) {
+
+                        var aSearch = {
+                            PARAM_1: params.term
+                        }
+                        return aSearch;
+                    },
+                    processResults: function (data, params) {
+                        return { results: data };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+            $.ajax({
+                url: 'UserAssignmentApi/GetListUsername',
+                type: "POST",
+                dataType: 'json',
+                data: {},
+                success: function (response) {
+                    // Mengisi data username ke dalam select2
+                    $('#input_sc_username').html("");
+                    $.each(response, function (index, item) {
+                        $('#input_sc_username').append($('<option>', {
+                            value: item.id,
+                            text: item.text
+                        }));
+                    });
+
+                    // Mengatur nilai username sesuai dengan data rowData
+                    $('#input_sc_username').val(rowData.USERNAME).trigger('change');
+
+                    // Menampilkan modal form
+                    $("#modal-form").modal("show");
+                }
+            });
+
+
+            $("#input_sc_username").change();
+
+            $("#MODE").val("EDIT");
+            $("#modal-form-title").html("Edit User Assignment");
+            $("#modal-form").modal("show");
+            editDisabledFields.push(rowData)
+            $("#input_sc_fullname").attr("disabled", true);
+                $("#is-active-wrapper").show();
+                setTimeout(function () {
+                    $("#input_sc_app_id").focus();
+                }, 500);
+
+
+        } else
+        {
+           alert("Please select a single row to edit.");
+        }
+
+    }
+
+    $('#input_sc_username').on('change', function () {
+        var selectedUsername = $(this).val();
+        if (selectedUsername) {
+            // Buat AJAX request untuk mengambil data nama lengkap berdasarkan username yang dipilih
+            $.ajax({
+                url: 'UserAssignmentApi/GetFullName',
+                type: "POST",
+                dataType: "json",
+                data: { USERNAME: selectedUsername },
+                success: function (response) {
+                    if (response != null) {
+                        // Jika respons memiliki properti fullName, gunakan nilai tersebut
+                        $('#input_sc_fullname').val(response[0].FULL_NAME);
+                    } else {
+                        console.error("Error: Unexpected response format");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+        } else {
+            // Jika username tidak dipilih, kosongkan nilai input_sc_fullname
+            $('#input_sc_fullname').val('');
+        }
+    });
+
+
+
+    function resetForm() {
+        $("#MODE").val("");
+        $('#sc_applicationName').val(selectedAppId);
+        $("#sc_userRole").val("");
+        $("#sc_userName").val("");
+        /*$("#input_sc_app_id").val("").trigger("change"); */// Reset nilai dan trigger change event
+        $("#input_sc_role").val(""); // Reset nilai dan trigger change event
+        $("#input_sc_username").val("").trigger("change"); // Reset nilai dan trigger change event
+        $("#input_sc_fullname").val("");
+    }
+
+    $('#modal-form').on('hidden.bs.modal', function () {
+        resetForm();
+    });
+
+    function saveConfirmation() {
+        if (validator) {
+            validator.validate().then(function (status) {
+                if (status == "Valid") {
+                    Swal.fire({
+                        html: `Are you sure want to save this data?`,
+                        icon: "info",
+                        buttonsStyling: false,
+                        showCancelButton: true,
+                        confirmButtonText: "OK",
+                        cancelButtonText: 'Cancel',
+                        customClass: {
+                            confirmButton: "btn btn-primary mx-5 w-125px",
+                            cancelButton: 'btn btn-danger mx-5 w-125px'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            processSave();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "warning",
+                        title: getMessage("MSG230320004W"),
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    setTimeout(function () {
+                        if (!$("#input_sc_app_id").val()) {
+                            $("#input_sc_app_id").focus();
+                        } else if (!$("#input_sc_role").val()) {
+                            $("#input_sc_role").focus();
+                        } else if (!$("#input_sc_username").val()) {
+                            $("#input_sc_username").focus();
+                        }
+                    }, 1800);
+                }
+            });
+        } else {
+
+        }
+    }
+
+    function deleteConfirmation() {
+        var checkboxes = $('#datatable tbody .select-checkbox:checked');
+
+        Swal.fire({
+            html: `Are you sure want to delete ${checkboxes.length} data?`,
+            icon: "info",
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            cancelButtonText: 'Cancel',
+            customClass: {
+                confirmButton: "btn btn-primary mx-5 w-125px",
+                cancelButton: 'btn btn-danger mx-5 w-125px'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                processDelete();
+            }
+        });
+    }
+
+    function processSave() {
+        var formData = new FormData($("#assign_form")[0]);
+        //formData.append("USERNAME", $('#input_sc_username').val());
+
+
+        if ($("#MODE").val() == "EDIT") {
+            formData.append("APPLICATION", $('#input_sc_app_id').val());
+            formData.append("ROLE", $('#input_sc_role').val());
+            formData.append("USERNAME_BEFORE", username_data);
+            formData.append("FULL_NAME", $('#input_sc_fullname').val());
+        }
+        else {
+            formData.append("USERNAME_BEFORE", '');
+        }
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'UserAssignmentApi/SaveData',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.result == "false") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.msg,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        $("#modal-form").modal("hide");
+                        $('#sc_applicationName').val(selectedAppId);
+                        myTable.ajax.reload();
+
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire(
+                    "Failed!",
+                    "Internal server error.",
+                    "error"
+                );
+            }
+        });
+
+
+    }
+
+   // Setelah menambah atau mengedit data, panggil fungsi reloadTable
+  /*  function reloadTable() {
+        myTable.ajax.reload(); // Memuat ulang data tabel dengan data terbaru dari server
+    }
+*/
+
+
+
+
+    function processDelete() {
+        var APPLICATION = []
+        var USERNAME = []
+        var selectedRowsData = myTable.rows('.selected').data();
+
+        console.log(selectedRowsData);
+
+        formData = new FormData()
+        $.each(selectedRowsData, function (index, row) {
+            APPLICATION.push(row.APPLICATION);
+            if (row.USERNAME !== undefined) {
+                USERNAME.push(row.USERNAME);
+            }
+        });
+
+        var criteria = APPLICATION.map((application, index) => {
+            const username = USERNAME[index].replace(/['"]+/g, ''); // Remove extra quotes
+            return `{"APPLICATION":"${application}","USERNAME":"${username}"}`;
+
+        });
+
+        console.log(criteria);
+
+        formData.append('criteria', '[' + criteria + ']');
+
+        formData.append('__RequestVerificationToken', $("input[name=__RequestVerificationToken]").val())
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'UserAssignmentApi/DeleteData',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.result === "false") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.messages,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: data.messages,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        $("#modal-form").modal("hide");
+                        $('#sc_applicationName').val(selectedAppId);
+                        myTable.destroy();
+                        loadDataTable();
+                        //getDetailQcGate(data.extra_attr);
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire(
+                    "Failed!",
+                    "Internal server error.",
+                    "error"
+                );
+            },
+        });
+        resetForm();
+    }
+
+    function onCancel() {
+        setTimeout(function () {
+            validator.resetForm()
+        }, 500)
+    }
+
+
+    function onSearch() {
+        $("#data-table-wrapper").show();
+        myTable.destroy();
+        loadDataTable();
+    }
+
+
+    function onClear() {
+        $('#sc_userName').val("");
+        $('#sc_userRole').val("");
+        onSearch();
+        $("#data-table-wrapper").hide();
+    }
+
+    function showOverlay(process) {
+        Swal.fire({
+            title: process,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading()
+            },
+        }).then((result) => {
+        })
+    }
+
+
+</script>

@@ -1,0 +1,470 @@
+<script>
+        var myTable, detailTable;
+        var startDt = '';
+        var endDt = '';
+        var msgType = '';
+        var processId = '';
+        var parDownload = {};
+        var parDownloadDetail = {};
+
+        $(document).ready(function () {
+            $("#daterange").flatpickr({
+                dateFormat: "d.m.Y",
+                mode: "range"
+            });
+            load_table();
+            loadTableDetail();
+        });
+
+        function onSearch() {
+            var daterange = $("#daterange").val();
+
+            if (daterange.includes(' to ')) {
+                // If the input string contains 'to', split by ' to ' and assign values to a and b
+                var dates = daterange.split(' to ');
+                startDt = dates[0];
+                endDt = dates[1];
+            } else {
+                // If the input string does not contain 'to', assign the entire string to a and an empty string to b
+                startDt = daterange;
+                endDt = daterange;
+            }
+
+            if (startDt !== '' && endDt !== '') {
+                var expStartDt = startDt.split('.');
+                startDt = expStartDt[2] + '.' + expStartDt[1] + '.' + expStartDt[0]
+
+                var expEndDt = endDt.split('.');
+                endDt = expEndDt[2] + '.' + expEndDt[1] + '.' + expEndDt[0]
+            }
+
+            $('#btnDownloadData').prop('disabled', false);
+            $("#data-table-wrapper").show();
+            myTable.ajax.reload();
+        }
+
+        function onSearchDetail() {
+            msgType = $('#message_type').val();
+
+            detailTable.ajax.reload();
+        }
+
+        function load_table() {
+            myTable = $('#datatable').DataTable({
+                sDom: 'lt<"bottom"><"row"<"col-sm-4 info-custom"i><"col-sm-7 pagination-custom"p><"col-sm-1 paginate-go">>',
+                order: [[2, 'DESC']],
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                pagingType: 'full_numbers',
+                ajax: {
+                    type: 'POST',
+                    url: 'LogMonitoringApi/GetDatatables',
+                    data: function (d) {
+                        parDownload = {
+                            start: d.start,
+                            end: d.length,
+                            order: d.order,
+                            columns: d.columns,
+                        }
+
+                        d.PROCESS_DT = startDt;
+                        d.END_DT = endDt;
+                        d.USER_ID = $("#user_id").val();
+                        d.PROCESS_ID = $("#process_id").val();
+                        d.MODULE_ID = $("#module_id").val();
+                        d.FUNCTION_ID = $("#function_id").val();
+                        d.PROCESS_STATUS = $("#process_status").val(); 
+                        d.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+                    }
+                },
+                columns: [
+                    { 'data': 'r_n_n', 'name': '', bSortable: false, className: 'text-center' },
+                    {
+                        "render": function (data, type, full, meta) {
+                            var processId = full.PROCESS_ID; 
+                            var dtlData = {
+                                processStatus: full.PROCESS_STS,
+                                processId: processId,
+                                processDt: full.PROCESS_DT,
+                                moduleName: full.MODULE_NAME,
+                                functionName: full.FUNCTION_NAME,
+                                userId: full.USER_ID,
+                                endDt: full.END_DT,
+                                remarks: full.REMARKS
+                            }
+                            dtlData = JSON.stringify(dtlData);
+                            processId = processId.replace('#', '_');
+
+                            return `<a href='javascript:onClickDetail("${processId}")' id='${processId}' data-dtl='${dtlData}'>${full.PROCESS_ID}</a>`;
+                        },
+                        "className": "text-center"
+                        , "bSortable": true
+                        , "name": "PROCESS_ID"
+                    },
+                    { 'data': 'PROCESS_DT', 'name': 'PROCESS_DT', bSortable: true, className: 'text-center td-width-15' },
+                    { 'data': 'MODULE_NAME', 'name': 'MODULE_NAME', bSortable: true, className: 'td-width-10' },
+                    { 'data': 'FUNCTION_NAME', 'name': 'FUNCTION_NAME', bSortable: true, className: 'td-width-15' },
+                    { 'data': 'PROCESS_STS', 'name': 'PROCESS_STS', bSortable: true, className: 'td-width-15' },
+                    { 'data': 'USER_ID', 'name': 'USER_ID', bSortable: true, className: 'td-width-10' },
+                    { 'data': 'END_DT', 'name': 'END_DT', bSortable: true, className: 'text-center td-width-15' },
+                    { 'data': 'REMARKS', 'name': 'REMARKS', bSortable: true, className: 'td-width-20' }
+                ],
+                language: {
+                    "lengthMenu": "Show _MENU_ entries",
+                    "info": "Showing _START_ to _END_ (_TOTAL_ entries)",
+                    "paginate": {
+                        "first": "First",
+                        "last": "Last",
+                        "next": "Next",
+                        "previous": "Prev"
+                    }
+                }
+            });
+
+            var paginateGo = `<div class="pagination-go">
+                            <div class="row">
+                                <div class="col-sm-6" style="padding: 0 !important">
+                                    <input type="number" min="1" class="form-control" name="input-go" id="input_go" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="btn btn-primary btn-go" onclick="paginateGo()">Go</button>
+                                </div>
+                            </div>
+                          </div>`
+            $('.paginate-go').html(paginateGo)
+        }
+
+        function paginateGo() {
+            var goto = $('#input_go').val();
+
+            myTable.page(goto - 1).draw('page');
+        }
+
+        function onClickDetail(PROCESS_ID) {
+            var dtlData = $('#' + PROCESS_ID).attr('data-dtl');
+            dtlData = JSON.parse(dtlData);
+
+            $('#message_type').val('');
+            $("#modalDetail").modal('show');
+
+            processId = dtlData.processId;
+            $('#process_id_dtl').val(dtlData.processId);
+            $('#module').val(dtlData.moduleName);
+            $('#status_dtl').val(dtlData.processStatus);
+            $('#start_datetime').val(dtlData.processDt);
+            $('#function_name').val(dtlData.functionName);
+            $('#end_datetime').val(dtlData.endDt);
+            $('#user_id_dtl').val(dtlData.userId);
+
+            detailTable.destroy();
+            loadTableDetail();
+        }
+
+        function loadTableDetail() {
+            detailTable = $('#datatable_detail').DataTable({
+                sDom: 'lt<"bottom"><"row"<"col-sm-4 info-custom"i><"col-sm-7 pagination-custom"p><"col-sm-1 paginate-go-detail">>',
+                order: [[0, 'ASC']],
+                lengthMenu: [
+                    [5, 10, 25, 50, 100, -1],
+                    [5, 10, 25, 50, 100, 'All']
+                ],
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                scrollCollapse: true,
+                scrollY: '200px',
+                pagingType: 'full_numbers',
+                autoWidth: true,
+                ajax: {
+                    type: 'POST',
+                    url: '/LogMonitoringApi/GetLogDetail',
+                    data: function (d) {
+                        parDownloadDetail = {
+                            start: d.start,
+                            end: d.length,
+                            order: d.order,
+                            columns: d.columns,
+                        }
+
+                        d.PROCESS_ID = processId;
+                        d.MESSAGE_TYPE = msgType;
+                        d.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+                    }
+                },
+                columns: [
+                    { 'data': 'SEQ_NO', 'name': 'SEQ_NO', bSortable: true, className: 'text-center td-width-5' },
+                    { 'data': 'ERR_DT', 'name': 'ERR_DT', bSortable: true, className: 'text-center td-width-10' },
+                    { 'data': 'ERR_LOCATION', 'name': 'ERR_LOCATION', bSortable: true, className: 'td-width-15' },
+                    { 'data': 'MSG_TYPE', 'name': 'MSG_TYPE', bSortable: true, className: 'td-width-10' },
+                    { 'data': 'MSG_ID', 'name': 'MSG_ID', bSortable: true, className: 'td-width-10' },
+                    { 'data': 'ERR_MESSAGE', 'name': 'ERR_MESSAGE', bSortable: true, className: 'td-width-20 wordwrap' }
+                ],
+                language: {
+                    "lengthMenu": "Show _MENU_ entries",
+                    "info": "Showing _START_ to _END_ (_TOTAL_ entries)",
+                    "paginate": {
+                        "first": "First",
+                        "last": "Last",
+                        "next": "Next",
+                        "previous": "Prev"
+                    }
+                }
+            });
+
+            var paginateGo = `<div class="pagination-go-detail">
+                                <div class="row">
+                                    <div class="col-sm-6" style="padding: 0 !important">
+                                        <input type="number" min="1" class="form-control" name="input-go-detail" id="input_go_detail" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button class="btn btn-primary btn-go" onclick="paginateGoDetail()">Go</button>
+                                    </div>
+                                </div>
+                              </div>`
+            $('.paginate-go-detail').html(paginateGo)
+        }
+
+        function paginateGoDetail() {
+            var goto = $('#input_go_detail').val();
+
+            detailTable.page(goto - 1).draw('page');
+        }
+
+        function onClear() {
+            startDt = '';
+            endDt = '';
+
+            $("#daterange").flatpickr({
+                dateFormat: "d.m.Y",
+                mode: "range"
+            }).clear();
+
+            $('#user_id').val('');
+            $('#process_id').val('');
+            $('#module_id').val('');
+            $('#function_id').val('');
+            $('#process_status').val('');
+
+            initSelect2();
+            myTable.destroy();
+            load_table();
+        }
+
+        function onClearDetail() {
+            msgType = '';
+            $('#message_type').val('');
+            $('#message_type').select2({
+                allowClear: false,
+                width: "100%",
+                minimumInputLength: 0,
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+
+            detailTable.destroy();
+            loadTableDetail();
+        }
+
+        function initSelect2() {
+            $('#module_id').select2({
+                allowClear: false,
+                width: "100%",
+                ajax:
+                {
+                    type: 'POST',
+                    url: 'LogMonitoringApi/GetDataOptions',
+                    dataType: 'json',
+                    delay: 1000,
+                    async: false,
+                    data: function (params) {
+
+                        var aSearch = {
+                            PARAM_1: "module",
+                            PARAM_2: "",
+                            PARAM_3: params.term
+                        }
+                        return aSearch;
+                    },
+                    processResults: function (data, params) {
+
+                        return { results: data };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0,
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            }).on('select2:select', function (e) {
+                $('#function_id').val("").change();
+            });
+
+            $('#function_id').select2({
+                allowClear: false,
+                width: "100%",
+                ajax:
+                {
+                    type: 'POST',
+                    url: 'LogMonitoringApi/GetDataOptions',
+                    dataType: 'json',
+                    delay: 1000,
+                    async: false,
+                    data: function (params) {
+
+                        var aSearch = {
+                            PARAM_1: "function",
+                            PARAM_2: $('#module_id').val(),
+                            PARAM_3: params.term
+                        }
+                        return aSearch;
+                    },
+                    processResults: function (data, params) {
+                        return { results: data };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0,
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+
+            $('#process_status').select2({
+                allowClear: false,
+                width: "100%",
+                minimumInputLength: 0,
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+        }
+
+        initSelect2();
+
+        function setBtnDownload(x) {
+            if (x == 0) {
+                $('#btnDownloadData').parent().addClass('col-md-2');
+                $('#btnDownloadData').parent().next().removeClass('col-md-11').addClass('col-md-10');
+                $('#btnDownloadData').html('Please Wait...');
+                $('#btnDownloadData').attr('disabled', 'disabled');
+            } else {
+                $('#btnDownloadData').parent().removeClass('col-md-2');
+                $('#btnDownloadData').parent().next().removeClass('col-md-10').addClass('col-md-11');
+                $('#btnDownloadData').html('<i class="fas fa-download fs-4 me-2"></i>');
+                $('#btnDownloadData').removeAttr('disabled');
+            }
+        }
+
+        function setBtnDownloadDetail(x) {
+            if (x == 0) {
+                $('#btnDownloadDataDetail').parent().addClass('col-md-2');
+                $('#btnDownloadDataDetail').parent().next().removeClass('col-md-11').addClass('col-md-10');
+                $('#btnDownloadDataDetail').html('Please Wait...');
+                $('#btnDownloadDataDetail').attr('disabled', 'disabled');
+            } else {
+                $('#btnDownloadDataDetail').parent().removeClass('col-md-2');
+                $('#btnDownloadDataDetail').parent().next().removeClass('col-md-10').addClass('col-md-11');
+                $('#btnDownloadDataDetail').html('<i class="fas fa-download fs-4 me-2"></i>');
+                $('#btnDownloadDataDetail').removeAttr('disabled');
+            }
+        }
+        
+        function downloadData() {
+            $.ajax({
+                type: 'POST',
+                url: 'LogMonitoringApi/DownloadData',
+                dataType: 'json',
+                data: {
+                    COLUMN_ORDER: parDownload.columns[parDownload.order[0].column].name,
+                    TYPE_ORDER: parDownload.order[0].dir,
+                    PROCESS_DT: startDt,
+                    END_DT: endDt,
+                    USER_ID: $("#user_id").val(),
+                    PROCESS_ID: $("#process_id").val(),
+                    MODULE_ID: $("#module_id").val(),
+                    FUNCTION_ID: $("#function_id").val(),
+                    PROCESS_STATUS: $("#process_status").val(), 
+                    __RequestVerificationToken: $("input[name=__RequestVerificationToken]").val()
+                },
+                beforeSend: function () {
+                    setBtnDownload(0);
+                },
+                success: function (data) {
+                    if (data.result == "true" && data.extraAttribute != "" && data.extraAttribute != null) {
+                        setTimeout(function (e) {
+                            var link = document.createElement('a');
+                            link.href = data.message + data.extraAttribute;
+                            link.download = data.extraAttribute;
+                            link.dispatchEvent(new MouseEvent('click'));
+
+                            setBtnDownload(1);
+                            notifSuccess('', 'MSG230314002I');
+                        }, 1500);
+                    } else {
+                        setBtnDownload(1);
+                        notifFailed('', 'MSG230314002E');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    var isOnline = navigator.onLine;
+
+                    if (isOnline == false) {
+                        notifFailed('', 'MSG230314003E');
+                    } else {
+                        notifFailed('', 'MSG230314002E');
+                    }
+
+                    setBtnDownload(1);
+                }
+            });
+    }
+
+        function downloadDataDetail() {
+            $.ajax({
+                type: 'POST',
+                url: 'LogMonitoringApi/DownloadDataDetail',
+                dataType: 'json',
+                data: {
+                    COLUMN_ORDER: parDownloadDetail.columns[parDownload.order[0].column].name,
+                    TYPE_ORDER: parDownloadDetail.order[0].dir,
+                    PROCESS_DT: startDt,
+                    END_DT: endDt,
+                    PROCESS_ID: $('#process_id_dtl').val(),
+                    MESSAGE_TYPE: msgType,
+                    __RequestVerificationToken: $("input[name=__RequestVerificationToken]").val()
+                },
+                beforeSend: function () {
+                    setBtnDownloadDetail(0);
+                },
+                success: function (data) {
+                    if (data.result == "true" && data.extraAttribute != "" && data.extraAttribute != null) {
+                        setTimeout(function (e) {
+                            var link = document.createElement('a');
+                            link.href = data.message + data.extraAttribute;
+                            link.download = data.extraAttribute;
+                            link.dispatchEvent(new MouseEvent('click'));
+
+                            setBtnDownloadDetail(1);
+                            notifSuccess('', 'MSG230314002I');
+                        }, 1500);
+                    } else {
+                        setBtnDownloadDetail(1);
+                        notifFailed('', 'MSG230314002E');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    var isOnline = navigator.onLine;
+
+                    if (isOnline == false) {
+                        notifFailed('', 'MSG230314003E');
+                    } else {
+                        notifFailed('', 'MSG230314002E');
+                    }
+
+                    setBtnDownloadDetail(1);
+                }
+            });
+        }
+</script>

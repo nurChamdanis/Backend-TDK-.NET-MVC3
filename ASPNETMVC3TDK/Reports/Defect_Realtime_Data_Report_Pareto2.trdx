@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report Width="6.26767702342626in" Name="Report1" Zoom="0.6666667" ShowSnapGrid="True" xmlns="http://schemas.telerik.com/reporting/2012/3.3">
+  <Style Visible="True" />
+  <Items>
+    <DetailSection Height="41.141731262207in" Name="detailSection1">
+      <Items>
+        <TextBox Width="0.50000011920929cm" Height="0.499999791383743cm" Left="4.28791644567086cm" Top="0.599999899069471cm" Value=":" Name="textBox7">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.69999980926514cm" Height="0.500000178813934cm" Left="0.700000050465264cm" Top="0.599999899069471cm" Value="Product Type" Name="textBox8">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.69999980926514cm" Height="0.499999761581421cm" Left="5.30000015139579cm" Top="0.599999899069471cm" Value="=Parameters.PRODUCT_TYPE.Value" Name="textBox12">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.69999980926514cm" Height="0.499999761581421cm" Left="5.30000015139579cm" Top="1.40000010093053cm" Value="=Parameters.PRODUCTION_MONTH.Value" Name="textBox13">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.69999980926514cm" Height="0.499999761581421cm" Left="5.30000015139579cm" Top="2.20000010093053cm" Value="=Parameters.PROCESS.Value" Name="textBox15">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.50000011920929cm" Height="0.499999791383743cm" Left="4.29999984860421cm" Top="1.40000010093053cm" Value=":" Name="textBox16">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="3.22771629137192cm" Height="0.500000178813934cm" Left="0.684166876518058cm" Top="1.40000030279159cm" Value="Production Month" Name="textBox17">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.50000011920929cm" Height="0.499999791383743cm" Left="4.28791644567086cm" Top="2.20000010093053cm" Value=":" Name="textBox20">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.69999980926514cm" Height="0.499999761581421cm" Left="0.684166876518058cm" Top="2.20000010093053cm" Value="Process" Name="textBox21">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <PictureBox Url="=Parameters.DEFECTTRENDCHART.Value" Width="14.9983348493484cm" Height="4.80000019073486cm" Left="0.501663506031036cm" Top="3.50000023841858cm" Sizing="Stretch" MimeType="" Name="pictureBox1">
+          <Style Visible="True" TextAlign="Center" />
+        </PictureBox>
+        <TextBox Width="2.29999995231628cm" Height="0.600199937820435cm" Left="0.501663421097916cm" Top="9.00000003457068cm" Value="Pareto 1" Name="textBox3">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="1.51583312626349cm" Height="0.600199937820435cm" Left="1.16999982887507cm" Top="9.99999950011573cm" Value="Defect" Name="textBox4" />
+        <PictureBox Url="=Parameters.CHARTPARETO1.Value" Width="14.9983348493484cm" Height="4.80000019073486cm" Left="0.501662966910549cm" Top="11.0000001768271cm" Sizing="Stretch" MimeType="" Name="pictureBox2">
+          <Style TextAlign="Center" />
+        </PictureBox>
+        <TextBox Width="1.51583313941956cm" Height="0.600199937820435cm" Left="1.02083273727864cm" Top="57.4999996616443cm" Value="=IIf(Parameters.IsSpikeChartPareto2Available.Value = true, 'Defect', null)" Name="textBox5" />
+        <TextBox Width="2.29999995231628cm" Height="0.600199937820435cm" Left="0.501663572493705cm" Top="56.6004163533333cm" Value="=IIf(Parameters.IsSpikeChartPareto2Available.Value = true, 'Pareto 2', null)" Name="textBox6">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <PictureBox Url="=Parameters.SPIKECHARTPARETO1.Value" Width="14.9983360605147cm" Height="4.80000019073486cm" Left="0.501663572493705cm" Top="50.6004242259146cm" Sizing="Stretch" MimeType="" Name="pictureBox4">
+          <Style TextAlign="Center" />
+        </PictureBox>
+        <PictureBox Url="=IIf(Parameters.IsSpikeChartPareto2Available.Value = true, Parameters.SPIKECHARTPARETO2.Value, null)" Width="14.9983336381821cm" Height="4.80000019073486cm" Left="0.501661777496338cm" Top="98.4999923706055cm" Sizing="Stretch" MimeType="" Name="pictureBox5">
+          <Style TextAlign="Center" />
+        </PictureBox>
+        <PictureBox Url="=IIf(Parameters.IsChartPareto2Available.Value = true, Parameters.CHARTPARETO2.Value, null)" Width="14.9983362961775cm" Height="4.99999856948853cm" Left="0.501663572493705cm" Top="58.600210253193cm" Sizing="Stretch" MimeType="" Name="pictureBox3" />
+        <TextBox Width="1.51583313941956cm" Height="0.600199937820435cm" Left="0.70000022649765cm" Top="26.1004378010707cm" Value="Image" Name="textBox1" />
+        <PictureBox Url="=Parameters.CANVAS01.Value" Width="6.99833696096783cm" Height="6.50000015954175cm" Left="0.501662969589233cm" Top="27.1004348740854cm" Sizing="Stretch" MimeType="" Name="pictureBox6" />
+        <PictureBox Url="=Parameters.CANVAS11.Value" Width="6.99999766777305cm" Height="6.50000236471483cm" Left="8.5cm" Top="27.1004316443084cm" Sizing="Stretch" MimeType="" Name="pictureBox7" />
+        <PictureBox Url="=Parameters.CANVAS31.Value" Width="7.00000046710168cm" Height="6.50000238418579cm" Left="8.49999909063185cm" Top="34.6004323003569cm" Sizing="Stretch" MimeType="" Name="pictureBox8" />
+        <PictureBox Url="=Parameters.CANVAS21.Value" Width="6.99833755473269cm" Height="6.5cm" Left="0.50166267156601cm" Top="34.6004290705799cm" Sizing="Stretch" MimeType="" Name="pictureBox9" />
+        <PictureBox Url="=Parameters.CANVAS41.Value" Width="6.99833634356638cm" Height="6.5cm" Left="0.501663572493705cm" Top="42.1004329564053cm" Sizing="Stretch" MimeType="" Name="pictureBox10" />
+        <PictureBox Url="=Parameters.CANVAS51.Value" Width="6.99999804476905cm" Height="6.50000238418579cm" Left="8.49999909063185cm" Top="42.1004329564053cm" Sizing="Stretch" MimeType="" Name="pictureBox11" />
+        <PictureBox Url="=IIf(Parameters.IsCanvasPareto2Available.Value = true, Parameters.CANVAS52.Value, null)" Width="6.99999804476905cm" Height="6.50000238418579cm" Left="8.49999904632568cm" Top="90.5000064239897cm" Sizing="Stretch" MimeType="" Name="pictureBox12" />
+        <PictureBox Url="=IIf(Parameters.IsCanvasPareto2Available.Value = true, Parameters.CANVAS42.Value, null)" Width="6.99833634356638cm" Height="6.5cm" Left="0.501663565635681cm" Top="90.5000064239897cm" Sizing="Stretch" MimeType="" Name="pictureBox13" />
+        <PictureBox Url="=IIf(Parameters.IsCanvasPareto2Available.Value = true, Parameters.CANVAS22.Value, null)" Width="6.99833634356638cm" Height="6.5cm" Left="0.501663572493705cm" Top="82.9999993083874cm" Sizing="Stretch" MimeType="" Name="pictureBox14" />
+        <PictureBox Url="=IIf(Parameters.IsCanvasPareto2Available.Value = true, Parameters.CANVAS32.Value, null)" Width="6.99999804476905cm" Height="6.50000238418579cm" Left="8.49999909063185cm" Top="82.9999993083874cm" Sizing="Stretch" MimeType="" Name="pictureBox15" />
+        <PictureBox Url="=IIf(Parameters.IsCanvasPareto2Available.Value = true, Parameters.CANVAS12.Value, null)" Width="7.00000046710168cm" Height="6.50000238418579cm" Left="8.49999909063185cm" Top="75.6291186743822cm" Sizing="Stretch" MimeType="" Name="pictureBox16" />
+        <PictureBox Url="=IIf(Parameters.IsCanvasPareto2Available.Value = true, Parameters.CANVAS02.Value, null)" Width="6.99833634356638cm" Height="6.5cm" Left="0.501663565635681cm" Top="75.6291186743822cm" Sizing="Stretch" MimeType="" Name="pictureBox17" />
+        <TextBox Width="1.51583313941956cm" Height="0.600199937820435cm" Left="1.02083273727864cm" Top="74.0382985078569cm" Value="=IIf(Parameters.IsSpikeChartPareto2Available.Value = true, 'Image', null)" Name="textBox2" />
+      </Items>
+    </DetailSection>
+  </Items>
+  <StyleSheet>
+    <StyleRule>
+      <Style>
+        <Padding Left="2pt" Right="2pt" />
+      </Style>
+      <Selectors>
+        <TypeSelector Type="TextItemBase" />
+        <TypeSelector Type="HtmlTextBox" />
+      </Selectors>
+    </StyleRule>
+  </StyleSheet>
+  <PageSettings>
+    <PageSettings PaperKind="A4" Landscape="False">
+      <Margins>
+        <MarginsU Left="1in" Right="1in" Top="1in" Bottom="1in" />
+      </Margins>
+    </PageSettings>
+  </PageSettings>
+  <ReportParameters>
+    <ReportParameter Name="PRODUCT_TYPE" />
+    <ReportParameter Name="PROCESS" />
+    <ReportParameter Name="PRODUCTION_MONTH" />
+    <ReportParameter Name="DEFECTTRENDCHART" />
+    <ReportParameter Name="CHARTPARETO1" />
+    <ReportParameter Name="CHARTPARETO2" />
+    <ReportParameter Name="SPIKECHARTPARETO1" />
+    <ReportParameter Name="SPIKECHARTPARETO2" />
+    <ReportParameter Name="IsChartPareto2Available" />
+    <ReportParameter Name="IsSpikeChartPareto2Available" />
+    <ReportParameter Name="isCanvasPareto2Available" />
+    <ReportParameter Name="CANVAS01" />
+    <ReportParameter Name="CANVAS11" />
+    <ReportParameter Name="CANVAS21" />
+    <ReportParameter Name="CANVAS31" />
+    <ReportParameter Name="CANVAS41" />
+    <ReportParameter Name="CANVAS51" />
+    <ReportParameter Name="CANVAS02" />
+    <ReportParameter Name="CANVAS12" />
+    <ReportParameter Name="CANVAS22" />
+    <ReportParameter Name="CANVAS32" />
+    <ReportParameter Name="CANVAS42" />
+    <ReportParameter Name="CANVAS52" />
+  </ReportParameters>
+</Report>

@@ -1,0 +1,52 @@
+<div class="card card-flush pt-3 mb-5 mb-lg-10">
+    <!--begin::Card body-->
+    <div class="card-body pt-0">
+        <form id="sc_form" class="form" action="#" autocomplete="off">
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="fv-row row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Application Name</label>
+                        <div class="col-md-8">
+                            <input type="text" id="sc_applicationName" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Description</label>
+                        <div class="col-md-8">
+                            <input type="text" id="sc_description" class="form-control">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Application Type</label>
+                        <div class="col-md-8">
+                            <select class="form-select" id="sc_applicationType" name="sc_applicationNa" style="width:100%">
+                                <option value="" selected></option>
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <button type="button" class="btn btn-primary btn-sm w-125px" onclick="refresh_table()"><i class="fas fa-magnifying-glass fs-4 me-2"></i> Search</button>
+                <button type="button" class="btn btn-secondary btn-sm w-125px" onclick="onClear()"><i class="fas fa-arrow-rotate-right text-white fs-4 me-2"></i> Clear</button>
+            </div>
+    <div class="separator my-5"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-success btn-sm w-125px" onclick="showModalAdd()"><i class="fas fa-plus fs-4 me-2"></i> Add</button>
+            <button id="editButton" type="button" class="btn btn-warning btn-sm w-125px" onclick="showModalEdit()" disabled><i class="fas fa-pencil fs-4 me-2"></i> Edit</button>
+            <button id="deleteButton" type="button" class="btn btn-danger btn-sm w-125px" onclick="deleteConfirmation()" disabled><i class="fas fa-trash fs-4 me-2"></i> Delete</button>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+    </form>
+</div>
+</div>

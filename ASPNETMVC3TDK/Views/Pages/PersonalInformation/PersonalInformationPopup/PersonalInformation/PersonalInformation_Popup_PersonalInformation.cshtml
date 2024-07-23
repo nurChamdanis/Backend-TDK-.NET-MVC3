@@ -1,0 +1,75 @@
+﻿<div class="modal fade" id="modal-personal-data" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-between">
+                    <label class="border border-primary border-2 p-2 fs-6 fw-bold text-primary" style="border-radius: 10px">
+                        Personal Information
+                    </label>
+                    <button type="button" onclick="ModalProfileInfromationClose()" class="btn-close"></button>
+                </div>
+
+                <form id="assign_form" class="form" action="#" autocomplete="off">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="MODE" name="MODE" />
+                    <div class="row">
+                        <div class="col-md-12 row mt-5">
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="no-registration" class="mb-1 fw-bold">No. Registration</label>
+                                    <input type="number" style="border-radius: 10px" class="form-control" id="no-registration" placeholder="Enter no registration">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="divison-dept-section" class="mb-1 fw-bold">Divison/Dept/Section</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="divison-dept-section" placeholder="Enter divison/dept/section">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="fullname" class="mb-1 fw-bold">Full Name</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="fullname" placeholder="Enter fullname">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="immediate-superior" class="mb-1 fw-bold">Immediate Superior</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="immediate-superior" placeholder="Enter immediate superior">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="date-of-birth" class="mb-1 fw-bold">Date of Birth</label>
+                                    <input type="date" style="border-radius: 10px" class="form-control" id="class" placeholder="Enter date of birth">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="email" class="mb-1 fw-bold">Email</label>
+                                    <input type="email" style="border-radius: 10px" class="form-control" id="email" placeholder="Enter email">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="class-position" class="mb-1 fw-bold">Class/Position</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="class-position" placeholder="Enter class/position">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="extention" class="mb-1 fw-bold">Phone/Extention Number/Hp</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="extention" placeholder="Enter phone/extention number/hp">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="button" class="btn btn-primary w-250px mx-2">Save Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

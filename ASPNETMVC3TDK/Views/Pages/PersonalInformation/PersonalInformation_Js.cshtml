@@ -1,0 +1,27 @@
+﻿<script>
+
+    $(document).ready(function () {
+        $('#tab-headers span').on('click', function (event) {
+            var t = $(this);
+            console.log(t)
+            var id = $(this).data('id');
+            if (!$(this).hasClass('active-tabs')) {
+                $("#tab-headers span").removeClass('active-tabs');
+                $(this).addClass('active-tabs');
+
+                $('.tab-content').hide();
+                $(`[data-content=${id}]`).fadeIn();
+            }
+        });
+
+        loadProfileInformation();
+        loadEducationInformation();
+    });
+
+</script>
+
+<!-- Javascript Section Career History -->
+@Html.Partial("PersonalInformationJs/PersonalInformation_PersonalInformation_Js")
+@Html.Partial("PersonalInformationJs/PersonalInformation_CareerHistory_Js")
+@Html.Partial("PersonalInformationJs/PersonalInformation_TrainingHistory_Js")
+<!-- ---------------------------- -->

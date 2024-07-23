@@ -1,0 +1,14 @@
+﻿DECLARE @@QUERY VARCHAR(MAX);
+
+SET @@QUERY = '
+    SELECT 
+        SYSTEM_VALUE 
+    FROM 
+        DBO.TB_M_SYSTEM
+    WHERE 
+            FUNCTION_ID = ''ENVIRONMENT_PDI''
+        AND 
+            SYSTEM_CD = ''URL_BACKEND''
+'; 
+
+EXECUTE(@@QUERY);

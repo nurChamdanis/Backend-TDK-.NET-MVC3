@@ -1,0 +1,81 @@
+<div class="card card-flush pt-3 mb-5 mb-lg-10">
+    <!--begin::Card body-->
+    <div class="card-body pt-0">
+        <form id="moulding_form" class="form" action="#" autocomplete="off">
+            @Html.AntiForgeryToken()
+
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="fv-row  row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Date Range</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="daterange" id="daterange" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fv-row  row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">User ID</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="user_id" id="user_id" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fv-row  row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Process ID</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="process_id" id="process_id" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="fv-row  row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Module ID</label>
+                        <div class="col-md-8">
+                            <select class="form-select" id="module_id" name="module_id">
+                                <option value="">- All -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fv-row  row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Function ID</label>
+                        <div class="col-md-8">
+                            <select class="form-select" id="function_id" name="function_id">
+                                <option value="">- All -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fv-row  row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Process Status</label>
+                        <div class="col-md-8">
+                            <select class="form-select" id="process_status" name="process_status">
+                                <option value="">- All -</option>
+                                <option value="1">Starting Process</option>
+                                <option value="2">Finished Successfully</option>
+                                <option value="3">Finished With Error</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="separator my-5"></div>
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-warning btn-sm" id="btnDownloadData" onclick="downloadData()" disabled><i class="fas fa-download fs-4 me-2"></i></button>
+                </div>
+                <div class="col-md-11" style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm" id="btnSearch" onclick="onSearch()">Search</button>
+                    <button type="button" class="btn btn-secondary btn-sm" id="btnClear" onclick="onClear()">Clear</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--end::Card body-->
+</div>

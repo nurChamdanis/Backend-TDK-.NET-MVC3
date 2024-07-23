@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report Width="6.51000022888184in" UnitOfMeasure="Pixel" PageNumberingStyle="Continue" Name="ASPNETMVC3TDKS23_Report" ShowSnapGrid="True" xmlns="http://schemas.telerik.com/reporting/2012/3.3">
+  <Items>
+    <PageHeaderSection Height="0.62992125749588in" Name="pageHeaderSection1">
+      <Items>
+        <TextBox Width="7.30000019073486cm" Height="0.99999988079071cm" Left="4.28194458813027cm" Top="0cm" Value="Defect Data Analyst Report" Name="textBox1">
+          <Style TextAlign="Center" VerticalAlign="Middle" LineStyle="Solid">
+            <Font Size="14pt" Bold="True" Strikeout="False" />
+          </Style>
+        </TextBox>
+      </Items>
+    </PageHeaderSection>
+    <DetailSection Height="6.32283449172974in" Name="detailSection1">
+      <Items>
+        <TextBox Width="2.79999968321236cm" Height="0.49999988079071cm" Left="0cm" Top="0.560000240802765cm" Value="Report Name" Name="textBox2">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.79999941128274cm" Height="0.49999988079071cm" Left="0cm" Top="1.56000006198883cm" Value="Defect Name" Name="textBox3">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.79999988811989cm" Height="0.49999988079071cm" Left="0cm" Top="2.5600004196167cm" Value="Area " Name="textBox4">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.79999988811989cm" Height="0.49999988079071cm" Left="0cm" Top="3.56000018119812cm" Value="Product Type " Name="textBox5">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="5.19999885559082cm" Height="0.49999988079071cm" Left="3.5cm" Top="0.560000538825989cm" Value="=Parameters.REPORT_NAME.Value" Name="textBox6">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="5.20000028610229cm" Height="0.49999988079071cm" Left="3.5cm" Top="1.56000006198883cm" Value="=Parameters.DEFECT_NAME.Value" Name="textBox7">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="5.20000028610229cm" Height="0.49999988079071cm" Left="3.5cm" Top="2.5600004196167cm" Value="=Parameters.AREA.Value" Name="textBox8">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="5.19999933242798cm" Height="0.49999988079071cm" Left="3.5cm" Top="3.56000018119812cm" Value="=Parameters.PRODUCT_TYPE.Value" Name="textBox9">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="1.89999856997422cm" Height="0.49999988079071cm" Left="9.09999984860421cm" Top="0.560000777244568cm" Value="Process" Name="textBox11">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="4.89999914169312cm" Height="0.49999988079071cm" Left="11.600000067287cm" Top="0.560001075267792cm" Value="=Parameters.PROCESS.Value" Name="textBox10">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="1.89999856997422cm" Height="0.49999988079071cm" Left="9.09999984860421cm" Top="1.56000006198883cm" Value="Zone" Name="textBox12">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="4.8999981880188cm" Height="0.49999988079071cm" Left="11.600000067287cm" Top="1.56000006198883cm" Value="=Parameters.ZONE.Value" Name="textBox13">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="1.89999856997422cm" Height="0.49999988079071cm" Left="9.09999984860421cm" Top="2.5600004196167cm" Value="Date" Name="textBox14">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="4.8999981880188cm" Height="0.49999988079071cm" Left="11.600000067287cm" Top="2.5600004196167cm" Value="=Parameters.DATE.Value" Name="textBox15">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <PictureBox Url="=Parameters.IMAGE.Value" Width="16.5351982116699cm" Height="11.1400003433228cm" Left="0.00009998850873671cm" Top="4.76000070571899cm" Sizing="ScaleProportional" MimeType="" Name="pictureBox1" StyleName="">
+          <Style>
+            <BackgroundImage Repeat="NoRepeat" />
+          </Style>
+        </PictureBox>
+        <TextBox Width="0.399999458922296cm" Height="0.49999988079071cm" Left="2.99999976158142cm" Top="0.560000956058502cm" Value=":" Name="textBox16">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.399999469518662cm" Height="0.49999988079071cm" Left="2.99999983178245cm" Top="1.56000019961816cm" Value=":" Name="textBox17">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.399999469518662cm" Height="0.49999988079071cm" Left="2.99999983178245cm" Top="2.56000014354564cm" Value=":" Name="textBox18">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.399999469518662cm" Height="0.49999988079071cm" Left="2.99999983178245cm" Top="3.56000008747313cm" Value=":" Name="textBox19">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.399999469518662cm" Height="0.49999988079071cm" Left="11.0999993775951cm" Top="0.560000255690673cm" Value=":" Name="textBox20">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.399999469518662cm" Height="0.49999988079071cm" Left="11.0999983010028cm" Top="1.56000019961816cm" Value=":" Name="textBox21">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.399999469518662cm" Height="0.49999988079071cm" Left="11.0999983010028cm" Top="2.56000014354564cm" Value=":" Name="textBox22">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+      </Items>
+    </DetailSection>
+    <PageFooterSection Height="1in" Name="pageFooterSection1" />
+  </Items>
+  <StyleSheet>
+    <StyleRule>
+      <Style>
+        <Padding Left="2pt" Right="2pt" />
+      </Style>
+      <Selectors>
+        <TypeSelector Type="TextItemBase" />
+        <TypeSelector Type="HtmlTextBox" />
+      </Selectors>
+    </StyleRule>
+  </StyleSheet>
+  <PageSettings>
+    <PageSettings PaperKind="Letter" Landscape="False">
+      <Margins>
+        <MarginsU Left="1in" Right="1in" Top="0.6in" Bottom="1in" />
+      </Margins>
+    </PageSettings>
+  </PageSettings>
+  <ReportParameters>
+    <ReportParameter Name="REPORT_NAME" />
+    <ReportParameter Name="DEFECT_NAME" />
+    <ReportParameter Name="PRODUCT_TYPE" />
+    <ReportParameter Name="AREA" />
+    <ReportParameter Name="PROCESS" />
+    <ReportParameter Name="DATE" />
+    <ReportParameter Name="ZONE" />
+    <ReportParameter Name="IMAGE" />
+  </ReportParameters>
+</Report>

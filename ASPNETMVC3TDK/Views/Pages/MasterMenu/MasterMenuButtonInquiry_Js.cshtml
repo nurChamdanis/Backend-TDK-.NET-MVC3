@@ -1,0 +1,136 @@
+<script>
+    var editDisabledFields = [];
+    function showModalAdd() {
+        resetForm();
+        $("#MODE").val("ADD");
+        $("#modal-form-title").html("Add Menu");
+        $("#modal-form").modal("show");
+        $("#MENU_PARENT").removeAttr("aria-readonly");
+        $("#is-active-wrapper").hide();
+        // setTimeout(function () {
+        //     $("#ID").focus();
+        //     $('#APP_ID').val('MyApp');
+        //     $('#MENU_ID').val('Menu001');
+        //     $('#MENU_PARENT').val('Parent001');
+        //     $('#MENU_TEXT').val('Menu1');
+        //     $('#MENU_TIPS').val('This is a menu tip.');
+        //     $('#IS_ACTIVE').val('Y');
+        //     $('#VISIBILITY').val('V');
+        //     $('#URL').val('/menu1');
+        //     $('#GLYPH').val('glyphicon-home');
+        //     $('#CREATED_BY').val('Admin');
+        //     $('#CHANGED_BY').val('Admin');
+        //     $('#SEPARATOR').val('/');
+        //     $('#TARGET').val('_self');
+
+        // }, 500);
+    }
+
+    function showModalEdit() {
+        //resetForm();
+        var selectedRowsData = myTable.rows('.selected').data();
+
+        if (selectedRowsData.length === 1) {
+            var rowData = selectedRowsData[0];
+            
+            $('#ApplicationName').prop("disabled", true);
+            $('#MENU_ID').prop("disabled", true);
+
+            $('#APP_ID').val(rowData.APP_ID);
+            $('#MENU_ID').val(rowData.MENU_ID);
+            $("#MENU_PARENT").val(rowData.MENU_PARENT).trigger('change');
+            $('#MENU_TEXT').val(rowData.MENU_TEXT);
+            $('#MENU_TIPS').val(rowData.MENU_TIPS);
+            if (rowData.IS_ACTIVE == 'Y') {
+                $('#P_IS_ACTIVE').prop('checked', true);
+
+            } else {
+                $('#P_IS_ACTIVE').prop('checked', false);
+            }
+            $('#IS_ACTIVE').val(rowData.IS_ACTIVE);
+
+            if (rowData.IS_ACTIVE == 'Y') {
+                $('#P_VISIBILITY').prop('checked', true);
+
+            } else {
+                $('#P_VISIBILITY').prop('checked', false);
+            }
+            $('#VISIBILITY').val(rowData.VISIBILITY);
+            $('#URL').val(rowData.URL);
+            $('#GLYPH').val(rowData.GLYPH);
+            $('#CREATED_BY').val(rowData.CREATED_BY);
+            $('#CHANGED_BY').val(rowData.CHANGED_BY);
+            $('#SEPARATOR').val(rowData.SEPARATOR);
+            $('#TARGET').val(rowData.TARGET);
+            $("#MODE").val("EDIT");
+            editDisabledFields = [];
+            editDisabledFields.push(rowData)
+            $("#ID").attr("disabled", true);
+            $("#is-active-wrapper").show();
+            $("#modal-form-title").html("Edit Function");
+            $("#modal-form").modal("show");
+            //setTimeout(function () {
+            //    $("#MENU_ID").focus();
+            //}, 500);
+        } else {
+            alert("Please select a single row to edit.");
+        }
+    }
+
+    function resetForm() {
+        $('#ApplicationName').prop("disabled", false);
+        $('#MENU_ID').prop("disabled", false);
+        $('#APP_ID').val('');
+        $('#MENU_ID').val('');
+        //$('#MENU_PARENT').val('');
+        $('#MENU_TEXT').val('');
+        $('#MENU_TIPS').val('');
+        $('#P_IS_ACTIVE').prop('checked', false);
+        $('#IS_ACTIVE').val('');
+        $('#P_VISIBILITY').prop('checked', false);
+        $('#VISIBILITY').val('');
+        $('#IS_ACTIVE').val('N');
+        $('#VISIBILITY').val('N');
+        $('#URL').val('');
+        $('#GLYPH').val('');
+        $('#CREATED_BY').val('');
+        $('#CHANGED_BY').val('');
+        $('#SEPARATOR').val('');
+        $('#TARGET').val('');
+    }
+
+    function deleteConfirmation() {
+        var checkboxes = $('#datatable tbody .select-checkbox:checked');
+
+        Swal.fire({
+            html: `Are you sure want to delete ${checkboxes.length} data?`,
+            icon: "info",
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            cancelButtonText: 'Cancel',
+            customClass: {
+                confirmButton: "btn btn-primary mx-5 w-125px",
+                cancelButton: 'btn btn-danger w-125px'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                processDelete();
+            }
+        });
+    }
+
+    function onCancel() {
+        setTimeout(function () {
+            validator.resetForm()
+        }, 500)
+    }
+
+    function onClear() {
+        $('#sc_menuid').val("");
+        $('#sc_menuparent').val("");
+        myTable.destroy();
+        load_table();
+    }
+
+</script>

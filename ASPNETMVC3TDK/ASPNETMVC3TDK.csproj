@@ -1,0 +1,2382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SSDTUnitTestPath Condition="'$(SSDTUnitTestPath)' == ''">$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\SQLDB</SSDTUnitTestPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SSDTPath Condition="'$(SSDTPath)' == ''">$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\130</SSDTPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2DC5FC0C-9911-47D7-883B-8744230B4D6C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASPNETMVC3TDK</RootNamespace>
+    <AssemblyName>ASPNETMVC3TDK</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Azure.Core, Version=1.35.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.35.0\lib\net472\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Identity, Version=1.10.3.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Identity.1.10.3\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.3.4.13329\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.6.1.1\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="FubarCoder.RestSharp.Portable.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=be81bb0f53eab22f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Core.4.0.8\lib\net45\FubarCoder.RestSharp.Portable.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FubarCoder.RestSharp.Portable.HttpClient, Version=4.0.0.0, Culture=neutral, PublicKeyToken=be81bb0f53eab22f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.HttpClient.4.0.8\lib\net45\FubarCoder.RestSharp.Portable.HttpClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.AspNet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.AspNet.0.2.0\lib\net45\Hangfire.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.Core, Version=1.7.33.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.7.33\lib\net46\Hangfire.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer, Version=1.7.33.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.7.33\lib\net45\Hangfire.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.0.0.999, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.SqlClient.5.1.5\lib\net462\Microsoft.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.FileExtensions.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Json, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Json.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Configuration.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.3.1.4\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Physical.3.1.4\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileSystemGlobbing.3.1.4\lib\netstandard2.0\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=4.56.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.56.0\lib\net461\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=4.56.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.Extensions.Msal.4.56.0\lib\netstandard2.0\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.6.35.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.35.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens">
+      <HintPath>Tdk-Lib\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.35.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.6.35.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.6.35.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.35.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.3.0.0\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.4.2.2\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Jwt, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Jwt.4.2.2\lib\net45\Microsoft.Owin.Security.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebHelpers.3.3.0\lib\net45\Microsoft.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PetaPoco, Version=6.0.677.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PetaPoco.Compiled.6.0.677\lib\net45\PetaPoco.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=111.2.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.111.2.0\lib\net471\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>Tdk-Lib\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.6, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.6\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.6.0.1\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.35.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.35.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.AccessControl.5.0.0\lib\net461\System.IO.FileSystem.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=1.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.Data.1.0.2\lib\net461\System.Memory.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.5.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.ProtectedData.4.7.0\lib\net461\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.8.0.3\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.3.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TDKUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\TDKUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Reporting, Version=7.1.13.802, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Telerik\Reporting Q2 2013\Bin\Telerik.Reporting.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Reporting.OpenXmlRendering, Version=7.1.13.802, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Telerik\Reporting Q2 2013\Bin\Telerik.Reporting.OpenXmlRendering.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Reporting.XpsRendering, Version=7.1.13.802, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Telerik\Reporting Q2 2013\Bin\Telerik.Reporting.XpsRendering.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common">
+      <HintPath>Tdk-Lib\Toyota.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Configuration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\Toyota.Common.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Credential, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\Toyota.Common.Credential.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Credential.Provider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\Toyota.Common.Credential.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Database, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\Toyota.Common.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Database.Petapoco, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\Toyota.Common.Database.Petapoco.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Download">
+      <HintPath>Tdk-Lib\Toyota.Common.Download.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\Toyota.Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.SSO.Lib">
+      <HintPath>Tdk-Lib\Toyota.Common.SSO.Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.SSO.Service">
+      <HintPath>Tdk-Lib\Toyota.Common.SSO.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Task, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\Toyota.Common.Task.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Web.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\Toyota.Common.Web.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Web.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\Toyota.Common.Web.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Web.UI.Layout, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Tdk-Lib\Toyota.Common.Web.UI.Layout.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.3.0\lib\net45\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.3.0\lib\net45\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Auth\ApplicationOAuthProvider.cs" />
+    <Compile Include="Common\App_Start\CustomViewEngine.cs" />
+    <Compile Include="Common\App_Start\RouteConfig.cs" />
+    <Compile Include="Common\App_Start\Startup.cs" />
+    <Compile Include="Common\Helper\TaskAsyncUpload.cs" />
+    <Compile Include="Common\Helper\TaskAsyncUploadExcel.cs" />
+    <Compile Include="Common\Validation\Constant.cs" />
+    <Compile Include="Common\Validation\CustomValidator.cs" />
+    <Compile Include="Common\Validation\Length.cs" />
+    <Compile Include="Common\Validation\Mandatory.cs" />
+    <Compile Include="Common\Validation\NumericPrecisionAndScale.cs" />
+    <Compile Include="Common\Validation\RegexAtt.cs" />
+    <Compile Include="Common\Validation\StringDateFormat.cs" />
+    <Compile Include="Common\Validation\StringDateLessThan.cs" />
+    <Compile Include="Controllers\ApplicationApiController.cs" />
+    <Compile Include="Controllers\ApprovalApiController.cs" />
+    <Compile Include="Controllers\Batch\SimulateBatch.cs" />
+    <Compile Include="Controllers\Batch\SimulateHangefireController.cs" />
+    <Compile Include="Controllers\QuestionCategoryApiController.cs" />
+    <Compile Include="Controllers\DownloadFileController.cs" />
+    <Compile Include="Controllers\EducationHistoryApiController.cs" />
+    <Compile Include="Controllers\ExportApiController.cs" />
+    <Compile Include="Controllers\ICTAssigmentExternalApiController.cs" />
+    <Compile Include="Controllers\LanguageSkillApiController.cs" />
+    <Compile Include="Controllers\MasterDataApiController.cs" />
+    <Compile Include="Controllers\AuthManagementApiController.cs" />
+    <Compile Include="Controllers\Pages\ApplicationController.cs" />
+    <Compile Include="Controllers\Pages\PersonalInformationController.cs" />
+    <Compile Include="Controllers\Pages\HistoryController.cs" />
+    <Compile Include="Controllers\Pages\LogMonitoringController.cs" />
+    <Compile Include="Controllers\Pages\MasterSystemController.cs" />
+    <Compile Include="Controllers\Common\BaseController.cs" />
+    <Compile Include="Controllers\HangfireController.cs" />
+    <Compile Include="Controllers\Pages\AuthManagement.cs" />
+    <Compile Include="Controllers\Pages\HomeController.cs" />
+    <Compile Include="Controllers\Pages\LoginController.cs" />
+    <Compile Include="Controllers\Pages\MasterMenuController.cs" />
+    <Compile Include="Controllers\Pages\MasterFeatureController.cs" />
+    <Compile Include="Controllers\Pages\MasterFunctionController.cs" />
+    <Compile Include="Controllers\Pages\MenuRoleController.cs" />
+    <Compile Include="Controllers\Pages\NotAuthorizeController.cs" />
+    <Compile Include="Controllers\Pages\UserProfileController.cs" />
+    <Compile Include="Controllers\SubmissionApiController.cs" />
+    <Compile Include="Controllers\PositionApiController.cs" />
+    <Compile Include="Controllers\ProjectAsistantManagerApiController.cs" />
+    <Compile Include="Controllers\RotationHistoryApiController.cs" />
+    <Compile Include="Controllers\SharedApiController.cs" />
+    <Compile Include="Controllers\PeopleApiController.cs" />
+    <Compile Include="Controllers\PdfApiController.cs" />
+    <Compile Include="Controllers\UserProfileApiController.cs" />
+    <Compile Include="App_Start\CrossAttributeSetup.cs" />
+    <Compile Include="App_Start\FilterCrossOrigin.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Carreer\ICTAssigmentExternal\E_ICTAssigmentExternal.cs" />
+    <Compile Include="Models\Carreer\RotationHistory\E_RotationHistory.cs" />
+    <Compile Include="Models\PdfApi_Model.cs" />
+    <Compile Include="Models\Location\Location.cs" />
+    <Compile Include="Models\MasterDataApi\OrgHierarchy\OrgHierarchyTitle.cs" />
+    <Compile Include="Models\PersonalInformation\UserProfile\E_PersonalData.cs" />
+    <Compile Include="Models\QuestionCategory\QuestionCategory.cs" />
+    <Compile Include="Models\QuestionCategory\QuestionCategoryRepo.cs" />
+    <Compile Include="Models\Export\ExportExcelRepo.cs" />
+    <Compile Include="Models\Submission\Submission.cs" />
+    <Compile Include="Models\Submission\SubmissionRepo.cs" />
+    <Compile Include="Models\People\People.cs" />
+    <Compile Include="Models\People\PeopleRepo.cs" />
+    <Compile Include="Models\Export\ExportAllRepo.cs" />
+    <Compile Include="Models\Export\ExportAll.cs" />
+    <Compile Include="Models\MasterDataApi\OrgHierarchy\OrgHierarchy.cs" />
+    <Compile Include="Models\MasterDataApi\OrgHierarchy\OrgHierarchyRepo.cs" />
+    <Compile Include="Models\MasterDataApi\Class\Class.cs" />
+    <Compile Include="Models\MasterDataApi\Class\ClassRepo.cs" />
+    <Compile Include="Models\MasterDataApi\Position\PositionMaster.cs" />
+    <Compile Include="Models\MasterDataApi\Skill\Skill.cs" />
+    <Compile Include="Models\MasterDataApi\Skill\SkillRepo.cs" />
+    <Compile Include="Models\MasterSystem\MasterSystem.cs" />
+    <Compile Include="Models\MasterSystem\MasterSystemRepo.cs" />
+    <Compile Include="Models\PersonalInformation\LanguageSkill\M_LanguageSkillRep.cs" />
+    <Compile Include="Models\Training\Achivement\AchivementRepo.cs" />
+    <Compile Include="Models\Training\Achivement\Achivement.cs" />
+    <Compile Include="Models\Application\Application.cs" />
+    <Compile Include="Models\Application\ApplicationRepo.cs" />
+    <Compile Include="Models\Approval\Approval.cs" />
+    <Compile Include="Models\Approval\ApprovalRepo.cs" />
+    <Compile Include="Models\AuthManagement\AuthManagement.cs" />
+    <Compile Include="Models\AuthManagement\AuthManagementRepo.cs" />
+    <Compile Include="Models\Carreer\ProjectAssignment\ProjectAssignment.cs" />
+    <Compile Include="Models\Carreer\ProjectAssignment\ProjectAssignmentRepo.cs" />
+    <Compile Include="Models\Common\ComboboxModel.cs" />
+    <Compile Include="Models\Common\Material.cs" />
+    <Compile Include="Models\Common\MaterialLookupModel.cs" />
+    <Compile Include="Models\Common\PagingModel.cs" />
+    <Compile Include="Models\MasterDataApi\Language\LanguageSkill.cs" />
+    <Compile Include="Models\MasterDataApi\Language\Language.cs" />
+    <Compile Include="Models\MasterDataApi\Language\MasterLanguageRepo.cs" />
+    <Compile Include="Models\MasterDataApi\Country\CountryRepo.cs" />
+    <Compile Include="Models\MasterDataApi\EducationLevel\EducationRepo.cs" />
+    <Compile Include="Models\MasterDataApi\EducationLevel\Education.cs" />
+    <Compile Include="Models\MasterDataApi\MajorEducation\EducationMajor.cs" />
+    <Compile Include="Models\MasterDataApi\MajorEducation\EducationMajorRepo.cs" />
+    <Compile Include="Models\MasterDataApi\Position\Position.cs" />
+    <Compile Include="Models\MasterDataApi\Position\PositionRepo.cs" />
+    <Compile Include="Models\PersonalInformation\EducationHistory\EducationHistoryReq.cs" />
+    <Compile Include="Models\PersonalInformation\EducationHistory\EducationHistory.cs" />
+    <Compile Include="Models\PersonalInformation\EducationHistory\EducationHistoryRepo.cs" />
+    <Compile Include="Models\PersonalInformation\UserProfileDescrip\UserProfileDescrip.cs" />
+    <Compile Include="Models\PersonalInformation\UserProfileDescrip\UserProfileDescripRepo.cs" />
+    <Compile Include="Models\Training\Achivement\E_Achievment.cs" />
+    <Compile Include="Models\Training\Eligibility\E_TrainingEligibility.cs" />
+    <Compile Include="Models\Training\Eligibility\TrainingEligibility.cs" />
+    <Compile Include="Models\Training\Eligibility\TrainingEligibilityRepo.cs" />
+    <Compile Include="Models\Training\History\E_TrainingHistory.cs" />
+    <Compile Include="Models\Training\History\TrainingHistory.cs" />
+    <Compile Include="Models\Training\History\TrainingHistoryRepo.cs" />
+    <Compile Include="Models\DatabaseSpExecutor.cs" />
+    <Compile Include="Models\DataTables.cs" />
+    <Compile Include="Models\DownloadFile\DownloadFile.cs" />
+    <Compile Include="Models\DownloadFile\DownloadFileRepo.cs" />
+    <Compile Include="Models\Generated\Database.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Hangfire\Hangfire.cs" />
+    <Compile Include="Models\Hangfire\HangfireRepo.cs" />
+    <Compile Include="Models\Home\Home.cs" />
+    <Compile Include="Models\Home\HomeRepo.cs" />
+    <Compile Include="Models\Carreer\ICTAssigmentExternal\ICTAssigmentExternal.cs" />
+    <Compile Include="Models\Carreer\ICTAssigmentExternal\ICTAssigmentExternalRepo.cs" />
+    <Compile Include="Models\ListMenu\ListMenu.cs" />
+    <Compile Include="Models\ListMenu\ListMenuRepo.cs" />
+    <Compile Include="Models\Login\LoginRepository.cs" />
+    <Compile Include="Models\LogMonitoring\LogMonitoring.cs" />
+    <Compile Include="Models\LogMonitoring\LogMonitoringRepo.cs" />
+    <Compile Include="Models\PetaPoco.cs" />
+    <Compile Include="Models\ResultMessage.cs" />
+    <Compile Include="Models\ResponseSelect2.cs" />
+    <Compile Include="Models\Carreer\RotationHistory\RotationHistory.cs" />
+    <Compile Include="Models\Carreer\RotationHistory\RotationHistoryRepo.cs" />
+    <Compile Include="Models\Shared\SharedRepo.cs" />
+    <Compile Include="Models\PersonalInformation\UserProfile\UserProfile.cs" />
+    <Compile Include="Models\PersonalInformation\UserProfile\UserProfileRepo.cs" />
+    <Compile Include="Models\UploadFileResult\UploadFileResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\CommonHelper.cs" />
+    <Compile Include="Shared\HangfireShared.cs" />
+    <Content Include="Content\assets\icons\left-arrow-primary.svg" />
+    <Content Include="Content\assets\icons\pen-primary.svg" />
+    <Content Include="Content\assets\icons\pen-white.svg" />
+    <Content Include="Content\assets\icons\plus-primary.svg" />
+    <Content Include="Content\images\default.jpg" />
+    <Content Include="DBScript\script.sql" />
+    <Compile Include="Models\Carreer\ProjectAssignment\E_ProjectAssignment.cs" />
+    <Content Include="Models\Generated\Database.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Database.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Generated\PetaPoco.Generator.ttinclude" />
+    <Content Include="Models\Generated\PetaPoco.Core.ttinclude" />
+    <Compile Include="Controllers\TrainingApiController.cs" />
+    <Compile Include="Models\MasterDataApi\Country\Country.cs" />
+    <None Include="packages.config" />
+    <Content Include="Content\assets\media\logos\tmmin_logo.jpg" />
+    <Compile Include="Models\PersonalInformation\LanguageSkill\LanguageSkill.cs" />
+    <Compile Include="Models\PersonalInformation\LanguageSkill\LanguageSkillRepo.cs" />
+    <Content Include="SQL\CarreerHistory\ICTAssigmentExternal\getMasterICTAssigment.sql" />
+    <Content Include="SQL\CarreerHistory\ProjectAssigment\getMasterProjectAssigment.sql" />
+    <Content Include="SQL\CarreerHistory\RotationHistory\getMasterRotation.sql" />
+    <Content Include="SQL\MasterDataApi\Location\getLocation.sql" />
+    <Content Include="SQL\MasterDataApi\OrgHierarchy\getMasterOrgHierarchyTitle.sql" />
+    <Content Include="SQL\PDF\PDF_cekFile.sql" />
+    <Content Include="SQL\PDF\PDF_getUrl.sql" />
+    <Content Include="SQL\PDF\PDF_SaveData.sql" />
+    <Content Include="SQL\PersonalInformation\UserProfile\getUserProfileExport.sql" />
+    <Content Include="SQL\QuestionCategory\QuestionCategory_GetDynamicOptionDetail.sql" />
+    <Content Include="SQL\QuestionCategory\QuestionCategory_InsertData.sql" />
+    <Content Include="SQL\QuestionCategory\QuestionCategory_CheckExistPeriod.sql" />
+    <Content Include="SQL\QuestionCategory\QuestionCategory_CheckSubmission.sql" />
+    <Content Include="SQL\QuestionCategory\QuestionCategory_CheckPeriod.sql" />
+    <Content Include="SQL\QuestionCategory\QuestionCategory_GetAnswerValue.sql" />
+    <Content Include="SQL\QuestionCategory\QuestionCategory_GetQuestionCategory.sql" />
+    <Content Include="SQL\QuestionCategory\QuestionCategory_GetOptionDetail.sql" />
+    <Content Include="SQL\QuestionCategory\QuestionCategory_GetQuestionbyCategory.sql" />
+    <Content Include="SQL\Submission\Submission_Count.sql" />
+    <Content Include="SQL\Submission\Submission_GetSubmission.sql" />
+    <Content Include="SQL\People\People_GetPeople.sql" />
+    <Content Include="SQL\Export\getAchivement.sql" />
+    <Content Include="SQL\Export\getEducationData.sql" />
+    <Content Include="SQL\Export\getICTAssigmentExternal.sql" />
+    <Content Include="SQL\Export\getLanguageSkill.sql" />
+    <Content Include="SQL\Export\getRotationHistory.sql" />
+    <Content Include="SQL\Export\getTrainingEligibility.sql" />
+    <Content Include="SQL\Export\getTrainingHistory.sql" />
+    <Content Include="SQL\Export\getProjectAsistantManager.sql" />
+    <Content Include="SQL\MasterDataApi\Class\getMasterClass.sql" />
+    <Content Include="SQL\MasterDataApi\OrgHierarchy\getMasterOrgHierarchy.sql" />
+    <Content Include="SQL\MasterDataApi\Position\getMasterPosition.sql" />
+    <Content Include="SQL\MasterDataApi\Position\getPosition.sql" />
+    <Content Include="SQL\MasterDataApi\Skill\getSkill.sql" />
+    <Content Include="SQL\PersonalInformation\EducationData\getMasterEducationData.sql" />
+    <Content Include="SQL\PersonalInformation\LanguageSkill\getMasterLanguage.sql" />
+    <Content Include="SQL\Training\Achivement\getAchivement.sql" />
+    <Content Include="SQL\Application\Application_DeleteData.sql" />
+    <Content Include="SQL\Application\Application_GetDataApplication.sql" />
+    <Content Include="SQL\Application\Application_GetDataApplicationCount.sql" />
+    <Content Include="SQL\Application\Application_SaveData.sql" />
+    <Content Include="SQL\Application\GetTypeApplication.sql" />
+    <Content Include="SQL\Approval\getApproval.sql" />
+    <Content Include="SQL\AuthManagement\AuthManagement_AssignFeature.sql" />
+    <Content Include="SQL\AuthManagement\AuthManagement_AssignFunction.sql" />
+    <Content Include="SQL\AuthManagement\AuthManagement_DeleteFeature.sql" />
+    <Content Include="SQL\AuthManagement\AuthManagement_DeleteFunction.sql" />
+    <Content Include="SQL\CarreerHistory\ICTAssigmentExternal\getDeleteData.sql" />
+    <Content Include="SQL\CarreerHistory\ICTAssigmentExternal\getICTAssigmentExternal.sql" />
+    <Content Include="SQL\CarreerHistory\ICTAssigmentExternal\getUpdateData.sql" />
+    <Content Include="SQL\CarreerHistory\ProjectAssigment\getDeleteData.sql" />
+    <Content Include="SQL\CarreerHistory\ProjectAssigment\getUpdateData.sql" />
+    <Content Include="SQL\CarreerHistory\ProjectAssigment\ProjectAsistantManager.sql" />
+    <Content Include="SQL\CarreerHistory\RotationHistory\getDeleteData.sql" />
+    <Content Include="SQL\CarreerHistory\RotationHistory\getRotationHistory.sql" />
+    <Content Include="SQL\CarreerHistory\RotationHistory\getUpdateData.sql" />
+    <Content Include="SQL\CarreerHistory\RotationHistory\saveData.sql" />
+    <Content Include="SQL\MasterDataApi\Country\getCountry.sql" />
+    <Content Include="SQL\MasterDataApi\EducationMajor\getEducationMajor.sql" />
+    <Content Include="SQL\MasterDataApi\Education\getEducation.sql" />
+    <Content Include="SQL\MasterDataApi\LanguageSkill\getLanguageSkill.sql" />
+    <Content Include="SQL\MasterDataApi\Language\getLanguage.sql" />
+    <Content Include="SQL\MasterMenu\Delete.sql" />
+    <Content Include="SQL\MasterMenu\Detail.sql" />
+    <Content Include="SQL\MasterMenu\GetCount.sql" />
+    <Content Include="SQL\MasterMenu\GetData.sql" />
+    <Content Include="SQL\MasterMenu\Save.sql" />
+    <Content Include="SQL\MasterMenu\Update.sql" />
+    <Content Include="SQL\PersonalInformation\EducationData\getDeleteData.sql" />
+    <Content Include="SQL\PersonalInformation\EducationData\getEditData.sql" />
+    <Content Include="SQL\PersonalInformation\EducationData\getEducationData.sql" />
+    <Content Include="SQL\PersonalInformation\EducationData\getSaveData.sql" />
+    <Content Include="SQL\PersonalInformation\EducationData\getUpdateData.sql" />
+    <Content Include="SQL\PersonalInformation\LanguageSkill\getDeleteData.sql" />
+    <Content Include="SQL\PersonalInformation\LanguageSkill\getLanguageSkill.sql" />
+    <Content Include="SQL\PersonalInformation\LanguageSkill\getSaveData.sql" />
+    <Content Include="SQL\PersonalInformation\LanguageSkill\getUpdateData.sql" />
+    <Content Include="SQL\PersonalInformation\UserProfile\getUserDescrip.sql" />
+    <Content Include="SQL\PersonalInformation\UserProfile\getUserFind.sql" />
+    <Content Include="SQL\PersonalInformation\UserProfile\getUserProfile.sql" />
+    <Content Include="SQL\PersonalInformation\UserProfile\UpdateDataDescp.sql" />
+    <Content Include="SQL\Shared\GetListFeature.sql" />
+    <Content Include="SQL\Shared\GetListFunction.sql" />
+    <Content Include="SQL\Shared\GetListRole.sql" />
+    <Content Include="SQL\Shared\GetListUsername.sql" />
+    <Content Include="SQL\Training\Achivement\getDeleteData.sql" />
+    <Content Include="SQL\Training\Achivement\getMasterAchivement.sql" />
+    <Content Include="SQL\Training\Achivement\getUpdateData.sql" />
+    <Content Include="SQL\Training\Eligibility\getDeleteData.sql" />
+    <Content Include="SQL\Training\Eligibility\getEligibility.sql" />
+    <Content Include="SQL\Training\Eligibility\getUpdateData.sql" />
+    <Content Include="SQL\Training\Eligibility\getMasterEligilibility.sql" />
+    <Content Include="SQL\Training\History\getMasterHistory.sql" />
+    <Content Include="SQL\Training\History\getDeleteData.sql" />
+    <Content Include="SQL\Training\History\getHistory.sql" />
+    <Content Include="SQL\Training\History\getUpdateData.sql" />
+    <Content Include="Tdk-Lib\EPPlus.dll" />
+    <Content Include="Tdk-Lib\EPPlus.XML" />
+    <Content Include="Tdk-Lib\Hangfire.AspNet.dll" />
+    <Content Include="Tdk-Lib\Hangfire.AspNet.xml" />
+    <Content Include="Tdk-Lib\Hangfire.Core.dll" />
+    <Content Include="Tdk-Lib\Hangfire.Core.xml" />
+    <Content Include="Tdk-Lib\Hangfire.SqlServer.dll" />
+    <Content Include="Tdk-Lib\Hangfire.SqlServer.xml" />
+    <Content Include="Tdk-Lib\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="Tdk-Lib\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <Content Include="Tdk-Lib\Microsoft.IdentityModel.Logging.dll" />
+    <Content Include="Tdk-Lib\Microsoft.IdentityModel.Tokens.dll" />
+    <Content Include="Tdk-Lib\NPOI.dll" />
+    <Content Include="Tdk-Lib\NPOI.OOXML.dll" />
+    <Content Include="Tdk-Lib\NPOI.OpenXml4Net.dll" />
+    <Content Include="Tdk-Lib\NPOI.OpenXmlFormats.dll" />
+    <Content Include="Tdk-Lib\NPOI.xml" />
+    <Content Include="Tdk-Lib\ServiceStack.Text.dll" />
+    <Content Include="Tdk-Lib\System.IdentityModel.Tokens.Jwt.dll" />
+    <Content Include="Tdk-Lib\TDKUtility.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Configuration.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Credential.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Credential.Provider.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Database.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Database.Petapoco.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Database.xml" />
+    <Content Include="Tdk-Lib\Toyota.Common.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Download.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Download.pdb" />
+    <Content Include="Tdk-Lib\Toyota.Common.Logging.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.SSO.Lib.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.SSO.Service.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Task.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Web.Platform.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Web.Service.dll" />
+    <Content Include="Tdk-Lib\Toyota.Common.Web.UI.Layout.dll" />
+    <Content Include="Views\Pages\AuthManagement\AuthManagement.cshtml" />
+    <Content Include="Views\Pages\AuthManagement\AuthManagement_Header.cshtml" />
+    <Content Include="Views\Pages\AuthManagement\AuthManagement_Js.cshtml" />
+    <Content Include="Views\Pages\AuthManagement\AuthManagement_PopupView.cshtml" />
+    <Content Include="Views\Pages\AuthManagement\AuthManagement_PopupViewFeature.cshtml" />
+    <Content Include="Views\Pages\Login\Login_Js.cshtml" />
+    <Content Include="Content\assets\plugins\custom\sweetalert2\sweetalert2.js" />
+    <Content Include="Content\assets\plugins\custom\sweetalert2\sweetalert2.min.css" />
+    <Content Include="Content\assets\plugins\custom\sweetalert2\sweetalert2.min.js" />
+    <Content Include="SQL\AuthManagement\AuthManagement_GetDataAuthManagement.sql" />
+    <Content Include="SQL\AuthManagement\AuthManagement_GetDataAuthManagementCount.sql" />
+    <Content Include="SQL\AuthManagement\AuthManagement_GetDataFeatureAuthManagement.sql" />
+    <Content Include="SQL\AuthManagement\AuthManagement_GetDataFeatureAuthManagementCount.sql" />
+    <Content Include="SQL\AuthManagement\AuthManagement_GetDataFunctionAuthManagement.sql" />
+    <Content Include="SQL\AuthManagement\AuthManagement_GetDataFunctionAuthManagementCount.sql" />
+    <Content Include="SQL\MasterFeature\MasterFeature_DeleteData.sql" />
+    <Content Include="SQL\MasterFeature\MasterFeature_GetDataFeature.sql" />
+    <Content Include="SQL\MasterFeature\MasterFeature_GetDataFeatureCount.sql" />
+    <Content Include="SQL\MasterFeature\MasterFeature_SaveData.sql" />
+    <Content Include="SQL\MasterFunction\MasterFunction_DeleteData.sql" />
+    <Content Include="SQL\MasterFunction\MasterFunction_GetDataFunction.sql" />
+    <Content Include="SQL\MasterFunction\MasterFunction_GetDataFunctionCount.sql" />
+    <Content Include="SQL\MasterFunction\MasterFunction_SaveData.sql" />
+    <Content Include="SQL\MenuRole\MenuRole_DeleteData.sql" />
+    <Content Include="SQL\MenuRole\MenuRole_GetDataRole.sql" />
+    <Content Include="SQL\MenuRole\MenuRole_GetDataRoleCount.sql" />
+    <Content Include="SQL\MenuRole\MenuRole_SaveData.sql" />
+    <Content Include="SQL\Shared\GetCurrentApplication.sql" />
+    <Content Include="SQL\Shared\UpdateAG1040124.sql" />
+    <Content Include="Views\Pages\MasterSystem\MasterSystem_Header.cshtml" />
+    <Content Include="Views\Pages\MasterSystem\MasterSystem_Js.cshtml" />
+    <Content Include="Views\Pages\MenuRole\MenuRole.cshtml" />
+    <Content Include="Views\Pages\MenuRole\MenuRole_Header.cshtml" />
+    <Content Include="Views\Pages\MenuRole\MenuRole_Js.cshtml" />
+    <Content Include="Views\Pages\MenuRole\MenuRole_Popup.cshtml" />
+    <Content Include="Views\Pages\MasterFeature\MasterFeature.cshtml" />
+    <Content Include="Views\Pages\MasterFeature\MasterFeature_Header.cshtml" />
+    <Content Include="Views\Pages\MasterFeature\MasterFeature_Js.cshtml" />
+    <Content Include="Views\Pages\MasterFeature\MasterFeature_Popup.cshtml" />
+    <Content Include="Views\Pages\MasterFunction\MasterFunction.cshtml" />
+    <Content Include="Views\Pages\MasterFunction\MasterFunction_Header.cshtml" />
+    <Content Include="Views\Pages\MasterFunction\MasterFunction_Js.cshtml" />
+    <Content Include="Views\Pages\MasterFunction\MasterFunction_Popup.cshtml" />
+    <Content Include="Views\Pages\UserAssignment\UserAssignment.cshtml" />
+    <Content Include="Views\Pages\UserAssignment\UserAssignment_Header.cshtml" />
+    <Content Include="Views\Pages\UserAssignment\UserAssignment_Js.cshtml" />
+    <Content Include="Views\Pages\UserAssignment\UserAssignment_Popup.cshtml" />
+    <Content Include="Views\Pages\LogMonitoring\LogMonitoring.cshtml" />
+    <Content Include="Views\Pages\LogMonitoring\LogMonitoring_Header.cshtml" />
+    <Content Include="Views\Pages\LogMonitoring\LogMonitoring_Js.cshtml" />
+    <Content Include="Views\Pages\LogMonitoring\LogMonitoring_Popup.cshtml" />
+    <Content Include="Views\Pages\MasterMenu\MasterMenu.cshtml" />
+    <Content Include="Views\Pages\MasterMenu\MasterMenu_Header.cshtml" />
+    <Content Include="Views\Pages\MasterMenu\MasterMenuDatatable_Js.cshtml" />
+    <Content Include="Views\Pages\MasterMenu\MasterMenu_Popup.cshtml" />
+    <Content Include="Views\Pages\Application\Application.cshtml" />
+    <Content Include="Views\Pages\Application\Application_Header.cshtml" />
+    <Content Include="Views\Pages\Application\Application_Js.cshtml" />
+    <Content Include="Views\Pages\Application\Application_Popup.cshtml" />
+    <Content Include="Views\Pages\AuthManagement\AuthManagement_PopupFeatureCreate.cshtml" />
+    <Content Include="Views\Pages\AuthManagement\AuthManagement_PopupFunctionCreate.cshtml" />
+    <Content Include="Views\Pages\MasterMenu\MasterMenuButtonInquiry_Js.cshtml" />
+    <Content Include="Views\Pages\MasterMenu\MasterMenuButtonFormPopup_Js.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformation.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformation_Datatable.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformation_Header.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformation_Popup.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationTabs\PersonalInformation_Section_Profile.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationTabs\PersonalInformation_Section_CareerHistory.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationTabs\PersonalInformation_Section_TrainingHistory.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationPopup\CareerHistory\PersonalInformation_Popup_RotationHistory.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationJs\PersonalInformation_CareerHistory_Js.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationPopup\CareerHistory\PersonalInformation_Popup_ProjectAssignment.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationPopup\CareerHistory\PersonalInformation_Popup_ICT.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationJs\PersonalInformation_TrainingHistory_Js.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationPopup\TrainingHistory\PersonalInformation_Popup_TrainingHistory.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationPopup\TrainingHistory\PersonalInformation_Popup_EligibilityCriteria.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationJs\PersonalInformation_PersonalInformation_Js.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationPopup\PersonalInformation\PersonalInformation_Popup_EducationHistory.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationPopup\PersonalInformation\PersonalInformation_Popup_LanguagSkill.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformationPopup\PersonalInformation\PersonalInformation_Popup_PersonalInformation.cshtml" />
+    <Content Include="Views\Pages\PersonalInformation\PersonalInformation_Js.cshtml" />
+    <Content Include="Views\Pages\Approval\Master.cshtml" />
+    <Content Include="Reports\AA233S23_Report.trdx" />
+    <Content Include="Reports\AA233S41_Report.trdx" />
+    <Content Include="Reports\Defect_Realtime_Data_Report_Pareto1.trdx" />
+    <Content Include="Reports\Defect_Realtime_Data_Report_Pareto2.trdx" />
+    <Content Include="Reports\Home_Report.trdx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\Menu-DEV.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\assets\css\style-custom.css" />
+    <Content Include="Content\assets\css\style.bundle.css" />
+    <Content Include="Content\assets\fonts\fonts.googleapis.com_css_family=Inter_300,400,500,600,700.css" />
+    <Content Include="Content\assets\js\custom\account\api-keys\api-keys.js" />
+    <Content Include="Content\assets\js\custom\account\billing\general.js" />
+    <Content Include="Content\assets\js\custom\account\orders\classic.js" />
+    <Content Include="Content\assets\js\custom\account\referrals\referral-program.js" />
+    <Content Include="Content\assets\js\custom\account\security\license-usage.js" />
+    <Content Include="Content\assets\js\custom\account\security\security-summary.js" />
+    <Content Include="Content\assets\js\custom\account\settings\deactivate-account.js" />
+    <Content Include="Content\assets\js\custom\account\settings\overview.js" />
+    <Content Include="Content\assets\js\custom\account\settings\profile-details.js" />
+    <Content Include="Content\assets\js\custom\account\settings\signin-methods.js" />
+    <Content Include="Content\assets\js\custom\apps\calendar\calendar.js" />
+    <Content Include="Content\assets\js\custom\apps\chat\chat.js" />
+    <Content Include="Content\assets\js\custom\apps\contacts\edit-contact.js" />
+    <Content Include="Content\assets\js\custom\apps\contacts\view-contact.js" />
+    <Content Include="Content\assets\js\custom\apps\customers\add.js" />
+    <Content Include="Content\assets\js\custom\apps\customers\list\export.js" />
+    <Content Include="Content\assets\js\custom\apps\customers\list\list.js" />
+    <Content Include="Content\assets\js\custom\apps\customers\update.js" />
+    <Content Include="Content\assets\js\custom\apps\customers\view\add-payment.js" />
+    <Content Include="Content\assets\js\custom\apps\customers\view\adjust-balance.js" />
+    <Content Include="Content\assets\js\custom\apps\customers\view\invoices.js" />
+    <Content Include="Content\assets\js\custom\apps\customers\view\payment-method.js" />
+    <Content Include="Content\assets\js\custom\apps\customers\view\payment-table.js" />
+    <Content Include="Content\assets\js\custom\apps\customers\view\statement.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\catalog\categories.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\catalog\products.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\catalog\save-category.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\catalog\save-product.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\details\add-address.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\details\add-auth-app.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\details\add-one-time-password.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\details\payment-method.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\details\transaction-history.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\details\update-address.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\details\update-password.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\details\update-phone.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\details\update-profile.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\listing\add.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\listing\export.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\customers\listing\listing.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\reports\customer-orders\customer-orders.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\reports\returns\returns.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\reports\sales\sales.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\reports\shipping\shipping.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\reports\views\views.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\sales\listing.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\sales\save-order.js" />
+    <Content Include="Content\assets\js\custom\apps\ecommerce\settings\settings.js" />
+    <Content Include="Content\assets\js\custom\apps\file-manager\list.js" />
+    <Content Include="Content\assets\js\custom\apps\file-manager\settings.js" />
+    <Content Include="Content\assets\js\custom\apps\inbox\compose.js" />
+    <Content Include="Content\assets\js\custom\apps\inbox\listing.js" />
+    <Content Include="Content\assets\js\custom\apps\inbox\reply.js" />
+    <Content Include="Content\assets\js\custom\apps\invoices\create.js" />
+    <Content Include="Content\assets\js\custom\apps\projects\list\list.js" />
+    <Content Include="Content\assets\js\custom\apps\projects\project\project.js" />
+    <Content Include="Content\assets\js\custom\apps\projects\settings\settings.js" />
+    <Content Include="Content\assets\js\custom\apps\projects\targets\targets.js" />
+    <Content Include="Content\assets\js\custom\apps\projects\users\users.js" />
+    <Content Include="Content\assets\js\custom\apps\subscriptions\add\advanced.js" />
+    <Content Include="Content\assets\js\custom\apps\subscriptions\add\customer-select.js" />
+    <Content Include="Content\assets\js\custom\apps\subscriptions\add\products.js" />
+    <Content Include="Content\assets\js\custom\apps\subscriptions\list\export.js" />
+    <Content Include="Content\assets\js\custom\apps\subscriptions\list\list.js" />
+    <Content Include="Content\assets\js\custom\apps\support-center\general.js" />
+    <Content Include="Content\assets\js\custom\apps\support-center\tickets\create.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\permissions\add-permission.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\permissions\list.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\permissions\update-permission.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\roles\list\add.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\roles\list\update-role.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\roles\view\update-role.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\roles\view\view.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\list\add.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\list\export-users.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\list\table.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\view\add-auth-app.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\view\add-one-time-password.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\view\add-schedule.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\view\add-task.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\view\update-details.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\view\update-email.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\view\update-password.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\view\update-role.js" />
+    <Content Include="Content\assets\js\custom\apps\user-management\users\view\view.js" />
+    <Content Include="Content\assets\js\custom\authentication\reset-password\new-password.js" />
+    <Content Include="Content\assets\js\custom\authentication\reset-password\reset-password.js" />
+    <Content Include="Content\assets\js\custom\authentication\sign-in\general.js" />
+    <Content Include="Content\assets\js\custom\authentication\sign-in\i18n.js" />
+    <Content Include="Content\assets\js\custom\authentication\sign-in\two-steps.js" />
+    <Content Include="Content\assets\js\custom\authentication\sign-up\coming-soon.js" />
+    <Content Include="Content\assets\js\custom\authentication\sign-up\free-trial.js" />
+    <Content Include="Content\assets\js\custom\authentication\sign-up\general.js" />
+    <Content Include="Content\assets\js\custom\landing.js" />
+    <Content Include="Content\assets\js\custom\pages\careers\apply.js" />
+    <Content Include="Content\assets\js\custom\pages\general\contact.js" />
+    <Content Include="Content\assets\js\custom\pages\general\pos.js" />
+    <Content Include="Content\assets\js\custom\pages\pricing\general.js" />
+    <Content Include="Content\assets\js\custom\pages\social\feeds.js" />
+    <Content Include="Content\assets\js\custom\pages\user-profile\general.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\bidding.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-account.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-api-key.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-app.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-campaign.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-project\budget.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-project\complete.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-project\files.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-project\main.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-project\settings.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-project\targets.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-project\team.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\create-project\type.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\new-address.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\new-card.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\new-target.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\offer-a-deal\complete.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\offer-a-deal\details.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\offer-a-deal\finance.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\offer-a-deal\main.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\offer-a-deal\type.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\select-location.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\share-earn.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\top-up-wallet.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\two-factor-authentication.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\upgrade-plan.js" />
+    <Content Include="Content\assets\js\custom\utilities\modals\users-search.js" />
+    <Content Include="Content\assets\js\custom\utilities\search\horizontal.js" />
+    <Content Include="Content\assets\js\custom\widgets.js" />
+    <Content Include="Content\assets\js\scripts.bundle.js" />
+    <Content Include="Content\assets\js\widgets.bundle.js" />
+    <Content Include="Content\assets\media\auth\403-error-dark.png" />
+    <Content Include="Content\assets\media\auth\403-error.png" />
+    <Content Include="Content\assets\media\auth\404-error-dark.png" />
+    <Content Include="Content\assets\media\auth\404-error.png" />
+    <Content Include="Content\assets\media\auth\500-error-dark.png" />
+    <Content Include="Content\assets\media\auth\500-error.png" />
+    <Content Include="Content\assets\media\auth\505-error-dark.png" />
+    <Content Include="Content\assets\media\auth\505-error.png" />
+    <Content Include="Content\assets\media\auth\agency-dark.png" />
+    <Content Include="Content\assets\media\auth\agency.png" />
+    <Content Include="Content\assets\media\auth\bg1-dark.jpg" />
+    <Content Include="Content\assets\media\auth\bg1.jpg" />
+    <Content Include="Content\assets\media\auth\bg10-dark.jpeg" />
+    <Content Include="Content\assets\media\auth\bg10.jpeg" />
+    <Content Include="Content\assets\media\auth\bg11.png" />
+    <Content Include="Content\assets\media\auth\bg2-dark.jpg" />
+    <Content Include="Content\assets\media\auth\bg2.jpg" />
+    <Content Include="Content\assets\media\auth\bg3-dark.jpg" />
+    <Content Include="Content\assets\media\auth\bg3.jpg" />
+    <Content Include="Content\assets\media\auth\bg4-dark.jpg" />
+    <Content Include="Content\assets\media\auth\bg4.jpg" />
+    <Content Include="Content\assets\media\auth\bg5-dark.jpg" />
+    <Content Include="Content\assets\media\auth\bg5.jpg" />
+    <Content Include="Content\assets\media\auth\bg6-dark.jpg" />
+    <Content Include="Content\assets\media\auth\bg6.jpg" />
+    <Content Include="Content\assets\media\auth\bg7-dark.jpg" />
+    <Content Include="Content\assets\media\auth\bg7.jpg" />
+    <Content Include="Content\assets\media\auth\bg8-dark.jpg" />
+    <Content Include="Content\assets\media\auth\bg8.jpg" />
+    <Content Include="Content\assets\media\auth\bg9-dark.jpg" />
+    <Content Include="Content\assets\media\auth\bg9.jpg" />
+    <Content Include="Content\assets\media\auth\chart-graph-dark.png" />
+    <Content Include="Content\assets\media\auth\chart-graph.png" />
+    <Content Include="Content\assets\media\auth\membership-dark.png" />
+    <Content Include="Content\assets\media\auth\membership.png" />
+    <Content Include="Content\assets\media\auth\ok-dark.png" />
+    <Content Include="Content\assets\media\auth\ok.png" />
+    <Content Include="Content\assets\media\auth\please-verify-your-email-dark.png" />
+    <Content Include="Content\assets\media\auth\please-verify-your-email.png" />
+    <Content Include="Content\assets\media\auth\welcome-dark.png" />
+    <Content Include="Content\assets\media\auth\welcome.png" />
+    <Content Include="Content\assets\media\avatars\300-1.jpg" />
+    <Content Include="Content\assets\media\avatars\300-10.jpg" />
+    <Content Include="Content\assets\media\avatars\300-11.jpg" />
+    <Content Include="Content\assets\media\avatars\300-12.jpg" />
+    <Content Include="Content\assets\media\avatars\300-13.jpg" />
+    <Content Include="Content\assets\media\avatars\300-14.jpg" />
+    <Content Include="Content\assets\media\avatars\300-15.jpg" />
+    <Content Include="Content\assets\media\avatars\300-16.jpg" />
+    <Content Include="Content\assets\media\avatars\300-17.jpg" />
+    <Content Include="Content\assets\media\avatars\300-18.jpg" />
+    <Content Include="Content\assets\media\avatars\300-19.jpg" />
+    <Content Include="Content\assets\media\avatars\300-2.jpg" />
+    <Content Include="Content\assets\media\avatars\300-20.jpg" />
+    <Content Include="Content\assets\media\avatars\300-21.jpg" />
+    <Content Include="Content\assets\media\avatars\300-22.jpg" />
+    <Content Include="Content\assets\media\avatars\300-23.jpg" />
+    <Content Include="Content\assets\media\avatars\300-24.jpg" />
+    <Content Include="Content\assets\media\avatars\300-25.jpg" />
+    <Content Include="Content\assets\media\avatars\300-26.jpg" />
+    <Content Include="Content\assets\media\avatars\300-27.jpg" />
+    <Content Include="Content\assets\media\avatars\300-28.jpg" />
+    <Content Include="Content\assets\media\avatars\300-29.jpg" />
+    <Content Include="Content\assets\media\avatars\300-3.jpg" />
+    <Content Include="Content\assets\media\avatars\300-30.jpg" />
+    <Content Include="Content\assets\media\avatars\300-4.jpg" />
+    <Content Include="Content\assets\media\avatars\300-5.jpg" />
+    <Content Include="Content\assets\media\avatars\300-6.jpg" />
+    <Content Include="Content\assets\media\avatars\300-7.jpg" />
+    <Content Include="Content\assets\media\avatars\300-8.jpg" />
+    <Content Include="Content\assets\media\avatars\300-9.jpg" />
+    <Content Include="Content\assets\media\avatars\blank.png" />
+    <Content Include="Content\assets\media\books\1.png" />
+    <Content Include="Content\assets\media\books\10.png" />
+    <Content Include="Content\assets\media\books\11.png" />
+    <Content Include="Content\assets\media\books\12.png" />
+    <Content Include="Content\assets\media\books\13.png" />
+    <Content Include="Content\assets\media\books\2.png" />
+    <Content Include="Content\assets\media\books\3.png" />
+    <Content Include="Content\assets\media\books\4.png" />
+    <Content Include="Content\assets\media\books\5.png" />
+    <Content Include="Content\assets\media\books\6.png" />
+    <Content Include="Content\assets\media\books\7.png" />
+    <Content Include="Content\assets\media\books\8.png" />
+    <Content Include="Content\assets\media\books\9.png" />
+    <Content Include="Content\assets\media\books\img-72.jpg" />
+    <Content Include="Content\assets\media\email\icon-bullet.svg" />
+    <Content Include="Content\assets\media\email\icon-dribbble.svg" />
+    <Content Include="Content\assets\media\email\icon-facebook.svg" />
+    <Content Include="Content\assets\media\email\icon-linkedin.svg" />
+    <Content Include="Content\assets\media\email\icon-polygon.svg" />
+    <Content Include="Content\assets\media\email\icon-positive-vote-1.svg" />
+    <Content Include="Content\assets\media\email\icon-positive-vote-2.svg" />
+    <Content Include="Content\assets\media\email\icon-positive-vote-3.svg" />
+    <Content Include="Content\assets\media\email\icon-positive-vote-4.svg" />
+    <Content Include="Content\assets\media\email\icon-twitter.svg" />
+    <Content Include="Content\assets\media\email\img-1.png" />
+    <Content Include="Content\assets\media\email\img-2.png" />
+    <Content Include="Content\assets\media\email\img-3.jpg" />
+    <Content Include="Content\assets\media\email\img-4.jpg" />
+    <Content Include="Content\assets\media\email\img-5.jpg" />
+    <Content Include="Content\assets\media\email\img-6.jpg" />
+    <Content Include="Content\assets\media\email\logo-1.svg" />
+    <Content Include="Content\assets\media\email\logo-2.svg" />
+    <Content Include="Content\assets\media\features-logos\amchart.png" />
+    <Content Include="Content\assets\media\features-logos\angular-forms.png" />
+    <Content Include="Content\assets\media\features-logos\angular-i18n.png" />
+    <Content Include="Content\assets\media\features-logos\angular-material.png" />
+    <Content Include="Content\assets\media\features-logos\angular-router.png" />
+    <Content Include="Content\assets\media\features-logos\angular-rxjs.png" />
+    <Content Include="Content\assets\media\features-logos\apexcharts.png" />
+    <Content Include="Content\assets\media\features-logos\axios.png" />
+    <Content Include="Content\assets\media\features-logos\babel.png" />
+    <Content Include="Content\assets\media\features-logos\bootstrap.png" />
+    <Content Include="Content\assets\media\features-logos\composer.png" />
+    <Content Include="Content\assets\media\features-logos\css3.png" />
+    <Content Include="Content\assets\media\features-logos\datatables.png" />
+    <Content Include="Content\assets\media\features-logos\element-plus.png" />
+    <Content Include="Content\assets\media\features-logos\fullcalendar.png" />
+    <Content Include="Content\assets\media\features-logos\gulp.png" />
+    <Content Include="Content\assets\media\features-logos\html5.png" />
+    <Content Include="Content\assets\media\features-logos\laravel-blade.png" />
+    <Content Include="Content\assets\media\features-logos\laravel-guzlle.png" />
+    <Content Include="Content\assets\media\features-logos\laravel-mix.png" />
+    <Content Include="Content\assets\media\features-logos\metronic.png" />
+    <Content Include="Content\assets\media\features-logos\npm.png" />
+    <Content Include="Content\assets\media\features-logos\react-bootstrap.png" />
+    <Content Include="Content\assets\media\features-logos\react-create-react-app.png" />
+    <Content Include="Content\assets\media\features-logos\react-redux-saga.png" />
+    <Content Include="Content\assets\media\features-logos\react-redux.png" />
+    <Content Include="Content\assets\media\features-logos\react-router.png" />
+    <Content Include="Content\assets\media\features-logos\sass.png" />
+    <Content Include="Content\assets\media\features-logos\theme-api.png" />
+    <Content Include="Content\assets\media\features-logos\typescript.png" />
+    <Content Include="Content\assets\media\features-logos\vite.png" />
+    <Content Include="Content\assets\media\features-logos\vue-i18n.png" />
+    <Content Include="Content\assets\media\features-logos\vue-router.png" />
+    <Content Include="Content\assets\media\features-logos\vue-vuetify.png" />
+    <Content Include="Content\assets\media\features-logos\vuelidate.png" />
+    <Content Include="Content\assets\media\features-logos\webpack.png" />
+    <Content Include="Content\assets\media\features-logos\yarn.png" />
+    <Content Include="Content\assets\media\framework-logos\angular.png" />
+    <Content Include="Content\assets\media\framework-logos\asp.net-core.png" />
+    <Content Include="Content\assets\media\framework-logos\blazor.png" />
+    <Content Include="Content\assets\media\framework-logos\bootstrap.png" />
+    <Content Include="Content\assets\media\framework-logos\codeigniter.png" />
+    <Content Include="Content\assets\media\framework-logos\django.png" />
+    <Content Include="Content\assets\media\framework-logos\flask.png" />
+    <Content Include="Content\assets\media\framework-logos\go.png" />
+    <Content Include="Content\assets\media\framework-logos\html.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\angular.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\asp.net-core.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\blazor.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\bootstrap.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\codeigniter.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\django.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\flask.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\go.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\html.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\laravel.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\nodejs.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\play.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\rails.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\react.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\spring.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\symfony.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\vue.png" />
+    <Content Include="Content\assets\media\framework-logos\inactive\yii.png" />
+    <Content Include="Content\assets\media\framework-logos\laravel.png" />
+    <Content Include="Content\assets\media\framework-logos\nodejs.png" />
+    <Content Include="Content\assets\media\framework-logos\play.png" />
+    <Content Include="Content\assets\media\framework-logos\rails.png" />
+    <Content Include="Content\assets\media\framework-logos\react.png" />
+    <Content Include="Content\assets\media\framework-logos\spring.png" />
+    <Content Include="Content\assets\media\framework-logos\symfony.png" />
+    <Content Include="Content\assets\media\framework-logos\vue.png" />
+    <Content Include="Content\assets\media\framework-logos\yii.png" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs011.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs012.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs013.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs014.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs015.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs016.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs017.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs018.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs019.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs020.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs021.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs022.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs023.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs024.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs025.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs026.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs027.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs028.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs029.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs030.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs031.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs032.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs033.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs034.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs035.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs036.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs037.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs038.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs039.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs040.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs041.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs042.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs043.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs044.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs045.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs046.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs047.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs048.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs049.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs050.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs051.svg" />
+    <Content Include="Content\assets\media\icons\duotune\abstract\abs052.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr011.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr012.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr013.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr014.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr015.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr016.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr017.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr018.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr019.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr020.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr021.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr022.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr023.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr024.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr025.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr026.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr027.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr028.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr029.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr030.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr031.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr032.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr033.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr034.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr035.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr036.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr037.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr038.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr039.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr040.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr041.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr042.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr043.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr044.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr045.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr046.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr047.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr048.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr049.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr050.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr051.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr052.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr053.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr054.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr055.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr056.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr057.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr058.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr059.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr060.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr061.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr062.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr063.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr064.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr065.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr066.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr067.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr068.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr069.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr070.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr071.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr072.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr073.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr074.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr075.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr076.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr077.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr078.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr079.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr080.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr081.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr082.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr084.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr085.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr086.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr087.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr088.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr089.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr090.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr091.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr092.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr093.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr094.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr095.svg" />
+    <Content Include="Content\assets\media\icons\duotune\arrows\arr096.svg" />
+    <Content Include="Content\assets\media\icons\duotune\art\art001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\art\art002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\art\art003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\art\art004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\art\art005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\art\art006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\art\art007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\art\art008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\art\art009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\art\art010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\coding\cod001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\coding\cod002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\coding\cod003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\coding\cod004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\coding\cod005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\coding\cod006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\coding\cod007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\coding\cod008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\coding\cod009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\coding\cod010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com011.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com012.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com013.svg" />
+    <Content Include="Content\assets\media\icons\duotune\communication\com014.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\ecommerce\ecm011.svg" />
+    <Content Include="Content\assets\media\icons\duotune\electronics\elc001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\electronics\elc002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\electronics\elc003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\electronics\elc004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\electronics\elc005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\electronics\elc006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\electronics\elc007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\electronics\elc008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\electronics\elc009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\electronics\elc010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil011.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil012.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil013.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil014.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil015.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil016.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil017.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil018.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil019.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil020.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil021.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil022.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil023.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil024.svg" />
+    <Content Include="Content\assets\media\icons\duotune\files\fil025.svg" />
+    <Content Include="Content\assets\media\icons\duotune\finance\fin001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\finance\fin002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\finance\fin003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\finance\fin004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\finance\fin005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\finance\fin006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\finance\fin007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\finance\fin008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\finance\fin009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\finance\fin010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen011.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen012.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen013.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen014.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen015.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen016.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen017.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen018.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen019.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen020.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen021.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen022.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen023.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen024.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen025.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen026.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen027.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen028.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen029.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen030.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen031.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen032.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen033.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen034.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen035.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen036.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen037.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen038.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen039.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen040.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen041.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen042.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen043.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen044.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen045.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen046.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen047.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen048.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen049.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen050.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen051.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen052.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen053.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen054.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen055.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen056.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen057.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen058.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen059.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen060.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen061.svg" />
+    <Content Include="Content\assets\media\icons\duotune\general\gen062.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra011.svg" />
+    <Content Include="Content\assets\media\icons\duotune\graphs\gra012.svg" />
+    <Content Include="Content\assets\media\icons\duotune\layouts\lay001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\layouts\lay002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\layouts\lay003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\layouts\lay004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\layouts\lay005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\layouts\lay006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\layouts\lay007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\layouts\lay008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\layouts\lay009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\layouts\lay010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\maps\map001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\maps\map002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\maps\map003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\maps\map004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\maps\map005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\maps\map006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\maps\map007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\maps\map008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\maps\map009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\maps\map010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\medicine\med001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\medicine\med002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\medicine\med003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\medicine\med004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\medicine\med005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\medicine\med006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\medicine\med007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\medicine\med008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\medicine\med009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\medicine\med010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\social\soc001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\social\soc002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\social\soc003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\social\soc004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\social\soc005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\social\soc006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\social\soc007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\social\soc008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\social\soc009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\social\soc010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\technology\teh001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\technology\teh002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\technology\teh003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\technology\teh004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\technology\teh005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\technology\teh006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\technology\teh007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\technology\teh008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\technology\teh009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\technology\teh010.svg" />
+    <Content Include="Content\assets\media\icons\duotune\text\txt001.svg" />
+    <Content Include="Content\assets\media\icons\duotune\text\txt002.svg" />
+    <Content Include="Content\assets\media\icons\duotune\text\txt003.svg" />
+    <Content Include="Content\assets\media\icons\duotune\text\txt004.svg" />
+    <Content Include="Content\assets\media\icons\duotune\text\txt005.svg" />
+    <Content Include="Content\assets\media\icons\duotune\text\txt006.svg" />
+    <Content Include="Content\assets\media\icons\duotune\text\txt007.svg" />
+    <Content Include="Content\assets\media\icons\duotune\text\txt008.svg" />
+    <Content Include="Content\assets\media\icons\duotune\text\txt009.svg" />
+    <Content Include="Content\assets\media\icons\duotune\text\txt010.svg" />
+    <Content Include="Content\assets\media\login\1.jpg" />
+    <Content Include="Content\assets\media\login\2.jpg" />
+    <Content Include="Content\assets\media\login\etios.jpg" />
+    <Content Include="Content\assets\media\login\innova.jpg" />
+    <Content Include="Content\assets\media\login\sienta.jpg" />
+    <Content Include="Content\assets\media\login\Thumbs.db" />
+    <Content Include="Content\assets\media\login\vios.jpg" />
+    <Content Include="Content\assets\media\login\yaris.jpg" />
+    <Content Include="Content\assets\media\logos\custom-1.png" />
+    <Content Include="Content\assets\media\logos\custom-1.svg" />
+    <Content Include="Content\assets\media\logos\custom-2.svg" />
+    <Content Include="Content\assets\media\logos\custom-3.svg" />
+    <Content Include="Content\assets\media\logos\default-dark.svg" />
+    <Content Include="Content\assets\media\logos\default-large.svg" />
+    <Content Include="Content\assets\media\logos\default-small-dark.svg" />
+    <Content Include="Content\assets\media\logos\default-small.svg" />
+    <Content Include="Content\assets\media\logos\default.svg" />
+    <Content Include="Content\assets\media\logos\demo13-small.svg" />
+    <Content Include="Content\assets\media\logos\demo13.svg" />
+    <Content Include="Content\assets\media\logos\favicon.ico" />
+    <Content Include="Content\assets\media\logos\keenthemes-dark.svg" />
+    <Content Include="Content\assets\media\logos\keenthemes.svg" />
+    <Content Include="Content\assets\media\logos\landing-dark.svg" />
+    <Content Include="Content\assets\media\logos\landing.svg" />
+    <Content Include="Content\assets\media\logos\mail.svg" />
+    <Content Include="Content\assets\media\misc\auth-bg.png" />
+    <Content Include="Content\assets\media\misc\auth-screens.png" />
+    <Content Include="Content\assets\media\misc\bg-2.jpg" />
+    <Content Include="Content\assets\media\misc\city.png" />
+    <Content Include="Content\assets\media\misc\image.png" />
+    <Content Include="Content\assets\media\misc\layout\dark-header.png" />
+    <Content Include="Content\assets\media\misc\layout\dark-sidebar.png" />
+    <Content Include="Content\assets\media\misc\layout\dark.png" />
+    <Content Include="Content\assets\media\misc\layout\demo1-dark.png" />
+    <Content Include="Content\assets\media\misc\layout\demo1-light.png" />
+    <Content Include="Content\assets\media\misc\layout\demo23-dark.png" />
+    <Content Include="Content\assets\media\misc\layout\demo23-light.png" />
+    <Content Include="Content\assets\media\misc\layout\header-bg.jpg" />
+    <Content Include="Content\assets\media\misc\layout\light-header.png" />
+    <Content Include="Content\assets\media\misc\layout\light-sidebar.png" />
+    <Content Include="Content\assets\media\misc\layout\light.png" />
+    <Content Include="Content\assets\media\misc\layout\toolbar-accounting.png" />
+    <Content Include="Content\assets\media\misc\layout\toolbar-classic.png" />
+    <Content Include="Content\assets\media\misc\layout\toolbar-extended.png" />
+    <Content Include="Content\assets\media\misc\layout\toolbar-reports.png" />
+    <Content Include="Content\assets\media\misc\layout\toolbar-saas.png" />
+    <Content Include="Content\assets\media\misc\menu-header-bg.jpg" />
+    <Content Include="Content\assets\media\misc\menu-header-dark.png" />
+    <Content Include="Content\assets\media\misc\outdoor.png" />
+    <Content Include="Content\assets\media\misc\pattern-1.jpg" />
+    <Content Include="Content\assets\media\misc\pattern-2.png" />
+    <Content Include="Content\assets\media\misc\pattern-4.jpg" />
+    <Content Include="Content\assets\media\misc\portfolio.png" />
+    <Content Include="Content\assets\media\misc\preview-1.jpg" />
+    <Content Include="Content\assets\media\misc\preview-2.jpg" />
+    <Content Include="Content\assets\media\misc\preview-3.jpg" />
+    <Content Include="Content\assets\media\misc\profile-head-bg.jpg" />
+    <Content Include="Content\assets\media\misc\qr-code.png" />
+    <Content Include="Content\assets\media\misc\qr.png" />
+    <Content Include="Content\assets\media\misc\search-bg.png" />
+    <Content Include="Content\assets\media\misc\spinner.gif" />
+    <Content Include="Content\assets\media\misc\track-order.png" />
+    <Content Include="Content\assets\media\moulding-image\1\COPE.jpg" />
+    <Content Include="Content\assets\media\moulding-image\1\DRAG.jpg" />
+    <Content Include="Content\assets\media\moulding-image\2\COPE.jpg" />
+    <Content Include="Content\assets\media\moulding-image\2\DRAG.jpg" />
+    <Content Include="Content\assets\media\moulding-image\3\COPE.jpg" />
+    <Content Include="Content\assets\media\moulding-image\3\DRAG.jpg" />
+    <Content Include="Content\assets\media\moulding-image\4\COPE.jpg" />
+    <Content Include="Content\assets\media\moulding-image\4\DRAG.jpg" />
+    <Content Include="Content\assets\media\moulding-image\7\COPE.jpg" />
+    <Content Include="Content\assets\media\moulding-image\7\DRAG.jpg" />
+    <Content Include="Content\assets\media\patterns\pattern-1.jpg" />
+    <Content Include="Content\assets\media\patterns\vector-1.png" />
+    <Content Include="Content\assets\media\plugins\jstree\32px.png" />
+    <Content Include="Content\assets\media\products\1.png" />
+    <Content Include="Content\assets\media\products\10.png" />
+    <Content Include="Content\assets\media\products\11.png" />
+    <Content Include="Content\assets\media\products\12.png" />
+    <Content Include="Content\assets\media\products\13.png" />
+    <Content Include="Content\assets\media\products\14.png" />
+    <Content Include="Content\assets\media\products\15.png" />
+    <Content Include="Content\assets\media\products\16.png" />
+    <Content Include="Content\assets\media\products\17.png" />
+    <Content Include="Content\assets\media\products\18.png" />
+    <Content Include="Content\assets\media\products\19.png" />
+    <Content Include="Content\assets\media\products\2.png" />
+    <Content Include="Content\assets\media\products\20.png" />
+    <Content Include="Content\assets\media\products\21.png" />
+    <Content Include="Content\assets\media\products\22.png" />
+    <Content Include="Content\assets\media\products\3.png" />
+    <Content Include="Content\assets\media\products\4.png" />
+    <Content Include="Content\assets\media\products\5.png" />
+    <Content Include="Content\assets\media\products\6.png" />
+    <Content Include="Content\assets\media\products\7.png" />
+    <Content Include="Content\assets\media\products\8.png" />
+    <Content Include="Content\assets\media\products\9.png" />
+    <Content Include="Content\assets\media\product\1.svg" />
+    <Content Include="Content\assets\media\product\2.svg" />
+    <Content Include="Content\assets\media\product\3.svg" />
+    <Content Include="Content\assets\media\product\5.svg" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\COPE_CAMSHAFT.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\COPE_TMMIN1.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\COPE_TMMIN2.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\COPE_TMMIN3.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\COPE_TMMIN4.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\COPE_TMMIN5.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\COPE_TMMIN6.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\COPE_TMMIN7.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\COPE_TMMIN8.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\CRANK\COPE_CRANK.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\CRANK\DRAG_CRANK.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\DRAG_CAMSHAFT.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\DRAG_TRK11.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\DRAG_TRK12.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\DRAG_TRK13.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\DRAG_TRK14.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\DRAG_TRK21.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\DRAG_TRK22.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\DRAG_TRK23.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\DRAG_TRK24.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\COPE_EX_21.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\COPE_EX_22.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\COPE_EX_23.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\COPE_EX_24.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\COPE_EX_25.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\COPE_EX_26.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\COPE_EX_27.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\COPE_EX_28.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\DRAG_EX_21.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\DRAG_EX_22.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\DRAG_EX_23.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\DRAG_EX_24.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\DRAG_EX_25.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\DRAG_EX_26.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\DRAG_EX_27.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_EX\DRAG_EX_28.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\COPE_IN_11.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\COPE_IN_12.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\COPE_IN_13.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\COPE_IN_14.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\COPE_IN_15.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\COPE_IN_16.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\COPE_IN_17.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\COPE_IN_18.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\DRAG_IN_11.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\DRAG_IN_12.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\DRAG_IN_13.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\DRAG_IN_14.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\DRAG_IN_15.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\DRAG_IN_16.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\DRAG_IN_17.png" />
+    <Content Include="Content\assets\media\qc-gate-cams-crank-image\TYPE_IN\DRAG_IN_18.png" />
+    <Content Include="Content\assets\media\qc-gate-image\5\COP.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\5\DRAG.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\5\FRONT.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\5\HEADMENT.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\5\OILPAN.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\5\REAR.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\6\COP.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\6\DRAG.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\6\FRONT.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\6\HEADMENT.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\6\OILPAN.jpg" />
+    <Content Include="Content\assets\media\qc-gate-image\6\REAR.jpg" />
+    <Content Include="Content\assets\media\smiles\happy.png" />
+    <Content Include="Content\assets\media\smiles\sad.png" />
+    <Content Include="Content\assets\media\smiles\shocked.png" />
+    <Content Include="Content\assets\media\svg\avatars\001-boy.svg" />
+    <Content Include="Content\assets\media\svg\avatars\002-girl.svg" />
+    <Content Include="Content\assets\media\svg\avatars\003-girl-1.svg" />
+    <Content Include="Content\assets\media\svg\avatars\004-boy-1.svg" />
+    <Content Include="Content\assets\media\svg\avatars\005-girl-2.svg" />
+    <Content Include="Content\assets\media\svg\avatars\006-girl-3.svg" />
+    <Content Include="Content\assets\media\svg\avatars\007-boy-2.svg" />
+    <Content Include="Content\assets\media\svg\avatars\008-boy-3.svg" />
+    <Content Include="Content\assets\media\svg\avatars\009-boy-4.svg" />
+    <Content Include="Content\assets\media\svg\avatars\010-girl-4.svg" />
+    <Content Include="Content\assets\media\svg\avatars\011-boy-5.svg" />
+    <Content Include="Content\assets\media\svg\avatars\012-girl-5.svg" />
+    <Content Include="Content\assets\media\svg\avatars\013-girl-6.svg" />
+    <Content Include="Content\assets\media\svg\avatars\014-girl-7.svg" />
+    <Content Include="Content\assets\media\svg\avatars\015-boy-6.svg" />
+    <Content Include="Content\assets\media\svg\avatars\016-boy-7.svg" />
+    <Content Include="Content\assets\media\svg\avatars\017-girl-8.svg" />
+    <Content Include="Content\assets\media\svg\avatars\018-girl-9.svg" />
+    <Content Include="Content\assets\media\svg\avatars\019-girl-10.svg" />
+    <Content Include="Content\assets\media\svg\avatars\020-girl-11.svg" />
+    <Content Include="Content\assets\media\svg\avatars\021-boy-8.svg" />
+    <Content Include="Content\assets\media\svg\avatars\022-girl-12.svg" />
+    <Content Include="Content\assets\media\svg\avatars\023-girl-13.svg" />
+    <Content Include="Content\assets\media\svg\avatars\024-boy-9.svg" />
+    <Content Include="Content\assets\media\svg\avatars\025-girl-14.svg" />
+    <Content Include="Content\assets\media\svg\avatars\026-boy-10.svg" />
+    <Content Include="Content\assets\media\svg\avatars\027-girl-15.svg" />
+    <Content Include="Content\assets\media\svg\avatars\028-girl-16.svg" />
+    <Content Include="Content\assets\media\svg\avatars\029-boy-11.svg" />
+    <Content Include="Content\assets\media\svg\avatars\030-girl-17.svg" />
+    <Content Include="Content\assets\media\svg\avatars\031-boy-12.svg" />
+    <Content Include="Content\assets\media\svg\avatars\032-boy-13.svg" />
+    <Content Include="Content\assets\media\svg\avatars\033-girl-18.svg" />
+    <Content Include="Content\assets\media\svg\avatars\034-boy-14.svg" />
+    <Content Include="Content\assets\media\svg\avatars\035-boy-15.svg" />
+    <Content Include="Content\assets\media\svg\avatars\036-girl-19.svg" />
+    <Content Include="Content\assets\media\svg\avatars\037-girl-20.svg" />
+    <Content Include="Content\assets\media\svg\avatars\038-boy-16.svg" />
+    <Content Include="Content\assets\media\svg\avatars\039-girl-21.svg" />
+    <Content Include="Content\assets\media\svg\avatars\040-boy-17.svg" />
+    <Content Include="Content\assets\media\svg\avatars\041-girl-22.svg" />
+    <Content Include="Content\assets\media\svg\avatars\042-girl-23.svg" />
+    <Content Include="Content\assets\media\svg\avatars\043-boy-18.svg" />
+    <Content Include="Content\assets\media\svg\avatars\044-boy-19.svg" />
+    <Content Include="Content\assets\media\svg\avatars\045-boy-20.svg" />
+    <Content Include="Content\assets\media\svg\avatars\046-girl-24.svg" />
+    <Content Include="Content\assets\media\svg\avatars\047-girl-25.svg" />
+    <Content Include="Content\assets\media\svg\avatars\048-boy-21.svg" />
+    <Content Include="Content\assets\media\svg\avatars\049-boy-22.svg" />
+    <Content Include="Content\assets\media\svg\avatars\050-girl-26.svg" />
+    <Content Include="Content\assets\media\svg\avatars\blank-dark.svg" />
+    <Content Include="Content\assets\media\svg\avatars\blank.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\adidas-9.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\adidas.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\airbnb-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\alcatel-mobile-3.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\amazon-dark.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\amazon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\android-wordmark.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\angular-3.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\angular-icon-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\angular-icon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\angular.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\aon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\apigee.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\apple-black-dark.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\apple-black.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\apple-itunes.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\aries-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\asml-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\aspnetzero.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\atica.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\audi-11.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\aven.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\avis-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\avocode-inc.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\balloon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\banco-santander-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\beats-electronics.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\bebo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\behance.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\biman-airlines-classic-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\bookingcom-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\bootstrap-4.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\bootstrap-5.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\bootstrap5.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\bose.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\bp-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\bp-3.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\brantano.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\bride.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\british-council-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\brondi.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\campingaz-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\canon-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\carrols.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\casio.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\caterpillar-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\citrix-6002.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\code-lab.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\codeigniter.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\comcast.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\conair.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\costa-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\costco-wholesale-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\css-5.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\decathlon-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\deloitte-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\depend.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\diesel-5.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\disqus.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\django-community.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\dribbble-icon-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\dribbble-pink.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\duolingo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\dynamac.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\ebay.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\ember.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\envato.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\espacio-urbano.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\etoys-com.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\facebook-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\facebook-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\facebook-3.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\facebook-4.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\facebook-5.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\farmers-insurance-3.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\figma-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\foursquare.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\fox-hub.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\friday-s.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\fujifilm.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\funding-circle.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\garmin-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\general-electric.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\github-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\github-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\github-icon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\github.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\gitlab.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\google-icon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\google-photos.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\google-play-store.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\google-podcasts.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\google-tag-manager.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\gradiente-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\gulp-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\gulp.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\hbo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\heavylift.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\hilton-buenos-aires.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\himel.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\honda-7.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\hp-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\hp-3.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\hp-hewlett-packard.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\html5.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\huggies-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\ikon-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\infography.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\instagram-2-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\instagram-2016.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\intermarche-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\invision.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\javascript-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\javascript-4.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\javascript.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\jelcz.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\jfits.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\jquery-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\jquery.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\kanba.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\keysight-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\kickstarter.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\komatsu-3.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\koni-special.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\kpmg.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\laravel-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\last-fm-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\layer.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\leaf.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\leclerc-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\legrand.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\leica-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\levis.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\lg-electronics.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\lidl-supermarkets.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\linkedin-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\linkedin-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\linkedin.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\lloyds-of-london-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\mastercard-icon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\maxis-communications-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\metro-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\metro-4.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\metro-by-t-mobile.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\microsoft-5.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\miller-6.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\minol.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\mnd.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\msn.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\mysql-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\nasa.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\nestle-4.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\new-beko-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\nike-4.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\node-sass.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\noht.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\npm.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\ocaml.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\oger-tours.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\origin-4.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\paypie.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\pinterest-p.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\pinterest.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\plurk.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\puma-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\python-5.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\quilosa.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\react-native-firebase-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\react-router.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\react.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\redbull.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\reddit.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\rgb.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\sass-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\seat-pg.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\sentry-3.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\shell.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\siplast.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\slack-icon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\slack-new-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\slack.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\smartphone.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\snowbird.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\soriana-logo-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\sparkpost.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\spotify-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\spotify-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\spotify.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\spring-3.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\sprint-nextel.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\stabilo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\strava-wordmark-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\stream-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\super-cuts.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\suzuki-motor-corporation-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\suzuki.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\swarm.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\syngenta.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\telegram-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\telegram.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\tempstar.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\the-blockchain-group-tbg.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\thomas-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\thuisbezorgd.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\thule-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\ticketmaster-5.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\tofas-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\tower.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\treva.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\trimble-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\trivago.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\truman.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\tvit.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\twitch.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\twitter-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\twitter.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\typescript-1.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\unilever-2.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\university-of-cambridge.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\urw-software.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\verizon-2015.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\vimeo-icon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\vimeo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\visa-icon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\visa.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\vodafone.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\volicity-9.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\vue-9.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\vype.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\webasto-logo.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\webpack-icon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\webpack.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\west-marine.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\worth.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\xing-icon.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\youtube-3.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\youtube-play.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\youtube.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\ziprecruiter-blacktext.svg" />
+    <Content Include="Content\assets\media\svg\brand-logos\zurich-logo.svg" />
+    <Content Include="Content\assets\media\svg\card-logos\american-express-dark.svg" />
+    <Content Include="Content\assets\media\svg\card-logos\american-express.svg" />
+    <Content Include="Content\assets\media\svg\card-logos\bitcoin 1.svg" />
+    <Content Include="Content\assets\media\svg\card-logos\dark\american-express.svg" />
+    <Content Include="Content\assets\media\svg\card-logos\dark\mastercard.svg" />
+    <Content Include="Content\assets\media\svg\card-logos\dark\visa.svg" />
+    <Content Include="Content\assets\media\svg\card-logos\mastercard-dark.svg" />
+    <Content Include="Content\assets\media\svg\card-logos\mastercard.svg" />
+    <Content Include="Content\assets\media\svg\card-logos\visa-dark.svg" />
+    <Content Include="Content\assets\media\svg\card-logos\visa.svg" />
+    <Content Include="Content\assets\media\svg\coins\binance.svg" />
+    <Content Include="Content\assets\media\svg\coins\bitcoin.svg" />
+    <Content Include="Content\assets\media\svg\coins\chainlink.svg" />
+    <Content Include="Content\assets\media\svg\coins\coin.svg" />
+    <Content Include="Content\assets\media\svg\coins\ethereum.svg" />
+    <Content Include="Content\assets\media\svg\coins\filecoin.svg" />
+    <Content Include="Content\assets\media\svg\files\ai-dark.svg" />
+    <Content Include="Content\assets\media\svg\files\ai.svg" />
+    <Content Include="Content\assets\media\svg\files\blank-image-dark.svg" />
+    <Content Include="Content\assets\media\svg\files\blank-image.svg" />
+    <Content Include="Content\assets\media\svg\files\css-dark.svg" />
+    <Content Include="Content\assets\media\svg\files\css.svg" />
+    <Content Include="Content\assets\media\svg\files\dark\ai.svg" />
+    <Content Include="Content\assets\media\svg\files\dark\css.svg" />
+    <Content Include="Content\assets\media\svg\files\dark\doc.svg" />
+    <Content Include="Content\assets\media\svg\files\dark\folder-document.svg" />
+    <Content Include="Content\assets\media\svg\files\dark\pdf.svg" />
+    <Content Include="Content\assets\media\svg\files\dark\sql.svg" />
+    <Content Include="Content\assets\media\svg\files\dark\tif.svg" />
+    <Content Include="Content\assets\media\svg\files\dark\upload.svg" />
+    <Content Include="Content\assets\media\svg\files\dark\xml.svg" />
+    <Content Include="Content\assets\media\svg\files\doc-dark.svg" />
+    <Content Include="Content\assets\media\svg\files\doc.svg" />
+    <Content Include="Content\assets\media\svg\files\folder-document-dark.svg" />
+    <Content Include="Content\assets\media\svg\files\folder-document.svg" />
+    <Content Include="Content\assets\media\svg\files\pdf-dark.svg" />
+    <Content Include="Content\assets\media\svg\files\pdf.svg" />
+    <Content Include="Content\assets\media\svg\files\sql-dark.svg" />
+    <Content Include="Content\assets\media\svg\files\sql.svg" />
+    <Content Include="Content\assets\media\svg\files\tif-dark.svg" />
+    <Content Include="Content\assets\media\svg\files\tif.svg" />
+    <Content Include="Content\assets\media\svg\files\upload-dark.svg" />
+    <Content Include="Content\assets\media\svg\files\upload.svg" />
+    <Content Include="Content\assets\media\svg\files\xml-dark.svg" />
+    <Content Include="Content\assets\media\svg\files\xml.svg" />
+    <Content Include="Content\assets\media\svg\food-icons\cheeseburger.svg" />
+    <Content Include="Content\assets\media\svg\food-icons\cheesecake.svg" />
+    <Content Include="Content\assets\media\svg\food-icons\coffee.svg" />
+    <Content Include="Content\assets\media\svg\food-icons\salad.svg" />
+    <Content Include="Content\assets\media\svg\food-icons\spaghetti.svg" />
+    <Content Include="Content\assets\media\svg\general\rhone.svg" />
+    <Content Include="Content\assets\media\svg\humans\custom-1.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\1-dark.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\1.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\2-dark.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\2.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\3-dark.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\3.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\4.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\5.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\6.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\7.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\easy\8.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\landing.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\sigma\illustration-realestate.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\sigma\question.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\sigma\volume-1-dark.svg" />
+    <Content Include="Content\assets\media\svg\illustrations\sigma\volume-1.svg" />
+    <Content Include="Content\assets\media\svg\misc\eolic-energy.svg" />
+    <Content Include="Content\assets\media\svg\misc\hot-air-balloon.svg" />
+    <Content Include="Content\assets\media\svg\misc\infography.svg" />
+    <Content Include="Content\assets\media\svg\misc\octagon.svg" />
+    <Content Include="Content\assets\media\svg\misc\puzzle.svg" />
+    <Content Include="Content\assets\media\svg\misc\recycling.svg" />
+    <Content Include="Content\assets\media\svg\misc\retweet.svg" />
+    <Content Include="Content\assets\media\svg\misc\smartphone-2-dark.svg" />
+    <Content Include="Content\assets\media\svg\misc\smartphone-2.svg" />
+    <Content Include="Content\assets\media\svg\misc\smartphone-dark.svg" />
+    <Content Include="Content\assets\media\svg\misc\smartphone.svg" />
+    <Content Include="Content\assets\media\svg\misc\taieri.svg" />
+    <Content Include="Content\assets\media\svg\misc\video-play.svg" />
+    <Content Include="Content\assets\media\svg\payment-methods\americanexpress.svg" />
+    <Content Include="Content\assets\media\svg\payment-methods\mastercard.svg" />
+    <Content Include="Content\assets\media\svg\payment-methods\paypal.svg" />
+    <Content Include="Content\assets\media\svg\payment-methods\visa.svg" />
+    <Content Include="Content\assets\media\svg\products-categories\gaming.svg" />
+    <Content Include="Content\assets\media\svg\products-categories\gloves.svg" />
+    <Content Include="Content\assets\media\svg\products-categories\shoes.svg" />
+    <Content Include="Content\assets\media\svg\products-categories\t-shirt.svg" />
+    <Content Include="Content\assets\media\svg\products-categories\watch.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-1-dark.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-1.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-10.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-2-dark.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-2.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-3-dark.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-3.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-4-dark.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-4.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-5-dark.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-5.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-6.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-7.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-8.svg" />
+    <Content Include="Content\assets\media\svg\shapes\abstract-9.svg" />
+    <Content Include="Content\assets\media\svg\shapes\bitcoin.svg" />
+    <Content Include="Content\assets\media\svg\shapes\dogecoin.svg" />
+    <Content Include="Content\assets\media\svg\shapes\ethereum.svg" />
+    <Content Include="Content\assets\media\svg\shapes\man-head.svg" />
+    <Content Include="Content\assets\media\svg\shapes\top-green.png" />
+    <Content Include="Content\assets\media\svg\shapes\wave-bg-dark.svg" />
+    <Content Include="Content\assets\media\svg\shapes\wave-bg-purple.svg" />
+    <Content Include="Content\assets\media\svg\shapes\wave-bg-red.svg" />
+    <Content Include="Content\assets\media\svg\shapes\widget-bg-1.png" />
+    <Content Include="Content\assets\media\svg\shapes\widget-bg-2.png" />
+    <Content Include="Content\assets\media\svg\social-logos\dribbble.svg" />
+    <Content Include="Content\assets\media\svg\social-logos\facebook.svg" />
+    <Content Include="Content\assets\media\svg\social-logos\github.svg" />
+    <Content Include="Content\assets\media\svg\social-logos\google.svg" />
+    <Content Include="Content\assets\media\svg\social-logos\instagram.svg" />
+    <Content Include="Content\assets\media\svg\social-logos\linkedin.svg" />
+    <Content Include="Content\assets\media\svg\social-logos\twitter.svg" />
+    <Content Include="Content\assets\media\svg\social-logos\youtube.svg" />
+    <Content Include="Content\assets\plugins\custom\amcharts\Animated.js" />
+    <Content Include="Content\assets\plugins\custom\amcharts\index.js" />
+    <Content Include="Content\assets\plugins\custom\amcharts\xy.js" />
+    <Content Include="Content\assets\plugins\custom\autonumeric\AutoNumeric.js" />
+    <Content Include="Content\assets\plugins\custom\chart\chart.min.js" />
+    <Content Include="Content\assets\plugins\custom\chart\chartjs-chart-financial.js" />
+    <Content Include="Content\assets\plugins\custom\ckeditor\ckeditor-balloon-block.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\ckeditor\ckeditor-balloon.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\ckeditor\ckeditor-classic.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\ckeditor\ckeditor-document.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\ckeditor\ckeditor-inline.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\cookiealert\cookiealert.bundle.css" />
+    <Content Include="Content\assets\plugins\custom\cookiealert\cookiealert.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\cropper\cropper.bundle.css" />
+    <Content Include="Content\assets\plugins\custom\cropper\cropper.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\datatables\datatables.bundle.css" />
+    <Content Include="Content\assets\plugins\custom\datatables\datatables.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\draggable\draggable.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\flotcharts\flotcharts.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\formrepeater\formrepeater.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\fslightbox\fslightbox.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\fullcalendar\fullcalendar.bundle.css" />
+    <Content Include="Content\assets\plugins\custom\fullcalendar\fullcalendar.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\html2canvas\html2canvas.min.js" />
+    <Content Include="Content\assets\plugins\custom\jkanban\jkanban.bundle.css" />
+    <Content Include="Content\assets\plugins\custom\jkanban\jkanban.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\jquery-typehead\jquery.typeahead.css" />
+    <Content Include="Content\assets\plugins\custom\jquery-typehead\jquery.typeahead.js" />
+    <Content Include="Content\assets\plugins\custom\jquery-typehead\jquery.typeahead.min.css" />
+    <Content Include="Content\assets\plugins\custom\jquery-typehead\jquery.typeahead.min.js" />
+    <Content Include="Content\assets\plugins\custom\jquery-validation\jquery.validate.js" />
+    <Content Include="Content\assets\plugins\custom\jquery-validation\jquery.validate.min.js" />
+    <Content Include="Content\assets\plugins\custom\jstree\images\jstree\32px.png" />
+    <Content Include="Content\assets\plugins\custom\jstree\images\jstree\throbber.gif" />
+    <Content Include="Content\assets\plugins\custom\jstree\jstree.bundle.css" />
+    <Content Include="Content\assets\plugins\custom\jstree\jstree.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\leaflet\leaflet.bundle.css" />
+    <Content Include="Content\assets\plugins\custom\leaflet\leaflet.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\moment\moment.min.js" />
+    <Content Include="Content\assets\plugins\custom\prismjs\prismjs.bundle.css" />
+    <Content Include="Content\assets\plugins\custom\prismjs\prismjs.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\content\dark\content.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\content\dark\content.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\content\default\content.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\content\default\content.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\content\document\content.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\content\document\content.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\content\writer\content.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\content\writer\content.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.inline.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.inline.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.mobile.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\content.mobile.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.mobile.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.mobile.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.shadowdom.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide-dark\skin.shadowdom.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\content.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\content.inline.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\content.inline.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\content.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\content.mobile.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\content.mobile.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\skin.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\skin.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\skin.mobile.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\skin.mobile.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\skin.shadowdom.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\skins\ui\oxide\skin.shadowdom.min.css" />
+    <Content Include="Content\assets\plugins\custom\tinymce\tinymce.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\typedjs\typedjs.bundle.js" />
+    <Content Include="Content\assets\plugins\custom\vis-timeline\vis-timeline.bundle.css" />
+    <Content Include="Content\assets\plugins\custom\vis-timeline\vis-timeline.bundle.js" />
+    <Content Include="Content\assets\plugins\global\fonts\%40fortawesome\fa-brands-400.ttf" />
+    <Content Include="Content\assets\plugins\global\fonts\%40fortawesome\fa-brands-400.woff2" />
+    <Content Include="Content\assets\plugins\global\fonts\%40fortawesome\fa-regular-400.ttf" />
+    <Content Include="Content\assets\plugins\global\fonts\%40fortawesome\fa-regular-400.woff2" />
+    <Content Include="Content\assets\plugins\global\fonts\%40fortawesome\fa-solid-900.ttf" />
+    <Content Include="Content\assets\plugins\global\fonts\%40fortawesome\fa-solid-900.woff2" />
+    <Content Include="Content\assets\plugins\global\fonts\%40fortawesome\fa-v4compatibility.ttf" />
+    <Content Include="Content\assets\plugins\global\fonts\%40fortawesome\fa-v4compatibility.woff2" />
+    <Content Include="Content\assets\plugins\global\fonts\bootstrap-icons\bootstrap-icons.woff" />
+    <Content Include="Content\assets\plugins\global\fonts\bootstrap-icons\bootstrap-icons.woff2" />
+    <Content Include="Content\assets\plugins\global\fonts\fonticon\fonticon.css" />
+    <Content Include="Content\assets\plugins\global\fonts\fonticon\fonticon.eot" />
+    <Content Include="Content\assets\plugins\global\fonts\fonticon\fonticon.svg" />
+    <Content Include="Content\assets\plugins\global\fonts\fonticon\fonticon.ttf" />
+    <Content Include="Content\assets\plugins\global\fonts\fonticon\fonticon.woff" />
+    <Content Include="Content\assets\plugins\global\fonts\fonticon\fonticon.woff2" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-brands-400.eot" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-brands-400.svg" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-brands-400.ttf" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-brands-400.woff" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-brands-400.woff2" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-regular-400.eot" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-regular-400.svg" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-regular-400.ttf" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-regular-400.woff" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-regular-400.woff2" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-solid-900.eot" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-solid-900.svg" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-solid-900.ttf" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-solid-900.woff" />
+    <Content Include="Content\assets\plugins\global\fonts\line-awesome\la-solid-900.woff2" />
+    <Content Include="Content\assets\plugins\global\plugins.bundle.css" />
+    <Content Include="Content\assets\plugins\global\plugins.bundle.js" />
+    <Content Include="Content\assets\plugins\global\sourcemaps\tiny-slider.css.map" />
+    <Content Include="Content\favicon.ico" />
+    <Content Include="Content\splash-screen.css" />
+    <Content Include="Global.asax" />
+    <Content Include="SQL\Home\DownloadFile_GetDataOptions.sql" />
+    <Content Include="SQL\Hangfire\Hangfire_Report_GetMSystem.sql" />
+    <Content Include="SQL\Hangfire\Hangfire_Report_Save_Log.sql" />
+    <Content Include="SQL\Home\Home_GetTable.sql" />
+    <Content Include="SQL\Login\checkCompany.sql" />
+    <Content Include="SQL\Login\getToken.sql" />
+    <Content Include="SQL\Login\insertUserData.sql" />
+    <Content Include="SQL\Menu\Menu_GetListMenuParent.sql" />
+    <Content Include="SQL\Menu\Menu_GetListMenu.sql" />
+    <Content Include="Views\Pages\Home\Home.cshtml" />
+    <Content Include="Views\Pages\Login\Login.cshtml" />
+    <Content Include="Views\Pages\NotAuthorize\NotAuthorize.cshtml" />
+    <Content Include="Views\Shared\Breadcrumb.cshtml" />
+    <Content Include="Views\Shared\NavLeftMenu.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\Database-DEV.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\Locale-US.config" />
+    <Content Include="Configurations\SingleSignOn-DEV.config" />
+    <Content Include="Configurations\System.config" />
+    <Content Include="Content\assets\fonts\UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa0ZL7SUc.woff2" />
+    <Content Include="Content\assets\fonts\UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1pL7SUc.woff2" />
+    <Content Include="Content\assets\fonts\UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2" />
+    <Content Include="Content\assets\fonts\UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa25L7SUc.woff2" />
+    <Content Include="Content\assets\fonts\UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7SUc.woff2" />
+    <Content Include="Content\assets\fonts\UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7SUc.woff2" />
+    <Content Include="Content\assets\fonts\UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2ZL7SUc.woff2" />
+    <Content Include="Content\assets\plugins\custom\jquery-typehead\jquery.typeahead.scss" />
+    <Content Include="Views\Pages\MasterSystem\MasterSystem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\assets\template\" />
+    <Folder Include="Content\Document\PersonalInformation\Education\" />
+    <Folder Include="Content\Document\PersonalInformation\Language\" />
+    <Folder Include="Content\Document\Training\Achivement\" />
+    <Folder Include="Content\Document\Training\Eligilibility\" />
+    <Folder Include="Content\Document\Training\History\" />
+    <Folder Include="Content\Excel\" />
+    <Folder Include="SQL\DownloadFile\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\SecurityCodeScan.VS2017.3.5.3\analyzers\dotnet\SecurityCodeScan.VS2017.dll" />
+    <Analyzer Include="..\packages\SecurityCodeScan.VS2017.3.5.3\analyzers\dotnet\YamlDotNet.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup Condition="$(VisualStudioVersion) == '16.0'">
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTPath)\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql.UnitTesting, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTUnitTestPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTUnitTestPath)\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>22081</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2023/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.5.1.1\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.1.1\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.1.1\build\net462\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.5.1.1\build\net462\Microsoft.Data.SqlClient.SNI.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <SsdtUnitTestVersion>3.1</SsdtUnitTestVersion>
+  </PropertyGroup>
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="$(VisualStudioVersion) != '15.0' And '$(SQLDBExtensionsRefPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="$(VisualStudioVersion) != '15.0' And '$(SQLDBExtensionsRefPath)' == ''" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+</Project>

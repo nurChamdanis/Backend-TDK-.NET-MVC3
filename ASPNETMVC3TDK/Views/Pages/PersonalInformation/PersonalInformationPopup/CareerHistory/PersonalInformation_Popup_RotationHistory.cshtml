@@ -1,0 +1,68 @@
+<div class="modal fade" id="modal-rotation-history" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-between">
+                    <label class="border border-primary border-2 p-2 fs-6 fw-bold text-primary" style="border-radius: 10px">
+                        Rotation History
+                    </label>
+                    <button type="button" onclick="closeModalRotationHistory()" class="btn-close"></button>
+                </div>
+
+                <form id="assign_form" class="form" action="#" autocomplete="off">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="MODE" name="MODE" />
+                    <div class="row">
+                        <div class="col-md-12 row mt-5">
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="period" class="mb-1 fw-bold">Period</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="period" placeholder="Enter period" disabled>
+                                </div>
+                                <div class="form-group my-2">
+                                    <label for="class_position" class="mb-1 fw-bold">Class / Position</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="class_position" placeholder="Enter class/position" disabled>
+                                </div>
+                                <div class="form-group my-2">
+                                    <label for="division" class="mb-1 fw-bold">Division</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="division" placeholder="Enter division" disabled>
+                                </div>
+                                <div class="form-group my-2">
+                                    <label for="department" class="mb-1 fw-bold">Department</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="department" placeholder="Enter department" disabled>
+                                </div>
+                                <div class="form-group my-2">
+                                    <label for="section" class="mb-1 fw-bold">Section</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="section" placeholder="Enter section" disabled>
+                                </div>
+                                <div class="form-group my-2">
+                                    <label for="line" class="mb-1 fw-bold">Line</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="line" placeholder="Enter line" disabled>
+                                </div>
+                                <div class="form-group my-2">
+                                    <label for="group" class="mb-1 fw-bold">Group</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="group" placeholder="Enter group" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="responsibility" class="mb-1 fw-bold">Responsibility</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="responsibility" placeholder="Enter responsibility">
+                                </div>
+                                <div class="form-group my-2">
+                                    <label for="skils" class="mb-1 fw-bold">Skils</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="skils" placeholder="Enter skils">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="button" class="btn btn-primary w-150px mx-2">Save</button>
+                    <button type="button" onclick="closeModalRotationHistory()" class="btn btn-danger w-150px mx-2">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

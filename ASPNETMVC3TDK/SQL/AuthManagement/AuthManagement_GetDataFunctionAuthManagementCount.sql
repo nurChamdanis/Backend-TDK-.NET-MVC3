@@ -1,0 +1,34 @@
+﻿DECLARE 
+	  @@QUERY VARCHAR(MAX)
+	, @@ID VARCHAR(MAX) = REPLACE(@P_ID, '''', '`')
+	, @@NAME VARCHAR(MAX) = REPLACE(@P_NAME, '''', '`')
+	, @@ROLE VARCHAR(MAX) = @P_ROLE
+	, @@APPALIAS VARCHAR(MAX) = @P_APPALIAS;
+
+	SET @@QUERY = '
+		SELECT COUNT(1) AS CNT
+		FROM (
+			SELECT DISTINCT
+				A.APPLICATION,
+				ROLE,
+				[FUNCTION] AS ID,
+				B.NAME,
+				B.DESCRIPTION
+			FROM TB_M_AUTHORIZATION A
+			LEFT JOIN TB_M_FUNCTION B ON A.[FUNCTION] = B.ID
+			WHERE A.APPLICATION = '''+@@APPALIAS+'''
+			AND A.ROLE = '''+@@ROLE+'''
+		) AS distinct_rows
+		WHERE 1=1';
+
+
+IF (@@ID != '') BEGIN
+	SET @@QUERY = @@QUERY + ' AND distinct_rows.ID LIKE ''%' + @@ID + '%''';
+END
+
+IF (@@NAME != '') BEGIN
+	SET @@QUERY = @@QUERY + ' AND distinct_rows.NAME LIKE ''%' + @@NAME + '%''';
+END
+
+
+EXECUTE (@@QUERY);

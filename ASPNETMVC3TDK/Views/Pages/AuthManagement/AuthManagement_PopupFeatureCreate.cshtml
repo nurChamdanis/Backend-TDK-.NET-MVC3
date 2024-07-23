@@ -1,0 +1,40 @@
+<div class="modal fade" tabindex="1" id="modal-form-feature" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-form-title-feature">Modal title</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+                <!--end::Close-->
+            </div>
+            <div class="modal-body">
+                <form id="feature_form" class="form" action="#" autocomplete="off">
+                    @Html.AntiForgeryToken()
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Feature ID</label>
+                        <div class="col-md-9">
+                            <select class="form-select" id="sc_featSelect" name="FEATURE">
+                                <option value="" selected disabled>-- Select Feature --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Feature Name</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="NAME_FEATURE" placeholder="Feature Name" disabled/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="featureSaveConfirmation()" class="btn btn-primary">Save</button>
+                <button type="button" onclick="onCancel(1)" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+<section>
+    <div id="card-personal-data" class="w-100 p-5 mt-3 bg-white">
+        <div class="d-flex align-items-center">
+            <h3 class="pt-1" style="color: #0275B1;">Personal Data</h3>
+        </div>
+
+        <div class="">
+            <div class="row">
+                <div class="col-md-6 my-1">
+                    <div style="color: #0275B1;font-size:15px">No. Registration</div>
+                    <div id="NOREG" class="fw-semibold" style="font-size: 16px"></div>
+                </div>
+
+                <div class="col-md-6 my-1">
+                    <div style="color: #0275B1;font-size:15px">Full Name</div>
+                    <div id="PERSONNEL_NAME" class="fw-semibold" style="font-size: 16px"></div>
+                </div>
+
+                <div class="col-md-6 my-1">
+                    <div style="color: #0275B1;font-size:15px">Date of Birth</div>
+                    <div id="DATE_OF_BIRTH" class="fw-semibold" style="font-size: 16px"></div>
+                </div>
+
+                <div class="col-md-6 my-1">
+                    <div style="color: #0275B1;font-size:15px">Class / Position</div>
+                    <div id="POSITION" class="fw-semibold" style="font-size: 16px"></div>
+                </div>
+
+                <div class="col-md-6 my-1">
+                    <div style="color: #0275B1;font-size:15px">Divison / Dept / Section</div>
+                    <div id="DIVISION" class="fw-semibold" style="font-size: 16px"></div>
+                </div>
+
+                <div class="col-md-6 my-1">
+                    <div style="color: #0275B1;font-size:15px">Immediate Supervisor</div>
+                    <div class="fw-semibold" style="font-size: 16px"><strong>Aang Dyaksa</strong></div>
+                </div>
+
+                <div class="col-md-6 my-1">
+                    <div style="color: #0275B1;font-size:15px">E-mail</div>
+                    <div id="MAIL" class="fw-semibold" style="font-size: 16px"></div>
+                </div>
+
+                <div class="col-md-6 my-1">
+                    <div style="color: #0275B1;font-size:15px">Phone/Extension Number/HP</div>
+                    <div id="TELEPHONE" class="fw-semibold" style="font-size: 16px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="card-education-history" class="w-100 p-5 mt-3 bg-white">
+        <div class="d-flex justify-content-between w-100">
+            <div class="row" style="width: 70%;">
+                <div id="close-education-history" class="d-none col-1" style="font-size:20px" onclick="closeCardModeEditableProfile('education-history', staticDataEducationHistory)">
+                    <img src="@Url.Content("~/Content/assets/icons/left-arrow-primary.svg")" alt="plus" />
+                </div>
+                <div class="col-11 d-flex align-items-center">
+                    <h3 class="pt-1" style="color: #0275B1;">Education History</h3>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center">
+                <div id="change-mode-edit-education-history" class="d-flex justify-content-center align-items-center rounded-circle cursor-pointer" style="background: #0275B1;width: 34px; height: 34px;"
+                     onclick="showCardModeEditableProfile('education-history', staticDataEducationHistory)">
+                    <img src="@Url.Content("~/Content/assets/icons/pen-white.svg")" alt="pen" />
+                </div>
+                <div id="show-add-education-history" class="d-none" style="font-size:25px" onclick="loadEducationInformation()">
+                    <img src="@Url.Content("~/Content/assets/icons/plus-primary.svg")" alt="pen" />
+                </div>
+            </div>
+        </div>
+
+        <div id="content-education-history"></div>
+    </div>
+
+    <div id="card-language-skills" class="w-100 p-5 mt-3 bg-white">
+        <div class="d-flex justify-content-between w-100">
+            <div class="row" style="width: 70%;">
+                <div id="close-language-skills" class="d-none col-1" style="font-size:20px" onclick="closeCardModeEditableProfile('language-skills')">
+                    <img src="@Url.Content("~/Content/assets/icons/left-arrow-primary.svg")" alt="plus" />
+                </div>
+                <div class="col-11 d-flex align-items-center">
+                    <h3 class="" style="color: #0275B1;">Language</h3>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center">
+                <div id="change-mode-edit-language-skills" class="d-flex justify-content-center align-items-center rounded-circle cursor-pointer" style="background: #0275B1;width: 34px; height: 34px;"
+                     onclick="showCardModeEditableProfile('language-skills')">
+                    <img src="@Url.Content("~/Content/assets/icons/pen-white.svg")" alt="pen" />
+                </div>
+                <div id="show-add-language-skills" class="d-none" style="font-size:25px" onclick="loadLanguageInformation()">
+                    <img src="@Url.Content("~/Content/assets/icons/plus-primary.svg")" alt="pen" />
+                </div>
+            </div>
+        </div>
+
+        <div class="my-5">
+            <div class="d-flex justify-content-between">
+                <span class="fw-bold" style="font-size: 1.3em">English (TOEIC)</span>
+                <div id="show-edit-language-skills-0" class="d-none d-flex justify-content-center align-items-center cursor-pointer" style="width: 34px; height: 34px;"
+                     onclick="loadLanguageInformation()">
+                    <img src="@Url.Content("~/Content/assets/icons/pen-primary.svg")" alt="pen" />
+                </div>
+            </div>
+            <div style="font-weight: 300;">TOEIC (830)</div>
+            <div style="font-weight: 500;">Native/ Bilingual Proficiency</div>
+            <div style="font-weight: 500;"><a href="#">Certificate</a>(Valid until November 2027)</div>
+        </div>
+
+        <div class="my-5">
+            <div class="d-flex justify-content-between">
+                <span class="fw-bold" style="font-size: 1.3em">Japanese (NAT)</span>
+                <div id="show-edit-language-skills-1" class="d-none d-flex justify-content-center align-items-center cursor-pointer" style="width: 34px; height: 34px;"
+                     onclick="loadLanguageInformation()">
+                    <img src="@Url.Content("~/Content/assets/icons/pen-primary.svg")" alt="pen" />
+                </div>
+            </div>
+            <div style="font-weight: 300;">NAT-Test (N3)</div>
+            <div style="font-weight: 300;">Professional Working Proficiency</div>
+            <div style="font-weight: 300;"><a href="#">Certificate</a>(Valid until November 2027)</div>
+        </div>
+    </div>
+</section>

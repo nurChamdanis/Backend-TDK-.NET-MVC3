@@ -1,0 +1,58 @@
+<div class="modal fade" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-form-title">Modal title</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+                <!--end::Close-->
+            </div>
+            <div class="modal-body">
+                <form id="assign_form" class="form" action="#" autocomplete="off">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="MODE" name="MODE" />
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Application</label>
+                        <div class="col-md-9">
+                            <select class="form-select" id="input_sc_app_id" name="APPLICATION">
+                                <option value="" selected disabled>-- Select Application --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Role</label>
+                        <div class="col-md-9">
+                            <select class="form-select" id="input_sc_role" name="ROLE">
+                                <option value="" selected disabled>-- Select Role --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Username</label>
+                        <div class="col-md-9">
+                            <select class="form-select" id="input_sc_username" name="USERNAME">
+                                <option value="" selected disabled>-- Select Username --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Full Name</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="input_sc_fullname" name="FULL_NAME" placeholder="Full Name"  />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="saveConfirmation()" class="btn btn-primary mx-5 w-125px">Save</button>
+                <button type="button" onclick="onCancel()" class="btn btn-light mx-5 w-125px" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

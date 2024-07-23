@@ -1,0 +1,70 @@
+<div class="modal fade" tabindex="1" id="modal-view" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-view-title">Modal title</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+                <!--end::Close-->
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row mb-5">
+                            <label class="fw-semibold fs-6 mt-3 col-md-4">Function ID</label>
+                            <div class="col-md-8">
+                                <input type="text" id="sc_funcId" class="form-control" maxlength="11" autofocus>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="fv-row row mb-5">
+                            <label class="fw-semibold fs-6 mt-3 col-md-4">Function Name</label>
+                            <div class="col-md-8">
+                                <input type="text" id="sc_funcName" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="refresh_table_func()"><i class="fas fa-magnifying-glass fs-4 me-2"></i> Search</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="onClearFunc()"><i class="fas fa-arrow-rotate-right fs-4 me-2 text-white"></i> Clear</button>
+                </div>
+                <div class="separator my-5"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-success btn-sm" onclick="showModalAdd($('#modal-view-title').html())"><i class="fas fa-plus fs-4 me-2"></i> Assign</button>
+                        <button id="deleteButton" type="button" class="btn btn-danger btn-sm" onclick="deleteConfirmation()" disabled><i class="fas fa-trash fs-4 me-2"></i> Delete</button>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+                <div class="separator my-5"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5 table-hover table-striped" id="functionDatatable">
+                            <thead>
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="text-center"><input type="checkbox" id="checkAllFunc"></th>
+                                    <th class="text-center">Function ID</th>
+                                    <th class="text-center">Function Name</th>
+                                    <th class="text-center">Total Feature</th>
+                                    <th class="text-center">Feature</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 fw-semibold">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

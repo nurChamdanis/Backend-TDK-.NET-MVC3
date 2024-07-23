@@ -1,0 +1,154 @@
+<script>
+    var myTable;
+    var initAppId = "@ApplicationSettings.Instance.Alias"
+
+    $(document).ready(function () {
+        $('#sc_applicationName').select2();
+        $('#sc_applicationName').append($('<option>', {
+            value: "",
+            text: "--  Select All --"
+        }));
+         //var selectedApplicationName = '@ApplicationSettings.Instance.Alias';
+        $.ajax({
+            url: "MasterFunctionApi/GetListApplications",
+            type: "POST",
+            dataType: "json",
+            success: function (response) {
+                // Append options to select tag
+                $.each(response, function (index, item) {
+                    $('#sc_applicationName').append($('<option>', {
+                        value: item.id,
+                        text: item.text
+                    }));
+                });
+
+                // Select the desired option
+                $('#sc_applicationName').val(initAppId);
+                load_table();
+
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    });
+
+
+    function load_table() {
+        myTable = $('#datatable').DataTable({
+            order: [[0, 'ASC']],
+            processing: true,
+            serverSide: true,
+            //scrollX: true,
+            ajax: {
+                type: 'POST',
+                url: 'MasterMenuApi/GetDatatables',
+                data: function (d) {
+                    d.start = d.start;
+                    d.length = d.length;
+                    d.APP_ID = $('#sc_applicationName').val();
+                    d.MENU_ID = $('#sc_menuid').val();
+                    d.MENU_PARENT = $('#sc_menuparent').val();
+                    d.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+
+                },
+            },
+            columns: [
+                {
+                    'data': null,
+                    bSortable: false,
+                    className: 'text-center',
+                    'render': function (data, type, full, meta) {
+                        return '<input type="checkbox" class="select-checkbox">';
+                    }
+                },
+                { className: 'text-center',data: 'MENU_ID', nama: 'MENU_ID', bSortable: false },
+                { className: 'text-center',data: 'MENU_PARENT', nama: 'MENU_PARENT', bSortable: false },
+                { className: 'text-start',data: 'MENU_TEXT', nama: 'MENU_TEXT', bSortable: false },
+                { className: 'text-start',data: 'MENU_TIPS', nama: 'MENU_TIPS', bSortable: false },
+                { className: 'text-center',data: 'IS_ACTIVE', nama: 'IS_ACTIVE', bSortable: false },
+                { className: 'text-center',data: 'VISIBILITY', nama: 'VISIBILITY', bSortable: false },
+            ],
+            initComplete: function () {
+                $('#datatable thead th:eq(0)').css('width', '1rem');
+                $('#datatable thead th:eq(1)').css('width', '1rem');
+                $('#datatable thead th:eq(2)').css('width', '1rem');
+
+                $('#datatable thead th:eq(5)').css('width', '1rem');
+                $('#datatable thead th:eq(6)').css('width', '1rem');
+            }
+        });
+
+        $('#checkAll').on('change', function () {
+            var isChecked = $(this).prop('checked');
+            var checkboxes = $('#datatable tbody .select-checkbox');
+            checkboxes.prop('checked', isChecked);
+            checkboxes.closest('tr').toggleClass('selected', isChecked);
+
+            var checkedboxes = $('#datatable tbody .select-checkbox:checked');
+            var editButton = $('#editButton');
+            var deleteButton = $('#deleteButton');
+
+            if (checkedboxes.length === 1) {
+                editButton.prop('disabled', false);
+            } else {
+                editButton.prop('disabled', true);
+            }
+
+            if (checkedboxes.length > 0) {
+                deleteButton.prop('disabled', false);
+            } else {
+                deleteButton.prop('disabled', true);
+            }
+        });
+
+        $('#datatable tbody').on('change', '.select-checkbox', function () {
+            var checkbox = $(this);
+            var isChecked = checkbox.prop('checked');
+            var row = checkbox.closest('tr');
+
+            // Toggle the 'selected' class based on the checkbox state
+            if (isChecked) {
+                row.addClass('selected');
+            } else {
+                row.removeClass('selected');
+            }
+
+            var checkedboxes = $('#datatable tbody .select-checkbox:checked');
+            var editButton = $('#editButton');
+            var deleteButton = $('#deleteButton');
+
+            if (checkedboxes.length === 1) {
+                editButton.prop('disabled', false);
+            } else {
+                editButton.prop('disabled', true);
+            }
+
+            if (checkedboxes.length > 0) {
+                deleteButton.prop('disabled', false);
+            } else {
+                deleteButton.prop('disabled', true);
+            }
+
+            var allChecked = checkedboxes.length === $('#datatable tbody .select-checkbox').length;
+            $('#checkAll').prop('checked', allChecked);
+        });
+    }
+
+    function refresh_table() {
+        myTable.destroy();
+        load_table();
+    }
+
+    function showOverlay(process) {
+        Swal.fire({
+            title: process,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading()
+            },
+        }).then((result) => {
+        })
+    }
+</script>

@@ -1,0 +1,120 @@
+<div class="modal modal-lg modal-detail-log fade" tabindex="-1" id="modalDetail">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Log Monitoring</h3>
+            </div>
+
+            <div class="modal-body">
+                <div id="modal-body" class="mt-2 scroll px-5 detail-log">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="fv-row  row">
+                                <label class="fw-semibold mt-3 col-md-4">Process ID</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control disable-input" name="process_id_dtl" id="process_id_dtl" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="fv-row  row">
+                                <label class="fw-semibold mt-3 col-md-4">Module</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control disable-input" name="module" id="module" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="fv-row  row">
+                                <label class="fw-semibold mt-3 col-md-4">Status</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control disable-input" name="status_dtl" id="status_dtl" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <div class="fv-row  row">
+                                <label class="fw-semibold mt-3 col-md-4">Start Date Time</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control disable-input" name="start_datetime" id="start_datetime" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="fv-row  row">
+                                <label class="fw-semibold mt-3 col-md-4">Function Name</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control disable-input" name="function_name" id="function_name" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="fv-row  row">
+                                <label class="fw-semibold mt-3 col-md-4">Message Type</label>
+                                <div class="col-md-8">
+                                    <select class="form-select" id="message_type" name="message_type">
+                                        <option value="">- All -</option>
+                                        <option value="I">Info</option>
+                                        <option value="W">Warning</option>
+                                        <option value="E">Error</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <div class="fv-row  row">
+                                <label class="fw-semibold mt-3 col-md-4">End Date Time</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control disable-input" name="end_datetime" id="end_datetime" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="fv-row  row">
+                                <label class="fw-semibold mt-3 col-md-4">User ID</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control disable-input" name="user_id_dtl" id="user_id_dtl" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-warning btn-sm" id="btnDownloadDataDetail" onclick="downloadDataDetail()"><i class="fas fa-download fs-4 me-2"></i></button>
+                        </div>
+                        <div class="col-md-11" style="text-align: right;">
+                            <button type="button" class="btn btn-primary btn-sm" id="btnSearchDetail" onclick="onSearchDetail()">Search</button>
+                            <button type="button" class="btn btn-secondary btn-sm" id="btnClearDetail" onclick="onClearDetail()">Clear</button>
+                        </div>
+                    </div>
+                    <div class="separator my-2"></div>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle table-row-dashed table-hover table-striped text-wrap" id="datatable_detail">
+                            <thead>
+                                <tr class="fw-bold text-gray-800">
+                                    <th class="text-center th-width-5"">SEQ NO.</th>
+                                    <th class="text-center th-width-15">MESSAGE DATE TIME</th>
+                                    <th class="text-center th-width-10">LOCATION</th>
+                                    <th class="text-center th-width-10">MESSAGE TYPE</th>
+                                    <th class="text-center th-width-10">MESSAGE ID</th>
+                                    <th class="th-width-20 w-800">MESSAGE DETAIL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-detail-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer modal-footer-dtl">
+                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

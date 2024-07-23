@@ -1,0 +1,896 @@
+<script>
+    var editDisabledFields = [];
+    var form = document.getElementById('function_form');
+    var validator = FormValidation.formValidation(
+        form,
+        {
+            fields: {
+                'ID': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Function ID is required'
+                        },
+                        stringLength: {
+                            max: 50, // Set the maximum length constraint
+                            message: 'The Function ID must not exceed 50 characters'
+                        }
+                    },
+
+                },
+                'NAME': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Function Name is required'
+                        },
+                        stringLength: {
+                            max: 100, // Set the maximum length constraint
+                            message: 'The Function Name must not exceed 100 characters'
+                        }
+                    }
+                },
+                'DESCRIPTION': {
+                    validators: {
+                        stringLength: {
+                            max: 200, // Set the maximum length constraint
+                            message: 'The Description must not exceed 200 characters'
+                        }
+                    }
+                },
+            },
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger(),
+                bootstrap: new FormValidation.plugins.Bootstrap5({
+                    rowSelector: '.fv-row',
+                    eleInvalidClass: '',
+                    eleValidClass: ''
+                })
+            }
+        }
+    );
+
+    var myTable;
+    var myFuncTable;
+    var myFeatTable;
+    $(document).ready(function () {
+        load_table();
+
+        $.ajax({
+            url: "AuthManagementApi/GetListApplications",
+            type: "POST",
+            dataType: "json",
+            success: function (response) {
+                // Append options to select tag
+                $.each(response, function (index, item) {
+                    $('#sc_applicationName').append($('<option>', {
+                        value: item.id,
+                        text: item.text
+                    }));
+                });
+
+                // Select the desired option
+                $('#sc_applicationName').val(response[0].id);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+
+    });
+
+    $('#sc_applicationName').select2({
+        allowClear: false,
+        width: "100%",
+        ajax:
+        {
+            type: 'POST',
+            url: 'AuthManagementApi/GetListApplications',
+            dataType: 'json',
+            delay: 1000,
+            async: true,
+            data: null,
+            processResults: function (data, params) {
+
+                return { results: data };
+            },
+            cache: true
+        },
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+    });
+
+    $('#sc_funcSelect').select2({
+        allowClear: false,
+        width: "100%",
+        ajax:
+        {
+            type: 'POST',
+            url: '/AuthManagementApi/GetListFunction',
+            dataType: 'json',
+            delay: 1000,
+            async: false,
+            data: function (params) {
+
+                var aSearch = {
+                    ROLE: $('#modal-view-title').html()
+                }
+                return aSearch;
+            },
+            processResults: function (data, params) {
+
+                return { results: data };
+            },
+            cache: true
+        },
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+
+        dropdownParent: $('#modal-form'),
+
+    });
+
+    $('#sc_funcSelect').on('change', function (e) {
+        var selectedOption = $(this).select2('data')[0];
+        var selectedAttr = selectedOption.attr_1;
+        $('#NAME_FUNCTION').val(selectedAttr);
+    });
+
+    $('#sc_featSelect').select2({
+        allowClear: false,
+        width: "100%",
+        ajax:
+        {
+            type: 'POST',
+            url: '/AuthManagementApi/GetListFeature',
+            dataType: 'json',
+            delay: 1000,
+            async: false,
+            data: function (params) {
+
+                var aSearch = {
+                    ROLE: $('#modal-view-title').html(),
+                    FUNCTION: $('#modal-view-feature-title').html()
+                }
+                return aSearch;
+            },
+            processResults: function (data, params) {
+
+                return { results: data };
+            },
+            cache: true
+        },
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        dropdownParent: $('#modal-form-feature'),
+
+    });
+
+    $('#sc_featSelect').on('change', function (e) {
+        var selectedOption = $(this).select2('data')[0];
+        var selectedAttr = selectedOption.attr_1;
+        $('#NAME_FEATURE').val(selectedAttr);
+    });
+
+   
+    function load_table() {
+        if ($.fn.DataTable.isDataTable('#datatable')) {
+            $('#datatable').DataTable().destroy();
+        }
+        myTable = $('#datatable').DataTable({
+            order: [[1, 'DESC']],
+            processing: true,
+            serverSide: true,
+            ajax: {
+                type: 'POST',
+                url: 'AuthManagementApi/GetDatatables',
+                data: function (d) {
+                    d.ID = $('#sc_roleId').val();
+                    d.NAME = $('#sc_roleName').val();
+                    d.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+                }
+            },
+            columns: [
+                { 'data': 'ID', 'name': 'ID', bSortable: true, className: 'text-center' },
+                { 'data': 'NAME', 'name': 'NAME', bSortable: true, className: 'text-start' },
+                { 'data': 'TOTAL_FUNCTION', 'name': 'TOTAL_FUNCTION', bSortable: false, className: 'text-center' },
+                {
+                    'data': null,
+                    'render': function (data, type, full, meta) {
+                        return `<div class="text-center">
+                            <button class="btn btn-primary btn-sm btn-view" onclick="showModalView('${data.ID}')">View</button>
+                                </div>`;
+                    },
+                    'orderable': false,
+                    'className': 'text-center',
+                    'width': '8%'
+                },
+            ],
+        });
+
+    }
+
+    function load_function_table() {
+        if ($.fn.DataTable.isDataTable('#functionDatatable')) {
+            $('#functionDatatable').DataTable().destroy();
+        }
+        myFuncTable = $('#functionDatatable').DataTable({
+            order: [[1, 'DESC']],
+            processing: true,
+            serverSide: true,
+            fixedHeader: true,
+            ajax: {
+                type: 'POST',
+                url: 'AuthManagementApi/GetFunctionDatatables',
+                data: function (d) {
+                    d.ID = $('#sc_funcId').val();
+                    d.NAME = $('#sc_funcName').val();
+                    d.ROLE = $("#modal-view-title").html();
+                    d.DESCRIPTION = $('#sc_funcDesc').val();
+                    d.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+                }
+            },
+            columns: [
+                {
+                    'data': null,
+                    bSortable: false,
+                    className: 'text-center',
+                    'render': function (data, type, full, meta) {
+                        return '<input type="checkbox" class="select-checkbox">';
+                    },
+                },
+                { 'data': 'ID', 'name': 'ID', bSortable: true, className: 'text-center' },
+                { 'data': 'NAME', 'name': 'NAME', bSortable: true, className: 'text-start' },
+                { 'data': 'TOTAL_FEATURE', 'name': 'TOTAL_FEATURE', bSortable: false, className: 'text-center' },
+                {
+                    'data': null,
+                    'render': function (data, type, full, meta) {
+                        return `<div class="text-center">
+                        <button class="btn btn-primary btn-sm btn-view" onclick="showModalViewFeature('${data.ID}')">View</button>
+                            </div>`;
+                    },
+                    'orderable': false,
+                    'className': 'text-center',
+                    'width': '8%'
+                },
+            ],
+
+        });
+
+        $('#checkAllFunc').on('change', function () {
+            var isChecked = $(this).prop('checked');
+            var checkboxes = $('#functionDatatable tbody .select-checkbox');
+            checkboxes.prop('checked', isChecked);
+            checkboxes.closest('tr').toggleClass('selected', isChecked);
+
+            var checkedboxes = $('#functionDatatable tbody .select-checkbox:checked');
+            var editButton = $('#editButton');
+            var deleteButton = $('#deleteButton');
+
+            if (checkedboxes.length === 1) {
+                editButton.prop('disabled', false);
+            } else {
+                editButton.prop('disabled', true);
+            }
+
+            if (checkedboxes.length > 0) {
+                deleteButton.prop('disabled', false);
+            } else {
+                deleteButton.prop('disabled', true);
+            }
+        });
+
+        $('#functionDatatable tbody').on('change', '.select-checkbox', function () {
+            var checkbox = $(this);
+            var isChecked = checkbox.prop('checked');
+            var row = checkbox.closest('tr');
+
+            // Toggle the 'selected' class based on the checkbox state
+            if (isChecked) {
+                row.addClass('selected');
+            } else {
+                row.removeClass('selected');
+            }
+
+            var checkedboxes = $('#functionDatatable tbody .select-checkbox:checked');
+            var editButton = $('#editButton');
+            var deleteButton = $('#deleteButton');
+
+            if (checkedboxes.length === 1) {
+                editButton.prop('disabled', false);
+            } else {
+                editButton.prop('disabled', true);
+            }
+
+            if (checkedboxes.length > 0) {
+                deleteButton.prop('disabled', false);
+            } else {
+                deleteButton.prop('disabled', true);
+            }
+
+            var allChecked = checkedboxes.length === $('#functionDatatable tbody .select-checkbox').length;
+            $('#checkAllFunc').prop('checked', allChecked);
+        });
+    }
+
+    function load_feature_table() {
+        if ($.fn.DataTable.isDataTable('#featureDatatable')) {
+            $('#featureDatatable').DataTable().destroy();
+        }
+        myFeatTable = $('#featureDatatable').DataTable({
+            order: [[1, 'DESC']],
+            processing: true,
+            serverSide: true,
+            ajax: {
+                type: 'POST',
+                url: 'AuthManagementApi/GetFeatureDatatables',
+                data: function (d) {
+                    d.ID = $('#sc_featId').val();
+                    d.NAME = $('#sc_featName').val();
+                    d.ROLE = $("#modal-view-title").html();
+                    d.FUNCTION = $("#modal-view-feature-title").html();
+                    d.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+                }
+            },
+            columns: [
+                {
+                    'data': null,
+                    bSortable: false,
+                    className: 'text-center',
+                    'render': function (data, type, full, meta) {
+                        return '<input type="checkbox" class="select-checkbox">';
+                    }
+                },
+                { 'data': 'ID', 'name': 'ID', bSortable: true, className: 'text-center' },
+                { 'data': 'NAME', 'name': 'NAME', bSortable: true, className: 'text-start' },
+            ],
+        });
+
+        $('#checkAllFeat').on('change', function () {
+            var isChecked = $(this).prop('checked');
+            var checkboxes = $('#featureDatatable tbody .select-checkbox');
+            checkboxes.prop('checked', isChecked);
+            checkboxes.closest('tr').toggleClass('selected', isChecked);
+
+            var checkedboxes = $('#featureDatatable tbody .select-checkbox:checked');
+            var editButton = $('#editFeatureButton');
+            var deleteButton = $('#deleteFeatureButton');
+
+            if (checkedboxes.length === 1) {
+                editButton.prop('disabled', false);
+            } else {
+                editButton.prop('disabled', true);
+            }
+
+            if (checkedboxes.length > 0) {
+                deleteButton.prop('disabled', false);
+            } else {
+                deleteButton.prop('disabled', true);
+            }
+        });
+
+        $('#featureDatatable tbody').on('change', '.select-checkbox', function () {
+            var checkbox = $(this);
+            var isChecked = checkbox.prop('checked');
+            var row = checkbox.closest('tr');
+
+            // Toggle the 'selected' class based on the checkbox state
+            if (isChecked) {
+                row.addClass('selected');
+            } else {
+                row.removeClass('selected');
+            }
+
+            var checkedboxes = $('#featureDatatable tbody .select-checkbox:checked');
+            var editButton = $('#editFeatureButton');
+            var deleteButton = $('#deleteFeatureButton');
+
+            if (checkedboxes.length === 1) {
+                editButton.prop('disabled', false);
+            } else {
+                editButton.prop('disabled', true);
+            }
+
+            if (checkedboxes.length > 0) {
+                deleteButton.prop('disabled', false);
+            } else {
+                deleteButton.prop('disabled', true);
+            }
+
+            var allChecked = checkedboxes.length === $('#featureDatatable tbody .select-checkbox').length;
+            $('#checkAllFeat').prop('checked', allChecked);
+        });
+    }
+
+    function showModalAdd(roleId) {
+        resetForm();
+        $('#modal-view .modal-content').addClass('fade-out');
+        $("#modal-form-title").html("Assign Function For " + roleId);
+        $("#modal-form").modal("show");
+        $("#ID").removeAttr("disabled");
+        $("#is-active-wrapper").hide();
+        setTimeout(function () {
+            $("#ID").focus();
+        }, 500);
+    }
+    function showModalAddFeature(functionId) {
+        resetForm();
+        $('#modal-view-feature .modal-content').addClass('fade-out');
+        $("#modal-form-title-feature").html("Assign Feature For " + functionId);
+        $("#modal-form-feature").modal("show");
+        $("#ID").removeAttr("disabled");
+        $("#is-active-wrapper").hide();
+        setTimeout(function () {
+            $("#ID").focus();
+        }, 500);
+    }
+
+    function showModalView(funcId) {
+        $("#modal-view-title").html(funcId);
+        load_function_table()
+        $("#modal-view").modal("show");
+        $("#is-active-wrapper").hide();
+        setTimeout(function () {
+            $("#sc_funcId").focus();
+        }, 500);
+    }
+
+    function showModalViewFeature(featId) {
+        $('#modal-view .modal-content').addClass('fade-out');
+        $("#modal-view-feature-title").html(featId);
+        load_feature_table()
+        $("#modal-view-feature").modal("show");
+        $("#is-active-wrapper").hide();
+        setTimeout(function () {
+            $("#sc_featId").focus();
+        }, 500);
+    }
+
+    function showModalEdit() {
+        resetForm();
+        var selectedRowsData = myTable.rows('.selected').data();
+        
+        if (selectedRowsData.length === 1) {
+            var rowData = selectedRowsData[0];
+            $("#ID").val(rowData.ID);
+            $("#NAME").val(rowData.NAME);
+            $("#DESCRIPTION").val(rowData.DESCRIPTION);
+            $("#MODE").val("EDIT");
+            $("#modal-form-title").html("Edit Function");
+            $("#modal-form").modal("show");
+            editDisabledFields.push(rowData)
+            $("#ID").attr("disabled", true);
+            $("#is-active-wrapper").show();
+            setTimeout(function () {
+                $("#NAME").focus();
+            }, 500);
+        } else {
+            alert("Please select a single row to edit.");
+        }
+    }
+
+
+    function resetForm() {
+        $("#MODE").val("");
+        $("#ID").val("")
+        $("#NAME").val("");
+        $("#DESCRIPTION").val("");
+
+    }
+
+    function saveConfirmation() {
+        if (validator) {
+            validator.validate().then(function (status) {
+                if (status == "Valid") {
+                    Swal.fire({
+                        html: `Are you sure want to save this data?`,
+                        icon: "info",
+                        buttonsStyling: false,
+                        showCancelButton: true,
+                        confirmButtonText: "OK",
+                        cancelButtonText: 'Cancel',
+                        customClass: {
+                            confirmButton: "btn btn-primary mx-5 w-125px",
+                            cancelButton: 'btn btn-danger mx-5 w-125px'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            processSave();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "warning",
+                        title: getMessage("MSG230320004W"),
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    setTimeout(function () {
+                        if (!$("#ID").val()) {
+                            $("#ID").focus();
+                        } else if (!$("#NAME").val()) {
+                            $("#NAME").focus();
+                        } else if (!$("#DESCRIPTION").val()) {
+                            $("#DESCRIPTION").focus();
+                        } 
+                    }, 1800);
+                }
+            });
+        } else {
+
+        }
+    }
+
+    function deleteConfirmation() {
+        var checkboxes = $('#functionDatatable tbody .select-checkbox:checked');
+
+        Swal.fire({
+            html: `Are you sure want to delete ${checkboxes.length} data?`,
+            icon: "info",
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            cancelButtonText: 'Cancel',
+            customClass: {
+                confirmButton: "btn btn-primary mx-5 w-125px",
+                cancelButton: 'btn btn-danger mx-5 w-125px'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                processDelete();
+            }
+        });
+    }
+
+    function featureSaveConfirmation() {
+        if (validator) {
+            validator.validate().then(function (status) {
+                if (status == "Valid") {
+                    Swal.fire({
+                        html: `Are you sure want to save this data?`,
+                        icon: "info",
+                        buttonsStyling: false,
+                        showCancelButton: true,
+                        confirmButtonText: "OK",
+                        cancelButtonText: 'Cancel',
+                        customClass: {
+                            confirmButton: "btn btn-primary mx-5 w-125px",
+                            cancelButton: 'btn btn-danger mx-5 w-125px'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            featureProcessSave();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "warning",
+                        title: getMessage("MSG230320004W"),
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    setTimeout(function () {
+                        if (!$("#ID").val()) {
+                            $("#ID").focus();
+                        } else if (!$("#NAME").val()) {
+                            $("#NAME").focus();
+                        } else if (!$("#DESCRIPTION").val()) {
+                            $("#DESCRIPTION").focus();
+                        }
+                    }, 1800);
+                }
+            });
+        } else {
+
+        }
+    }
+
+    function featureDeleteConfirmation() {
+        var checkboxes = $('#featureDatatable tbody .select-checkbox:checked');
+
+        Swal.fire({
+            html: `Are you sure want to delete ${checkboxes.length} data?`,
+            icon: "info",
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            cancelButtonText: 'Cancel',
+            customClass: {
+                confirmButton: "btn btn-primary mx-5 w-125px",
+                cancelButton: 'btn btn-danger mx-5 w-125px'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                featureProcessDelete();
+            }
+        });
+    }
+
+    function processSave() {
+        var formData = new FormData($("#function_form")[0]);
+        formData.append("ROLE", $("#modal-view-title").html());
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'AuthManagementApi/AssignFunction',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.result == "false") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.msg,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        $("#modal-form").modal("hide");
+                        myFuncTable.ajax.reload();
+                        myTable.ajax.reload();
+                    });
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire(
+                    "Failed!",
+                    "Internal server error.",
+                    "error"
+                );
+            }
+        });
+    }
+
+    function processDelete() {
+        var APPLICATION = []
+        var ROLE = []
+        var ID = []
+        var selectedRowsData = myFuncTable.rows('.selected').data();
+
+        formData = new FormData()
+        $.each(selectedRowsData, function (index, row) {
+            APPLICATION.push(row.APPLICATION);
+            ROLE.push(row.ROLE);
+            ID.push(row.ID);
+        });
+        var criteria = APPLICATION.map((application, index) => {
+            const role = ROLE[index].replace(/['"]+/g, ''); // Remove extra quotes
+            const id = ID[index].replace(/['"]+/g, ''); // Remove extra quotes
+            return `{"APPLICATION":"${application}","ROLE":"${role}","FUNCTION":"${id}"}`;
+        });
+
+        formData.append('criteria', '[' + criteria + ']');
+
+        formData.append('__RequestVerificationToken', $("input[name=__RequestVerificationToken]").val())
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'AuthManagementApi/DeleteFunction',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.result === "false") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.msg,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        $("#modal-form").modal("hide");
+                        myFuncTable.ajax.reload();
+                        //getDetailQcGate(data.extra_attr);
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire(
+                    "Failed!",
+                    "Internal server error.",
+                    "error"
+                );
+            }
+        });
+    }
+
+    function featureProcessSave() {
+        var formData = new FormData($("#feature_form")[0]);
+        formData.append("ROLE", $("#modal-view-title").html());
+        formData.append("FUNCTION", $("#modal-view-feature-title").html());
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'AuthManagementApi/AssignFeature',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.result == "false") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.msg,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        $("#modal-form-feature").modal("hide");
+                        onCancel(1);
+                        myFeatTable.ajax.reload();
+                        myFuncTable.ajax.reload();
+                        myTable.ajax.reload();
+                        resetForm();
+                    });
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire(
+                    "Failed!",
+                    "Internal server error.",
+                    "error"
+                );
+            }
+        });
+    }
+
+    function featureProcessDelete() {
+        var APPLICATION = []
+        var ROLE = []
+        var FUNCT = []
+        var ID = []
+        var selectedRowsData = myFeatTable.rows('.selected').data();
+
+        formData = new FormData()
+        $.each(selectedRowsData, function (index, row) {
+            APPLICATION.push(row.APPLICATION);
+            ROLE.push(row.ROLE);
+            FUNCT.push($('#modal-view-feature-title').html());
+            ID.push(row.ID);
+        });
+        var criteria = APPLICATION.map((application, index) => {
+            const role = ROLE[index].replace(/['"]+/g, ''); // Remove extra quotes
+            const funct = FUNCT[index].replace(/['"]+/g, ''); // Remove extra quotes
+            const id = ID[index].replace(/['"]+/g, ''); // Remove extra quotes
+            return `{"APPLICATION":"${application}","ROLE":"${role}","FUNCTION":"${funct}","FEATURE":"${id}"}`;
+        });
+
+        formData.append('criteria', '[' + criteria + ']');
+
+        formData.append('__RequestVerificationToken', $("input[name=__RequestVerificationToken]").val())
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'AuthManagementApi/DeleteFeature',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.result === "false") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.msg,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        $("#modal-form").modal("hide");
+                        myFeatTable.ajax.reload();
+                        myFuncTable.ajax.reload();
+                        myTable.ajax.reload();
+                        //getDetailQcGate(data.extra_attr);
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire(
+                    "Failed!",
+                    "Internal server error.",
+                    "error"
+                );
+            }
+        });
+    }
+
+
+    function onCancel(modal) {
+        if (modal === 1) {
+            $('#modal-view-feature .modal-content').removeClass('fade-out');
+        } else {
+            $('#modal-view .modal-content').removeClass('fade-out');
+        }
+    }
+
+    function refresh_table() {
+        myTable.destroy();
+        load_table();
+    }
+
+    function refresh_table_func() {
+        myFuncTable.destroy();
+        load_function_table();
+    }
+
+    function refresh_table_feat() {
+        myFeatTable.destroy();
+        load_feature_table();
+    }
+
+    function onClear() {
+        $('#sc_roleId').val("");
+        $('#sc_roleName').val("");
+        myTable.destroy();
+        load_table();
+    }
+
+    function onClearFunc() {
+        $('#sc_funcId').val("");
+        $('#sc_funcName').val("");
+        myFuncTable.destroy();
+        load_function_table();
+    }
+
+    function onClearFear() {
+        $('#sc_featId').val("");
+        $('#sc_featName').val("");
+        myFeatTable.destroy();
+        load_feature_table();
+    }
+
+    function showOverlay(process) {
+        Swal.fire({
+            title: process,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading()
+            },
+        }).then((result) => {
+        })
+    }
+</script>

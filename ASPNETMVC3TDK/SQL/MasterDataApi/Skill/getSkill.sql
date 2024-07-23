@@ -1,0 +1,11 @@
+﻿DECLARE  
+    @@QUERY VARCHAR(MAX),
+    @@SKILL_NAME VARCHAR(MAX) = @P_FIND;
+
+SET @@QUERY = 'SELECT TOP 25 * FROM PDI.TB_M_SKILL WHERE  1=1'
+
+IF(@@SKILL_NAME != '')  BEGIN
+    SET @@QUERY = @@QUERY + ' AND cast(SKILL_NAME as varchar) LIKE ''%' + @@SKILL_NAME + '%''';
+END;
+
+EXECUTE (@@QUERY);    

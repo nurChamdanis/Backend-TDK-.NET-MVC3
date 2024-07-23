@@ -1,0 +1,116 @@
+<script type="text/javascript">
+			$('.alert-dismissible-button').on('click', function (e) {
+				$(".alert-dismissible").hide(200);
+			});
+
+			var KTSigninGeneral = (function () {
+				var e, t, i;
+				return {
+					init: function () {
+						(e = document.querySelector("#kt_sign_in_form")),
+						(t = document.querySelector("#kt_sign_in_submit")),
+						(i = FormValidation.formValidation(e, {
+							fields: {
+                                username: {
+                                    validators: { notEmpty: { message: "The Username is required" } }
+                                },
+                                password: {
+                                    validators: { notEmpty: { message: "The password is required" } }
+                                },
+							},
+                            plugins: {
+                                trigger: new FormValidation.plugins.Trigger()
+                                , bootstrap: new FormValidation.plugins.Bootstrap5({ rowSelector: ".fv-row", eleInvalidClass: "", eleValidClass: "" })
+                            },
+						})),
+						t.addEventListener("click", function (n) {
+							n.preventDefault(),
+							i.validate().then(function (i) {
+								"Valid" == i
+									? (t.setAttribute("data-kt-indicator", "on"),
+										(t.disabled = !0),
+										$.ajax({
+											method: "POST",
+                                            ////url: "@Html.Toyota().Page.AjaxLoginActionUrl",
+                                            url: "/Login/AjaxLogin",
+											data:{
+												username: e.querySelector('[name="username"]').value,
+												password: e.querySelector('[name="password"]').value
+                                            },
+                                            beforeSend: function (e) {
+                                                $(".alert-dismissible").hide();
+                                            },
+											success:
+                                                function (feedback) {
+                                                    if (feedback == "true") {
+                                                        setToken();
+                                                        //updateFlag();
+                                                        setTimeout(() => {
+														    @*window.location.href = "@Html.Toyota().Page.HomeUrl";*@
+                                                            window.location.href = "/";
+                                                        }, "1000");
+													} else {
+                                                        t.removeAttribute("data-kt-indicator");
+                                                        $("#login-error-message").html("Invalid Username and/or Password.");
+														t.disabled = !1;
+														$(".alert-dismissible").show(200);
+													}
+												},
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                if (jqXHR.status === 0 && textStatus === 'error') {
+                                                    // ERR_INTERNET_DISCONNECTED occurred
+                                                    //console.log("error ", feedback)
+                                                    t.removeAttribute("data-kt-indicator");
+                                                    t.disabled = !1;
+                                                    $("#login-error-message").html("Internet connection error.");
+                                                    $(".alert-dismissible").show(200);
+                                                } else {
+                                                    // Handle other errors
+                                                    console.log("error ", errorThrown)
+                                                    t.removeAttribute("data-kt-indicator");
+                                                    t.disabled = !1;
+                                                    $("#login-error-message").html("Something went wrong.");
+                                                    $(".alert-dismissible").show(200);
+                                                    console.log('Other error occurred');
+                                                }
+
+											}
+										})
+									)
+                                    : Swal.fire({
+                                        text: "Sorry, looks like there are some errors detected, please try again."
+                                        , icon: "error"
+                                        , buttonsStyling: !1
+                                        , confirmButtonText: "Ok, got it!"
+                                        , customClass: { confirmButton: "btn btn-primary" },
+                                    });
+							});
+						});
+					},
+				};
+			})();
+
+			KTUtil.onDOMContentLoaded(function () {
+				KTSigninGeneral.init();
+            });
+
+
+        function setToken() {
+
+            $.ajax({
+				method: "POST",
+                url: "/Login/getToken",
+                data: {
+                    password: document.querySelector('[name="password"]').value
+				},
+                success: function (feedback) {
+                    // console.log(feedback.token);
+                    if (localStorage.getItem("jwtToken") !== null) {
+                        localStorage.removeItem("jwtToken");
+                    }
+                    localStorage.setItem("jwtToken", feedback.token);
+				}
+			})
+        }
+
+</script>

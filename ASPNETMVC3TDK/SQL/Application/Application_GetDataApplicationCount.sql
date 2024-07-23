@@ -1,0 +1,29 @@
+﻿DECLARE 
+	  @@QUERY VARCHAR(MAX)
+	, @@NAME VARCHAR(MAX) = REPLACE(@P_NAME, '''', '`')
+	, @@TYPE VARCHAR(MAX) = REPLACE(@P_TYPE, '''', '`')
+	, @@DESCRIPTION VARCHAR(MAX) = REPLACE(@P_DESCRIPTION, '''', '`')
+
+		SET @@QUERY = '
+		SELECT 
+			COUNT(1) AS CNT
+		FROM 
+			TB_M_APPLICATION
+		WHERE 1=1 ';
+
+
+IF (@@NAME != '') BEGIN
+	SET @@QUERY = @@QUERY + ' AND NAME LIKE ''%' + @@NAME + '%''';
+END
+
+IF (@@TYPE != '') BEGIN
+	SET @@QUERY = @@QUERY + ' AND TYPE LIKE ''%' + @@TYPE + '%''';
+END
+
+IF (@@DESCRIPTION != '') BEGIN
+	SET @@QUERY = @@QUERY + ' AND DESCRIPTION LIKE ''%' + @@DESCRIPTION + '%''';
+END
+
+
+
+EXECUTE (@@QUERY);

@@ -1,0 +1,570 @@
+<script>
+    var myTable;
+    var typeSave;
+    var rowDataEdit;
+
+    $(document).ready(function () {
+        $('.mandatory-sign').hide();
+        $('#btnSaveData').hide();
+        $('#btnRemoveInputRow').hide();
+
+        load_table();
+    });
+
+    function onSearch() {
+        $("#data-table-wrapper").show();
+        myTable.ajax.reload();
+    }
+
+    function load_table() {
+        myTable = $('#datatable').DataTable({
+            sDom: 'lt<"bottom"><"row"<"col-sm-4 info-custom"i><"col-sm-7 pagination-custom"p><"col-sm-1 paginate-go">>',
+            order: [[1, 'ASC']],
+            processing: true,
+            serverSide: true,
+            scrollX: true,
+            pagingType: 'full_numbers',
+            responsive: false,
+            ajax: {
+                type: 'POST',
+                url: 'MasterSystemApi/GetDatatables',
+                data: function (d) {
+                    d.SYSTEM_TYPE = $('#sc_system_type').val();
+                    d.SYSTEM_CD = $('#sc_system_cd').val();
+                    d.LOT_NO = $('#sc_no_lot').val();
+                    d.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    bSortable: false,
+                    render: function (data, type, row) {
+                        return '<input type="checkbox" class="select-checkbox">'
+                    },
+                    className: 'text-center',
+                    name: 'check_item'
+                },
+                { data: 'SYSTEM_TYPE', name: 'SYSTEM_TYPE', className: 'td-width-20' },
+                { data: 'SYSTEM_CD', name: 'SYSTEM_CD', className: 'td-width-20' },
+                { data: 'SYSTEM_VALUE_TXT', name: 'SYSTEM_VALUE_TXT', className: 'td-width-20' },
+                { data: 'SYSTEM_VALUE_NUM', name: 'SYSTEM_VALUE_NUM', className: 'td-width-10 right' },
+                { data: 'SYSTEM_VALUE_DT', name: 'SYSTEM_VALUE_DT', className: 'text-center td-width-10' },
+                { data: 'SYSTEM_REMARK', name: 'SYSTEM_REMARK', className: 'td-width-20'},
+                { data: 'CREATED_BY', name: 'CREATED_BY', className: 'td-width-15' },
+                { data: 'CHANGED_BY', name: 'CHANGED_BY', className: 'td-width-15' },
+                { data: 'CHANGED_DT', name: 'CHANGED_DT', className: 'text-center td-width-15' }
+            ],
+            language: {
+                "lengthMenu": "Show _MENU_ entries",
+                "info": "Showing _START_ to _END_ (_TOTAL_ entries)",
+                "paginate": {
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Next",
+                    "previous": "Prev"
+                }
+            }
+        });
+
+        var paginateGo = `<div class="pagination-go">
+                            <div class="row">
+                                <div class="col-sm-6" style="padding: 0 !important">
+                                    <input type="number" min="1" class="form-control" name="input-go" id="input_go" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="btn btn-primary btn-go" onclick="paginateGo()">Go</button>
+                                </div>
+                            </div>
+                          </div>`
+        $('.paginate-go').html(paginateGo)
+
+
+        $('#checkAll').on('change', function () {
+            var isChecked = $(this).prop('checked');
+            var checkboxes = $('#datatable tbody .select-checkbox');
+            checkboxes.prop('checked', isChecked);
+            checkboxes.closest('tr').toggleClass('selected', isChecked);
+
+            var checkedboxes = $('#datatable tbody .select-checkbox:checked');
+            var editButton = $('#btnEditData');
+            var deleteButton = $('#btnDeleteData');
+
+            if (checkedboxes.length === 1) {
+                editButton.prop('disabled', false);
+            } else {
+                editButton.prop('disabled', true);
+            }
+
+            if (checkedboxes.length > 0) {
+                deleteButton.prop('disabled', false);
+            } else {
+                deleteButton.prop('disabled', true);
+            }
+        });
+
+        $('#datatable tbody').on('change', '.select-checkbox', function () {
+            var checkbox = $(this);
+            var isChecked = checkbox.prop('checked');
+            var row = checkbox.closest('tr');
+
+            // Toggle the 'selected' class based on the checkbox state
+            if (isChecked) {
+                row.addClass('selected');
+            } else {
+                row.removeClass('selected');
+            }
+
+            var checkedboxes = $('#datatable tbody .select-checkbox:checked');
+            var editButton = $('#btnEditData');
+            var deleteButton = $('#btnDeleteData');
+
+            if (checkedboxes.length === 1) {
+                editButton.prop('disabled', false);
+
+                rowDataEdit = myTable.rows('.selected').data()[0];
+            } else {
+                editButton.prop('disabled', true);
+            }
+
+            if (checkedboxes.length > 0) {
+                deleteButton.prop('disabled', false);
+            } else {
+                deleteButton.prop('disabled', true);
+            }
+
+            var allChecked = checkedboxes.length === $('#datatable tbody .select-checkbox').length;
+            $('#checkAll').prop('checked', allChecked);
+        });
+    }
+
+    function showOverlay(process) {
+        Swal.fire({
+            title: process,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading()
+            },
+        }).then((result) => {
+        })
+    }
+
+    function hideOverlay() {
+        Swal.close();
+    }
+
+    $('#sc_system_cd').select2({
+        allowClear: false,
+        width: "100%",
+        ajax:
+        {
+            type: 'POST',
+            url: '/MasterSystemApi/GetDataOptions',
+            dataType: 'json',
+            delay: 1000,
+            async: false,
+            data: function (params) {
+
+                var aSearch = {
+                    PARAM_1: "SYSTEM_CD"
+                    , PARAM_2: $('#sc_system_type').val()
+                    , PARAM_3: params.term
+                    , PARAM_4: "WITHALL"
+                }
+                return aSearch;
+            },
+            processResults: function (data, params) {
+
+                return { results: data };
+            },
+            cache: true
+        },
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        }
+    });
+
+    //Role//
+
+    $('#sc_system_type').select2({
+        allowClear: false,
+        width: "100%",
+        ajax:
+        {
+            type: 'POST',
+            url: '/MasterSystemApi/GetDataOptions',
+            dataType: 'json',
+            delay: 1000,
+            async: false,
+            data: function (params) {
+
+                var aSearch = {
+                    PARAM_1: "SYSTEM_TYPE"
+                    , PARAM_2: params.term
+                    , PARAM_4: "WITHALL"
+                }
+                return aSearch;
+            },
+            processResults: function (data, params) {
+
+                return { results: data };
+            },
+            cache: true
+        },
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        }
+    }).on('select2:select', function (e) {
+        $('#sc_system_cd').val("").change();
+        $('#sc_system_value').val("").change();
+    });
+
+    function onClear() {
+        $('#sc_system_cd').val("").change();
+        $('#sc_system_type').val("").change();
+        $('#sc_function_id').val("").change();
+        $('#sc_system_value').val("").change();
+        onSearch();
+
+        $("#data-table-wrapper").hide();
+    }
+
+    async function addInputRow() {
+        if (!$("#data-table-wrapper").is(":visible")) {
+            await reloadAwait();
+        }
+
+        prependRowInput();
+    }
+
+    function reloadAwait() {
+        return new Promise((resolve) => {
+            $("#data-table-wrapper").show();
+            myTable.ajax.reload();
+
+            resolve('resolved');
+        });
+    }
+
+    function prependRowInput() {
+        var row = $('<tr>')
+            .append('<td></td>')
+            .append('<td><select class="form-select select-input" id="SYSTEM_TYPE" name="SYSTEM_TYPE"><option value="">-- Select --</option></select></td>')
+            .append('<td><input type="text" class="form-control" id="SYSTEM_CD" name="SYSTEM_CD" /></td>')
+            .append('<td><input type="text" class="form-control" id="SYSTEM_VALUE_TXT" name="SYSTEM_VALUE_TXT" /></td>')
+            .append('<td><input type="number" min="0" class="form-control right" id="SYSTEM_VALUE_NUM" name="SYSTEM_VALUE_NUM" step=".01" /></td>')
+            .append('<td><input type="text" class="form-control datepicker text-center" id="SYSTEM_VALUE_DT" name="SYSTEM_VALUE_DT" /></td>')
+            .append('<td><textarea class="form-control" id="SYSTEM_REMARK" name="SYSTEM_REMARK" rows="1"></textarea></td>')
+            .append('<td><input type="text" class="form-control" id="CREATED_BY" name="CREATED_BY" disabled /></td>')
+            .append('<td><input type="text" class="form-control" id="CHANGED_BY" name="CHANGED_BY" disabled /></td>')
+            .append('<td><input type="text" class="form-control" id="CHANGED_DATE" name="CHANGED_DATE" disabled /></td>')
+            .append('</tr>')
+
+        setTimeout(() => {
+            myTable.row.add(row);
+
+            $('.mandatory-sign').show();
+            $('#datatable tbody').prepend(row);
+
+            // Disable checkbox datatable
+            $('input[type="checkbox"]').prop('disabled', true);
+
+            $('#SYSTEM_TYPE').select2({
+                allowClear: false,
+                width: "100%",
+                tags: true,
+                dropdownParent: $('#data-table-wrapper'),
+                ajax:
+                {
+                    type: 'POST',
+                    url: '/MasterSystemApi/GetDataOptions',
+                    dataType: 'json',
+                    delay: 1000,
+                    async: false,
+                    data: function (params) {
+
+                        var aSearch = {
+                            PARAM_1: "SYSTEM_TYPE"
+                            , PARAM_2: params.term
+                        }
+                        return aSearch;
+                    },
+                    processResults: function (data, params) {
+
+                        return { results: data };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0,
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+
+            $(".datepicker").flatpickr({
+                dateFormat: "d.m.Y"
+            });
+
+            $('#SYSTEM_TYPE').removeClass('disable-input');
+            $('#SYSTEM_CD').removeClass('disable-input');
+
+            typeSave = 'ADD';
+            disabledButtonHeader();
+        }, 100)
+        
+    }
+
+    function removeInputRow() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#05B188",
+            cancelButtonColor: "#EB5757",
+            confirmButtonText: "Yes, cancel it!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                myTable.ajax.reload();
+                enabledButtonHeader();
+
+                Swal.fire({
+                    title: "Cancelled!",
+                    text: "Your file has been cancelled.",
+                    icon: "success"
+                });
+            }
+        });
+    }
+
+    function enabledButtonHeader() {
+        // Enable button add data
+        $('#btnAddInputRow').prop('disabled', false);
+
+        // Change button save and cancel data
+        $('#btnEditData').show();
+        $('#btnDeleteData').show();
+
+        $('#btnSaveData').hide();
+        $('#btnRemoveInputRow').hide();
+
+        $('#btnSearch').prop('disabled', false);
+        $('#btnClear').prop('disabled', false);
+        $('#checkAll').prop('disabled', false);
+
+        $('.mandatory-sign').hide();
+    }
+
+    function disabledButtonHeader() {
+        // Disable button add data
+        $('#btnAddInputRow').prop('disabled', true);
+
+        // Change button edit and delete data
+        $('#btnEditData').hide();
+        $('#btnDeleteData').hide();
+
+        $('#btnSaveData').show();
+        $('#btnRemoveInputRow').show();
+
+        $('#btnSearch').prop('disabled', true);
+        $('#btnClear').prop('disabled', true);
+    }
+
+    function paginateGo() {
+        var goto = $('#input_go').val();
+
+        myTable.page(goto - 1).draw('page');
+    }
+
+    function saveData() {
+        var systemType = $('#SYSTEM_TYPE').val();
+        var systemCode = $('#SYSTEM_CD').val();
+        var systemValText = $('#SYSTEM_VALUE_TXT').val();
+        var systemValNum = $('#SYSTEM_VALUE_NUM').val();
+        var systemValDate = $('#SYSTEM_VALUE_DT').val();
+        var systemRemark = $('#SYSTEM_REMARK').val();
+
+        var status = validationData(systemType, systemCode, systemValText, systemValNum, systemValDate)
+        if (status) {
+            var formData = new FormData();
+
+            var valueNum = 0.0;
+            if (systemValNum !== '') {
+                valueNum = systemValNum
+            }
+
+            if (systemValDate !== '') {
+                var expDate = systemValDate.split('.')
+
+                systemValDate = `${expDate[2]}-${expDate[1]}-${expDate[0]}`;
+            }
+
+            var dataJson = `[{"SYSTEM_TYPE": "${systemType}", "SYSTEM_CD": "${systemCode}", "SYSTEM_VALUE_TXT": "${systemValText}", "SYSTEM_VALUE_DT": "${systemValDate}", "SYSTEM_VALUE_NUM": "${valueNum}", "SYSTEM_REMARK": "${systemRemark}", "IS_ACTIVE": "1"}]`;
+
+            formData.append('MODE', typeSave);
+            formData.append('JSON_DATA', dataJson);
+            formData.append('__RequestVerificationToken', $("input[name=__RequestVerificationToken]").val());
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: 'MasterSystemApi/SaveData',
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    showOverlay("Loading");
+                },
+                success: function (data) {
+                    if (data.success == 'true') {
+                        notifSuccess(data.message);
+                        $("#modal-form").modal("hide");
+                        myTable.ajax.reload();
+                    } else {
+                        notifFailed(data.message)
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    notifFailed('', 'MSG230314001E', 'System');
+                }
+            });
+        }
+    }
+
+    function validationData(systemType, systemCode, systemValText, systemValNum, systemValDate) {
+        if (systemType.trim() == '' || systemCode.trim() == '' || (systemValText.trim() == '' && systemValNum.trim() == '' && systemValDate.trim() == '')) {
+            var fieldName = '';
+
+            if (systemType == '') {
+                fieldName = 'SYSTEM TYPE';
+            } else if (systemCode == '') {
+                fieldName = 'SYSTEM CODE';
+            } else if (systemValText == '' && systemValNum == '' && systemValDate == '') {
+                fieldName = 'SYSTEM VALUE TEXT OR NUMERIC OR DATE';
+            }
+
+            notifWarning('MSG240226001W', fieldName)
+
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    $('#datatable').on('draw.dt', function () {
+        enabledButtonHeader();
+    });
+
+    function deleteData() {
+        var checkboxes = $('#datatable tbody .select-checkbox:checked');
+
+        Swal.fire({
+            html: `Are you sure want to delete ${checkboxes.length} data?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#05B188",
+            cancelButtonColor: "#EB5757",
+            confirmButtonText: "Yes, delete it!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                processDelete();
+            }
+        });
+    }
+
+    function processDelete() {
+        var SYSTEM_TYPE = []
+        var SYSTEM_CD = []
+        var selectedRowsData = myTable.rows('.selected').data();
+
+        formData = new FormData()
+        $.each(selectedRowsData, function (index, row) {
+            SYSTEM_TYPE.push(row.SYSTEM_TYPE);
+            SYSTEM_CD.push(row.SYSTEM_CD);
+        });
+
+        var criteria = SYSTEM_TYPE.map((systemType, index) => {
+            const systemCd = SYSTEM_CD[index].replace(/['"]+/g, ''); // Remove extra quotes
+            return `{"SYSTEM_TYPE":"${systemType}","SYSTEM_CD":"${systemCd}"}`;
+        });
+
+        formData.append('criteria', '[' + criteria + ']');
+        formData.append('__RequestVerificationToken', $("input[name=__RequestVerificationToken]").val())
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'MasterSystemApi/DeleteData',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.success == 'true') {
+                    notifSuccess(data.message);
+                    $("#modal-form").modal("hide");
+                    myTable.ajax.reload();
+                } else {
+                    notifFailed(data.message)
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                notifFailed('', 'MSG230809001E', 'System');
+            }
+        });
+    }
+
+    function editData() {
+        typeSave = 'UPDATE';
+
+        $('.mandatory-sign').show();
+        // Disable checkbox datatable
+        $('input[type="checkbox"]').prop('disabled', true);
+
+        disabledButtonHeader();
+        initialRowEdit(rowDataEdit);
+
+        $('#SYSTEM_TYPE').addClass('disable-input');
+        $('#SYSTEM_CD').addClass('disable-input');
+    }
+
+    function initialRowEdit(data) {
+        var rowData = {};
+
+        if (data.SYSTEM_VALUE_NUM != '' && data.SYSTEM_VALUE_NUM != null) {
+            var valueNum = parseFloat(data.SYSTEM_VALUE_NUM.replace(',', '.'));
+        }
+
+        if (data.SYSTEM_VALUE_DT == null) {
+            data.SYSTEM_VALUE_DT = '';
+        }
+
+        if (data.CHANGED_BY == null) {
+            data.CHANGED_BY = '';
+        }
+
+        rowData.SYSTEM_TYPE = `<input type="text" class="form-control" id="SYSTEM_TYPE" name="SYSTEM_TYPE" value="${data.SYSTEM_TYPE}" readonly />`;
+        rowData.SYSTEM_CD = `<input type="text" class="form-control" id="SYSTEM_CD" name="SYSTEM_CD" value="${data.SYSTEM_CD}" readonly />`;
+        rowData.SYSTEM_VALUE_TXT = `<input type="text" class="form-control" id="SYSTEM_VALUE_TXT" name="SYSTEM_VALUE_TXT" value="${data.SYSTEM_VALUE_TXT}" />`;
+        rowData.SYSTEM_VALUE_NUM = `<input type="number" min="0" class="form-control right" id="SYSTEM_VALUE_NUM" name="SYSTEM_VALUE_NUM" step=".01"  value="${valueNum}" />`;
+        rowData.SYSTEM_VALUE_DT = `<input type="text" class="form-control datepicker text-center" id="SYSTEM_VALUE_DT" name="SYSTEM_VALUE_DT"  value="${data.SYSTEM_VALUE_DT}"/>`;
+        rowData.SYSTEM_REMARK = `<textarea class="form-control" id="SYSTEM_REMARK" name="SYSTEM_REMARK" rows="1"  value="${data.SYSTEM_REMARK}">${data.SYSTEM_REMARK}</textarea>`;
+        rowData.CREATED_BY = `<input type="text" class="form-control" id="CREATED_BY" name="CREATED_BY" value="${data.CREATED_BY}" disabled />`;
+        rowData.CHANGED_BY = `<input type="text" class="form-control" id="CHANGED_BY" name="CHANGED_BY" value="${data.CHANGED_BY}" disabled />`;
+        rowData.CHANGED_DT = `<input type="text" class="form-control" id="CHANGED_DATE" name="CHANGED_DATE"  value="${data.CHANGED_DT}" disabled />`;
+
+        myTable.row(myTable.rows('.selected').indexes()[0]).data(rowData);
+
+        $(".datepicker").flatpickr({
+            dateFormat: "d.m.Y"
+        });
+    }
+</script>

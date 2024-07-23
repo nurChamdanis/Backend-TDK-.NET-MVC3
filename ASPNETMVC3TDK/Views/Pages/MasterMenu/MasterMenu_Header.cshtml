@@ -1,0 +1,48 @@
+<div class="card card-flush pt-3 mb-5 mb-lg-10">
+    <!--begin::Card body-->
+    <div class="card-body pt-0">
+        <form id="sc_form" class="form" action="#" autocomplete="off">
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Menu ID</label>
+                        <div class="col-md-8">
+                            <input type="text" id="sc_menuid" class="form-control" maxlength="30" autofocus>
+                        </div>
+                    </div>
+
+                    <div class="fv-row row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Menu Parent</label>
+                        <div class="col-md-8">
+                            <select class="form-select" id="sc_menuparent" name="sc_menuparent">
+                                <option value="" disabled selected>-- Select --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">Application</label>
+                        <div class="col-md-8">
+                            <select class="form-select" id="sc_applicationName" name="sc_applicationName">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div class="separator mb-5"></div>
+    <div class="row">
+        <div class="col-sm d-sm-block col-lg-8 d-lg-block text-lg-start">
+            <button type="button" class="btn btn-success btn-sm w-sm-auto w-md-125px" onclick="showModalAdd()"><i class="fas fa-plus fs-4 me-2"></i> Add</button>
+            <button type="button" id="editButton" class="btn btn-warning btn-sm w-sm-auto w-md-125px" onclick="showModalEdit()" disabled><i class="fas fa-pencil fs-4 me-2"></i> Edit</button>
+            <button type="button" id="deleteButton" class="btn btn-danger btn-sm w-sm-auto w-md-125px" onclick="deleteConfirmation()" disabled><i class="fas fa-trash fs-4 me-2"></i> Delete</button>
+        </div>
+        <div class="col-sm d-sm-block col-lg-4 d-lg-block text-lg-end">
+            <button type="button" class="btn btn-primary btn-sm w-sm-auto w-md-125px" onclick="refresh_table()"><i class="fas fa-magnifying-glass fs-4 me-2"></i> Search</button>
+            <button type="button" class="btn btn-secondary btn-sm text-white w-sm-auto w-md-125px" onclick="onClear()"><i class="fas fa-arrow-rotate-right fs-4 me-2 text-white"></i> Clear</button>
+        </div>
+    </div>
+    </form>
+</div>
+</div>

@@ -1,0 +1,298 @@
+.custom-bg-header-white {
+    background-color: #FFF;
+    z-index: 1; /* Keep the header behind the modal */
+    position: relative;
+}
+
+.active-tabs {
+    color: white;
+    background-color: #0275B1 !important;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+.aside .aside-logo {
+    background-color: #2d3c8d !important;
+}
+
+.aside-menu {
+    background-color: #fff !important;
+}
+
+#kt_wrapper {
+    background-color: #e8e8e81a !important;
+}
+
+.aside-menu .menu-item .menu-link .menu-title {
+    color: #212529;
+}
+
+.aside .aside-toggle .svg-icon, .aside .aside-toggle i {
+    color: #fff !important;
+}
+
+.aside-menu .menu-item:not(.show).here > .menu-link .menu-icon i {
+    color: #000;
+}
+
+.aside-menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-bullet .bullet, .aside-menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-bullet .bullet {
+    background-color: #000;
+}
+
+.aside-menu .menu-item.here > .menu-link .menu-bullet .bullet {
+    background-color: #000;
+}
+
+.aside-menu .menu-item .menu-link.active {
+    background-color: #e8e8e8 !important;
+    color: #000;
+}
+/**/
+.aside-menu .menu-item .menu-link.active .menu-title {
+    color: #000 !important;
+}
+
+.aside-menu .menu-item.show > .menu-link {
+    background-color: #f1416c !important;
+    color: #fff;
+}
+
+
+.aside-menu .menu-item.show > .menu-title {
+    color: #fff !important;
+}
+
+.aside-menu .menu-item.here > .menu-link {
+    transition: color .2s ease;
+    background-color: #e8e8e8;
+    color: #fff !important;
+}
+
+.aside-menu .menu-sub-accordion .menu-item.show > .menu-link {
+    background-color: #969696 !important;
+    color: #fff;
+}
+
+.aside-menu .menu-item.here:not(.show) > .menu-link .menu-title {
+    color: #000 !important;
+}
+
+.aside-menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here), .aside-menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) {
+    background-color: #e8e8e8 !important;
+    color: #007bff !important;
+}
+
+.aside-menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-title, .aside-menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-title {
+    color: #007bff !important;
+}
+
+.aside-menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-icon i, .aside-menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-icon i {
+    color: #007bff !important;
+}
+
+.btn {
+    border-radius: 7px;
+}
+
+.btn-primary {
+    background-color: #5092D4 !important;
+}
+
+.btn-secondary {
+    background-color: #BFBFBF !important;
+    color: #fff !important;
+}
+
+.btn-success {
+    background-color: #05B188 !important;
+}
+
+.btn-danger {
+    background-color: #EB5757 !important;
+}
+
+.btn-warning {
+    background-color: #FFBF75 !important;
+}
+
+.fa-download {
+    color: #535353 !important;
+}
+
+.btn:disabled,
+input:disabled {
+    pointer-events: unset !important;
+    cursor: not-allowed !important;
+}
+
+.table th {
+    vertical-align: middle;
+    color: #727272;
+    font-weight: bold;
+}
+
+.right {
+    text-align: end;
+}
+
+.pagination-go-detail {
+    margin-right: 1rem;
+}
+
+.pagination a,
+.pagination-detail a {
+    font-size: 11px !important;
+}
+
+.pagination-go input,
+.pagination-go-detail input {
+    height: 30px;
+    margin: 30% auto;
+    padding: 0.775rem .3rem;
+}
+
+.pagination-go button,
+.pagination-go-detail button {
+    padding: 5px !important;
+    margin: 50% auto !important;
+}
+
+.pagination-go .col-sm-2,
+.pagination-go-detail .col-sm-2 {
+    margin-left: -1rem;
+}
+
+.table thead {
+    background-color: #e8e8e8;
+    border: solid .5px #f3f3f3 !important;
+}
+
+td input {
+    padding: 0.775rem .3rem !important;
+}
+    
+.info-custom {
+    margin-top: 7px;
+}
+
+.table th:first-child,
+.table td:first-child {
+    padding-left: 0.75rem !important;
+}
+
+.select2-selection--single {
+    display: inline-grid !important;
+}
+
+.toastify-failed {
+    background-color: #F33733 !important;
+    color: #ffffff;
+}
+
+.toastify-success {
+    background-color: #84CC16 !important;
+    color: #ffffff;
+}
+
+.icon-toast {
+    width: 20%;
+    margin-right: 5px;
+}
+
+.z-sweetalert2 {
+    z-index: 10001;
+}
+
+table.dataTable > thead > tr > th:not(.sorting_disabled) {
+    padding-right: 0.75rem !important;
+}
+
+.table td:last-child{
+    padding-right: 0.4rem !important;
+}
+
+.disable-input {
+    color: var(--kt-input-disabled-color);
+    background-color: var(--kt-input-disabled-bg);
+    border-color: var(--kt-input-disabled-border-color);
+}
+
+.search-table-outter {
+    overflow-x: scroll;
+}
+
+.th-width-20,
+.td-width-20 {
+    min-width: 20rem;
+}
+
+.th-width-5,
+.td-width-5 {
+    min-width: 5rem;
+}
+
+.th-width-10,
+.td-width-10 {
+    min-width: 10rem;
+}
+
+.th-width-15,
+.td-width-15 {
+    min-width: 15rem;
+}
+
+#btnDownloadData i,
+#btnDownloadDataDetail i {
+    padding-left: 0.8rem;
+}
+
+@media (min-width: 992px) {
+    .modal-detail-log {
+        --bs-modal-width: 1100px !important;
+    }
+}
+
+.modal-detail-log label,
+.modal-detail-log input{
+    font-size: 12px !important;
+}
+
+.modal-detail-log .modal-body {
+    padding: 0 !important;
+}
+
+.modal-footer-dtl {
+    padding: .5rem !important;
+}
+
+.w-800 {
+    min-width: 70rem !important;
+}
+
+
+/* by Nur Chamdani*/
+/* textarea email*/
+.textarea_email {
+    resize: none; /* Disable resizing */
+    overflow: hidden; /* Hide overflow content */
+    height: 200px;
+    max-height: 200px; /* Set a maximum height */
+    height: auto;
+}
+
+/* wrapper call */
+.wrapper_active {
+    display: block;
+}
+
+/* wrapper */
+#wrapper {
+    height: 10px;
+    display: none;
+}
+

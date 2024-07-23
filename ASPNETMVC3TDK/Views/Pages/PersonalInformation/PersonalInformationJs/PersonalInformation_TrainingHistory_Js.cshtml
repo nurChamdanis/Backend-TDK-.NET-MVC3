@@ -1,0 +1,44 @@
+<script>
+    // Function for modal training history
+    function showModalTrainingHistory() {
+        $("#modal-training-history").modal("show")
+    }
+
+    function closeModalTrainingHistory() {
+        $("#modal-training-history").modal("hide")
+    }
+
+    // Function for modal eligibility criteria
+    function showModalEligibilityCriteria() {
+        $("#modal-eligibility-criteria").modal("show")
+    }
+
+    function closeModalEligibilityCriteria() {
+        $("#modal-eligibility-criteria").modal("hide")
+    }
+
+    function showCardModeEditable(type) {
+        $("#card-training-history").addClass('d-none')
+        $("#card-eligibility-criteria").addClass('d-none')
+        $(`#change-mode-edit-${type}`).addClass('d-none')
+
+        $(`#card-${type}`).removeClass('d-none')
+        $(`#close-${type}`).removeClass('d-none')
+        $(`#show-add-${type}`).removeClass('d-none')
+        for (let i = 0; i < 3; i++) {
+            $(`#show-edit-${type}-${i}`).removeClass('d-none')
+        }
+    }
+
+    function closeCardModeEditable(type) {
+        $("#card-training-history").removeClass('d-none')
+        $("#card-eligibility-criteria").removeClass('d-none')
+        $(`#change-mode-edit-${type}`).removeClass('d-none')
+
+        $(`#close-${type}`).addClass('d-none')
+        $(`#show-add-${type}`).addClass('d-none')
+        for (let i = 0; i < 3; i++) {
+            $(`#show-edit-${type}-${i}`).addClass('d-none')
+        }
+    }
+</script>

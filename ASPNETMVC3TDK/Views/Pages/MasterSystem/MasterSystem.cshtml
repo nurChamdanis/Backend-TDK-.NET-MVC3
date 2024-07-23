@@ -1,0 +1,73 @@
+﻿@using Toyota.Common.Web.UI
+@using Toyota.Common.Credential
+@using Toyota.Common.Utilities
+@using ASPNETMVC3TDK.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Parent = "Master";
+    ViewBag.Title = "System Master";
+}
+
+<!--begin::Toolbar-->
+<div class="toolbar" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center me-3 flex-wrap mb-5 mb-lg-0 lh-1">
+            <!--begin::Title-->
+            <h1 class="d-flex align-items-center text-dark fw-bold my-1 fs-3">@ViewBag.Title</h1>
+            <!--end::Title-->
+        </div>
+        <!--end::Page title-->
+        <div class="d-flex align-items-center py-1">
+            <ol class="breadcrumb text-muted fs-6 fw-semibold">
+                <li class="breadcrumb-item pe-3"><span class="pe-3 text-dark">@ViewBag.Parent</span></li>
+                <li class="breadcrumb-item pe-3 text-muted">@ViewBag.Title</li>
+            </ol>
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Toolbar-->
+
+</div>
+
+<div class="post d-flex flex-column-fluid" id="kt_post">
+    <!--begin::Container-->
+    <div id="kt_content_container" class="container-fluid">
+
+        @Html.Partial("MasterSystem_Header")
+
+        <div class="card card-flush pt-3 mb-5 mb-lg-10" id="data-table-wrapper" style="display:none;">
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <div class="row">
+                    <div class="col-md-12 search-table-outter">
+                        <table class="table align-middle fs-6 gy-5 table-hover table-striped nowrap" id="datatable" width="100%">
+                            <thead>
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0" style="color: #727272; font-weight: bold;">
+                                    <th class="text-center" rowspan="2"><input type="checkbox" class="text-center" id="checkAll" /></th>
+                                    <th class="text-center th-width-20" rowspan="2">System Type <span class="text-danger mandatory-sign">*</span></th>
+                                    <th class="text-center th-width-20" rowspan="2">System Code <span class="text-danger mandatory-sign">*</span></th>
+                                    <th class="text-center" colspan="3">System Value  <span class="text-danger mandatory-sign">*</span></th>
+                                    <th class="text-center th-width-20" rowspan="2">Remarks</th>
+                                    <th class="text-center th-width-15" rowspan="2">Created By</th>
+                                    <th class="text-center th-width-15" rowspan="2">Changed By</th>
+                                    <th class="text-center th-width-15" rowspan="2">Changed Date</th>
+                                </tr>
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="text-center th-width-20">Text</th>
+                                    <th class="text-center th-width-10">Num</th>
+                                    <th class="text-center th-width-10">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 fw-semibold">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("MasterSystem_Js")

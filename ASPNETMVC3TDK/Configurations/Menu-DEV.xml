@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu>
+	<menu-item Id="menu-1" Text="Menu 1" Description="Menu description 1" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True">
+		<menu-item Id="submenu-1" Text="Sub Menu 1" Description="Menu description 1" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-2" Text="Sub Menu 2" Description="Menu description 2" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-3" Text="Sub Menu 3" Description="Menu description 3" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-4" Text="Sub Menu 4" Description="Menu description 4" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-5" Text="Sub Menu 5" Description="Menu description 5" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+	</menu-item>
+	<menu-item Id="menu-2" Text="Menu 2" Description="Menu description 2" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True">
+		<menu-item Id="submenu-1" Text="Sub Menu 1" Description="Menu description 1" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-2" Text="Sub Menu 2" Description="Menu description 2" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-3" Text="Sub Menu 3" Description="Menu description 3" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-4" Text="Sub Menu 4" Description="Menu description 4" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-5" Text="Sub Menu 5" Description="Menu description 5" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+	</menu-item>
+	<menu-item Id="menu-3" Text="Menu 3" Description="Menu description 3" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True">
+		<menu-item Id="submenu-1" Text="Sub Menu 1" Description="Menu description 1" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-2" Text="Sub Menu 2" Description="Menu description 2" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-3" Text="Sub Menu 3" Description="Menu description 3" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-4" Text="Sub Menu 4" Description="Menu description 4" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-5" Text="Sub Menu 5" Description="Menu description 5" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+	</menu-item>
+	<menu-item Id="menu-4" Text="Menu 4" Description="Menu description 4" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True">
+		<menu-item Id="submenu-1" Text="Sub Menu 1" Description="Menu description 1" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-2" Text="Sub Menu 2" Description="Menu description 2" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-3" Text="Sub Menu 3" Description="Menu description 3" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-4" Text="Sub Menu 4" Description="Menu description 4" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-5" Text="Sub Menu 5" Description="Menu description 5" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+	</menu-item>
+	<menu-item Id="menu-5" Text="Menu 5" Description="Menu description 5" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True">
+		<menu-item Id="submenu-1" Text="Sub Menu 1" Description="Menu description 1" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-2" Text="Sub Menu 2" Description="Menu description 2" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-3" Text="Sub Menu 3" Description="Menu description 3" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-4" Text="Sub Menu 4" Description="Menu description 4" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+		<menu-item Id="submenu-5" Text="Sub Menu 5" Description="Menu description 5" Url="relative-path-from-base-Url" Callback="" Target="" IconUrl="" Glyph="" Separator="none" Enabled="True" Visible="True" />
+	</menu-item>
+</menu>

@@ -1,0 +1,92 @@
+﻿@using System.Text
+@using System.Net
+@using System.Net.Sockets
+@using System.Net.NetworkInformation
+@using Toyota.Common.Credential
+@using ASPNETMVC3TDK.Models.ListMenu;
+@using System.Configuration;
+
+
+
+@{
+    string AppAlias = ApplicationSettings.Instance.Alias;
+    User user = Html.Toyota().Page.User;
+    var role = user.Roles.Where(w => w.Application.Id == AppAlias).Select(x => x.Id).FirstOrDefault();
+    ListMenuRepo repoMenu = new ListMenuRepo();
+    var listMenu = repoMenu.GetListMenuParent(user.Username, role);
+    string activeMenuId = Html.Toyota().Page.ScreenID.ToString();
+
+    //if (activeMenuId.Length > 8)
+    //{
+    //    activeMenuId = activeMenuId.Substring(0, 8);
+    //}
+    //bool activeMenuIdSelected = false;
+
+    //var authorizedPage = listMenu.Where(lm => lm.FUNCTION == activeMenuId).ToList();
+
+    //if (authorizedPage.Count() == 0)
+    //{
+    //    Response.Redirect("NotAuthorize");
+    //}
+
+    @_Menus("", activeMenuId,role,user.Username);
+}
+
+@functions {
+    ListMenuRepo repoMenu = new ListMenuRepo();
+
+    MvcHtmlString _Menus(string parentId, string activeId, string role, string user)
+    {
+        IList<ListMenu> listMenu = null;
+        StringBuilder menuBuilder = new StringBuilder();
+        if (parentId == "")
+        {
+            listMenu = repoMenu.GetListMenuParent(user, role);
+            foreach (var m in listMenu)
+            {
+                string menuParentActive = "";
+                string menuActive = "";
+                var listSubMenu = repoMenu.GetListMenu(m.USERNAME, m.ROLE, m.MENU_ID);
+                if (listSubMenu.Count > 0)
+                {
+                    foreach (var sm in listSubMenu)
+                    {
+
+                        if(sm.URL.Contains(activeId))
+                        {
+                            menuParentActive = " show here ";
+                        }
+                    }
+
+                    menuBuilder.Append("<div data-kt-menu-trigger=\"click\" class=\"menu-item menu-accordion " + menuParentActive + "\">");
+                    menuBuilder.Append(string.Format("<span class=\"menu-link\"><span class=\"menu-icon\"><i class=\"{1}\"></i></span><span class=\"menu-title\">{0}</span><span class=\"menu-arrow\"></span></span>", m.MENU_TEXT, m.GLYPH));
+                    menuBuilder.Append("<div class=\"menu-sub menu-sub-accordion\">");
+                    foreach (var sm in listSubMenu)
+                    {
+                        menuActive = (activeId == sm.URL) ? "active" : "";
+                        menuParentActive = (menuActive == "active") ? "show here" : "";
+
+                        menuBuilder.Append("<div class=\"menu-item "+ menuActive +" \">");
+                        menuBuilder.Append(string.Format("<a class=\"menu-link {1} {4}\" href=\"{0}\"><span class=\"menu-icon\"><i class=\"{2}\"></i></span><span class=\"menu-title\">{3}</span></a>", sm.URL, sm.MENU_ID, sm.GLYPH, sm.MENU_TEXT, menuActive));
+                        menuBuilder.Append("</div>");
+                    }
+                    menuBuilder.Append("</div>");
+                    menuBuilder.Append("</div>");
+                }
+                else
+                {
+
+                    menuActive = (activeId == m.URL) ? "active" : "";
+                    menuParentActive = (menuActive == "active") ? "show here" : "";
+
+                    menuBuilder.Append("<div class=\"menu-item " + menuParentActive + " \">");
+                    menuBuilder.Append(string.Format("<a class=\"menu-link {1} {4}\" href=\"{0}\"><span class=\"menu-icon\"><i class=\"{2}\"></i></span><span class=\"menu-title\">{3}</span></a>", m.URL, m.MENU_ID, m.GLYPH, m.MENU_TEXT, menuParentActive));
+                    menuBuilder.Append("</div>");
+                }
+
+            }
+        }
+
+        return new MvcHtmlString(menuBuilder.ToString());
+    }
+}

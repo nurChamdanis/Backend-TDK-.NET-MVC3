@@ -1,0 +1,46 @@
+<div class="card card-flush card-header-custom pt-3 mb-5 mb-lg-10">
+    <!--begin::Card body-->
+    <div class="card-body pt-0">
+        <form id="sc_form" class="form" action="#" autocomplete="off">
+            @Html.AntiForgeryToken()
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <div class="fv-row  row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">System Type</label>
+                        <div class="col-md-8">
+                            <select class="form-select" id="sc_system_type" name="sc_system_type">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="fv-row  row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-4">System Code</label>
+                        <div class="col-md-8">
+                            <select class="form-select" id="sc_system_cd" name="sc_system_cd">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="separator my-5"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-primary btn-sm" id="btnAddInputRow" onclick="addInputRow()"><i class="fas fa-plus fs-4 me-2"></i> Add</button>
+
+                    <button type="button" class="btn btn-success btn-sm" id="btnEditData" onclick="editData()" disabled><i class="fas fa-edit fs-4 me-2"></i> Edit</button>
+                    <button type="button" class="btn btn-danger btn-sm" id="btnDeleteData" onclick="deleteData()" disabled><i class="fas fa-trash fs-4 me-2"></i> Delete</button>
+
+                    <button type="button" class="btn btn-success btn-sm" id="btnSaveData" onclick="saveData()" style="display: none;"><i class="fas fa-save fs-4 me-2"></i> Save</button>
+                    <button type="button" class="btn btn-danger btn-sm" id="btnRemoveInputRow" onclick="removeInputRow()" style="display: none;"><i class="fas fa-xmark fs-4 me-2"></i> Cancel</button>
+                </div>
+                <div class="col-md-6" style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm" id="btnSearch" onclick="onSearch()">Search</button>
+                    <button type="button" class="btn btn-secondary btn-sm" id="btnClear" onclick="onClear()">Clear</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

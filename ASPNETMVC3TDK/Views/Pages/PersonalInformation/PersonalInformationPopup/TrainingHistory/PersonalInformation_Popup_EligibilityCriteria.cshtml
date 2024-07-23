@@ -1,0 +1,58 @@
+<div class="modal fade" id="modal-eligibility-criteria" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-between">
+                    <label class="border border-primary border-2 p-2 fs-6 fw-bold text-primary" style="border-radius: 10px">
+                        Eligibility Criteria
+                    </label>
+                    <button type="button" onclick="closeModalEligibilityCriteria()" class="btn-close"></button>
+                </div>
+
+                <form id="assign_form" class="form" action="#" autocomplete="off">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="MODE" name="MODE" />
+                    <div class="row">
+                        <div class="col-md-12 row mt-5">
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="year" class="mb-1 fw-bold">Period</label>
+                                    <input type="date" style="border-radius: 10px" class="form-control" id="year" placeholder="Enter year">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="institution" class="mb-1 fw-bold">Institution</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="institution" placeholder="Enter institution">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="certification-eligibility" class="mb-1 fw-bold">Certification/Eligibility</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="certification-eligibility" placeholder="Enter certification/eligibility">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="skills" class="mb-1 fw-bold">Skills</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="skills" placeholder="Enter skills">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="upload-certificate" class="mb-1 fw-bold">Upload Certificate</label>
+                                    <input type="file" style="border-radius: 10px" class="form-control" id="upload-certificate" placeholder="Enter upload certificate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="button" class="btn btn-primary w-150px mx-2">Save</button>
+                    <button type="button" onclick="closeModalEligibilityCriteria()" class="btn btn-danger w-150px mx-2">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

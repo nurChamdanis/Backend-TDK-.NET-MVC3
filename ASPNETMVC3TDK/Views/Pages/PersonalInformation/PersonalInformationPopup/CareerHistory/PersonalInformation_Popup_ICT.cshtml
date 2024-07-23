@@ -1,0 +1,90 @@
+<div class="modal fade" id="modal-ict" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-between">
+                    <label class="border border-primary border-2 p-2 fs-6 fw-bold text-primary" style="border-radius: 10px">
+                        ICT / Assignment to External
+                    </label>
+                    <button type="button" onclick="closeModalICT()" class="btn-close"></button>
+                </div>
+
+                <form id="assign_form" class="form" action="#" autocomplete="off">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="MODE" name="MODE" />
+                    <div class="row">
+                        <div class="col-md-12 row mt-5">
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="period" class="mb-1 fw-bold">Period</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="period" placeholder="Enter period">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="hostDivision" class="mb-1 fw-bold">Host Division</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="hostDivision" placeholder="Enter host division">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="hostCompany" class="mb-1 fw-bold">Host Company</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="hostCompany" placeholder="Enter host company">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="hostDepartment" class="mb-1 fw-bold">Host Department</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="hostDepartment" placeholder="Enter host department">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="class" class="mb-1 fw-bold">Class</label>
+                                    <select style="border-radius: 10px" class="form-select" id="class" name="class" placeholder="Enter class">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="hostSection" class="mb-1 fw-bold">Host Section</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="hostSection" placeholder="Enter host section">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="hostClass" class="mb-1 fw-bold">Host Class</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="hostClass" placeholder="Enter host class">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="responsibility" class="mb-1 fw-bold">Responsibility</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="responsibility" placeholder="Enter responsibility">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="hostPosition" class="mb-1 fw-bold">Host Position</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="hostPosition" placeholder="Enter host position">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="skills" class="mb-1 fw-bold">Skills</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="skills" placeholder="Enter skills">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="button" class="btn btn-primary w-150px mx-2">Save</button>
+                    <button type="button" onclick="closeModalICT()" class="btn btn-danger w-150px mx-2">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+DECLARE @@QUERY VARCHAR(MAX)
+
+SET @@QUERY = '
+		SELECT DISTINCT
+			TYPE as id,
+			TYPE as text
+		FROM 
+			TB_M_APPLICATION';
+
+EXEC(@@QUERY);

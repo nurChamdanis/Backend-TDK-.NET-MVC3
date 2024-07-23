@@ -1,0 +1,433 @@
+<script>
+    var form = document.getElementById('function_form');
+    var validator = FormValidation.formValidation(
+        form,
+        {
+            fields: {
+                'MENU_ID': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Function MENU_ID is required'
+                        },
+                        stringLength: {
+                            max: 100, // Set the maximum length constraint
+                            message: 'The Function MENU_ID must not exceed 100 characters'
+                        }
+                    }
+                },
+            },
+            //fields: {
+            //    'MENU_PARENT': {
+            //        validators: {
+            //            notEmpty: {
+            //                message: 'Function MENU_PARENT is required'
+            //            },
+            //            stringLength: {
+            //                max: 100, // Set the maximum length constraint
+            //                message: 'The Function MENU_PARENT must not exceed 100 characters'
+            //            }
+            //        }
+            //    },
+            //},
+            fields: {
+                'MENU_TEXT': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Function MENU_TEXT is required'
+                        },
+                        stringLength: {
+                            max: 100, // Set the maximum length constraint
+                            message: 'The Function MENU_TEXT must not exceed 100 characters'
+                        }
+                    }
+                },
+            },
+            fields: {
+                'MENU_TIPS': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Function MENU_TIPS is required'
+                        },
+                        stringLength: {
+                            max: 100, // Set the maximum length constraint
+                            message: 'The Function MENU_TIPS must not exceed 100 characters'
+                        }
+                    }
+                },
+            },
+            fields: {
+                'URL': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Function URL is required'
+                        },
+                        stringLength: {
+                            max: 100, // Set the maximum length constraint
+                            message: 'The Function URL must not exceed 100 characters'
+                        }
+                    }
+                },
+            },
+            fields: {
+                'GLYPH': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Function GLYPH is required'
+                        },
+                        stringLength: {
+                            max: 100, // Set the maximum length constraint
+                            message: 'The Function GLYPH must not exceed 100 characters'
+                        }
+                    }
+                },
+            },
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger(),
+                bootstrap: new FormValidation.plugins.Bootstrap5({
+                    rowSelector: '.fv-row',
+                    eleInvalidClass: '',
+                    eleValidClass: ''
+                })
+            }
+        }
+    );
+
+    var myTable;
+    $(document).ready(function () {
+        load_table();
+        $('#MENU_PARENT').select2({
+            dropdownParent: $('#modal-form'),
+        });
+        $('#APP_ID').select2({
+            dropdownParent: $('#modal-form'),
+        });
+        $('#APP_ID').append($('<option>', {
+            value: "",
+            text: "--  Select All --"
+        }));
+        getParentMenu(appAlias)
+        $.ajax({
+            url: "MasterFunctionApi/GetListApplications",
+            type: "POST",
+            dataType: "json",
+            success: function (response) {
+                // Append options to select tag
+                $.each(response, function (index, item) {
+                    $('#APP_ID').append($('<option>', {
+                        value: item.id,
+                        text: item.text
+                    }));
+                });
+
+                // Select the desired option
+                $('#APP_ID').val(appAlias);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+
+
+    });
+
+    $('#P_IS_ACTIVE').on('change', function () {
+        let checked = $(this).prop('checked')
+        if (checked) {
+            $('#IS_ACTIVE').val('Y');
+        } else {
+            $('#IS_ACTIVE').val('N');
+        }
+
+    });
+
+    $('#P_VISIBILITY').on('change', function () {
+        let checked = $(this).prop('checked')
+        if (checked) {
+            $('#VISIBILITY').val('Y');
+        } else {
+            $('#VISIBILITY').val('N');
+        }
+
+    });
+
+    $('#APP_ID').on('change', function (e) {
+        var selectedValue = $(this).val();
+        console.log('Nilai terpilih: ' + selectedValue);
+        getParentMenu(selectedValue)
+        // Lakukan sesuatu setelah perubahan terjadi
+    });
+
+    function getParentMenu(appAlias) {
+        $.ajax({
+            url: "MasterMenuApi/GetMenuParent",
+            type: "POST",
+            dataType: "json",
+            data: { APP_ID: appAlias },
+            success: function (response) {
+                // Append options to select tag
+                // Append options to select tag
+                $('#MENU_PARENT').html("");
+                $('#MENU_PARENT').append($('<option>', {
+                    value: "-",
+                    text: "-- Its Parent --"
+                }));
+
+                $.each(response, function (index, item) {
+                    $('#MENU_PARENT').append($('<option>', {
+                        value: item.id,
+                        text: item.text
+                    }));
+                });
+                console.log(response);
+                // Select the desired option
+                //$('#MENU_PARENT').val(response[0].id);
+                //console.log(response);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+
+    function processDelete() {
+        var APPLICATION = []
+        var ID = []
+        var selectedRowsData = myTable.rows('.selected').data();
+
+        formData = new FormData()
+        let menuData = $.map(selectedRowsData, function (row, index) {
+            console.log(index);
+            return { APP_ID: row.APP_ID, MENU_ID: row.MENU_ID, MENU_PARENT: row.MENU_PARENT }
+        });
+
+
+
+        var criteria = APPLICATION.map((application, index) => {
+            const id = ID[index].replace(/['"]+/g, ''); // Remove extra quotes
+            return `{"APPLICATION":"${application}","ID":"${id}"}`;
+        });
+
+        formData.append('MenuData', JSON.stringify(menuData));
+
+        formData.append('criteria', '[' + criteria + ']');
+
+        formData.append('__RequestVerificationToken', $("input[name=__RequestVerificationToken]").val())
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'MasterMenuApi/DeleteData',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.result === "false") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.msg,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        $("#modal-form").modal("hide");
+                        myTable.ajax.reload();
+                        //getDetailQcGate(data.extra_attr);
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire(
+                    "Failed!",
+                    "Internal server error.",
+                    "error"
+                );
+            }
+        });
+    }
+
+    function saveConfirmation() {
+        if (validator) {
+            validator.validate().then(function (status) {
+                if (status == "Valid") {
+                    Swal.fire({
+                        html: `Are you sure want to save this data?`,
+                        icon: "info",
+                        buttonsStyling: false,
+                        showCancelButton: true,
+                        confirmButtonText: "OK",
+                        cancelButtonText: 'Cancel',
+                        customClass: {
+                            confirmButton: "btn btn-primary mx-5 w-125px",
+                            cancelButton: 'btn btn-danger w-125px'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            processSave();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "warning",
+                        title: getMessage("MSG230320004W"),
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    setTimeout(function () {
+                        if (!$("#MENU_ID").val()) {
+                            $("#MENU_ID").focus();
+                        }
+                    }, 1800);
+                }
+            });
+        } else {
+
+        }
+    }
+
+    function processSave() {
+        var formData = new FormData($("#function_form")[0]);
+        var urlAction = 'MasterMenuApi/SaveData'
+        if ($("#MODE").val() == "EDIT") {
+            editDisabledFields.forEach(function (val) {
+                formData.append("APP_ID", val.APP_ID);
+            });
+
+            editDisabledFields.forEach(function (val) {
+                formData.append("MENU_ID", val.MENU_ID);
+            });
+
+            urlAction = 'MasterMenuApi/UpdateData'
+        }
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: urlAction,
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.result == "false") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.messages,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: data.messages,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        $("#modal-form").modal("hide");
+                        myTable.ajax.reload();
+                        //getDetailQcGate(data.extra_attr);
+                    });
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire(
+                    "Failed!",
+                    "Internal server error.",
+                    "error"
+                );
+            }
+        });
+
+
+        /*console.log($("#MODE").val())*/
+        //if ($("#MODE").val() == "EDIT") {
+        //    $.ajax({
+        //        type: 'POST',
+        //        dataType: 'json',
+        //        url: 'MasterMenuApi/UpdateData',
+        //        data: formData,
+        //        contentType: false,
+        //        processData: false,
+        //        beforeSend: function () {
+        //            showOverlay("Loading");
+        //        },
+        //        success: function (data) {
+        //            if (data.result == "false") {
+        //                Swal.fire({
+        //                    icon: 'error',
+        //                    title: 'Failed',
+        //                    text: data.messages,
+        //                });
+        //            } else {
+        //                Swal.fire({
+        //                    icon: 'success',
+        //                    title: data.messages,
+        //                    showConfirmButton: false,
+        //                    timer: 1500
+        //                }).then(function () {
+        //                    $("#modal-form").modal("hide");
+        //                    myTable.ajax.reload();
+        //                    //getDetailQcGate(data.extra_attr);
+        //                });
+        //            }
+
+        //        },
+        //        error: function (jqXHR, textStatus, errorThrown) {
+        //            Swal.fire(
+        //                "Failed!",
+        //                "Internal server error.",
+        //                "error"
+        //            );
+        //        }
+        //    });
+        //}else{
+        //    $.ajax({
+        //        type: 'POST',
+        //        dataType: 'json',
+        //        url: 'MasterMenuApi/SaveData',
+        //        data: formData,
+        //        contentType: false,
+        //        processData: false,
+        //        beforeSend: function () {
+        //            showOverlay("Loading");
+        //        },
+        //        success: function (data) {
+        //           if (data.result == "false") {
+        //                Swal.fire({
+        //                    icon: 'error',
+        //                    title: 'Failed',
+        //                    text: data.messages,
+        //                });
+        //            } else {
+        //                Swal.fire({
+        //                    icon: 'success',
+        //                    title: data.messages,
+        //                    showConfirmButton: false,
+        //                    timer: 1500
+        //                }).then(function () {
+        //                    $("#modal-form").modal("hide");
+        //                    myTable.ajax.reload();
+        //                    //getDetailQcGate(data.extra_attr);
+        //                });
+        //            }
+
+        //        },
+        //        error: function (jqXHR, textStatus, errorThrown) {
+        //            Swal.fire(
+        //                "Failed!",
+        //                "Internal server error.",
+        //                "error"
+        //            );
+        //        }
+        //    });
+        //}
+    }
+</script>

@@ -1,0 +1,104 @@
+<div class="modal fade" tabindex="1" id="modal-form" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-form-title">Modal title</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+                <!--end::Close-->
+            </div>
+            <div class="modal-body">
+                <form id="function_form" class="form" action="#" autocomplete="off">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="MODE" name="MODE" />
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Application</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <select class="form-select" id="APP_ID" name="APP_ID">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Menu ID</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="MENU_ID" name="MENU_ID" placeholder="Menu ID" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="fw-semibold fs-6 mt-3 col-md-3">Menu Parent</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <select class="form-select" id="MENU_PARENT" name="MENU_PARENT">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Menu Text</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="MENU_TEXT" name="MENU_TEXT" placeholder="Menu Text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Menu Tips</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="MENU_TIPS" name="MENU_TIPS" placeholder="Menu Tips" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Is Active</label>
+                        <div class="col-md-9 d-flex alint-items-center">
+                            <div class="input-group">
+                                <input type="checkbox" id="P_IS_ACTIVE">
+                                <input type="hidden" id="IS_ACTIVE" name="IS_ACTIVE">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Visibility</label>
+                        <div class="col-md-9 d-flex alint-items-center">
+                            <div class="input-group">
+                                <input type="checkbox" id="P_VISIBILITY">
+                                <input type="hidden" id="VISIBILITY" name="VISIBILITY">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">URL</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="URL" name="URL" placeholder="Url" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fv-row row mb-5">
+                        <label class="required fw-semibold fs-6 mt-3 col-md-3">Glyph</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="GLYPH" name="GLYPH" placeholder="Glyph" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="saveConfirmation()" class="btn btn-primary w-125px">Save</button>
+                <button type="button" onclick="onCancel()" class="btn btn-light w-125px" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

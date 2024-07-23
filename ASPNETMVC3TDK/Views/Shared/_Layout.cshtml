@@ -1,0 +1,387 @@
+﻿@using Toyota.Common.Credential
+@using ASPNETMVC3TDK.Shared;
+@using ASPNETMVC3TDK.Models;
+@{
+    Layout = null;
+    User user = Html.Toyota().Page.User;
+    string AppAlias = ApplicationSettings.Instance.Alias;
+
+    @*List<ResponseSelect2> reportList = (List<ResponseSelect2>) CommonHelper.getCmbOptions("REPORT_LIST");
+    List<ResponseSelect2> shiftList = (List<ResponseSelect2>) CommonHelper.getCmbOptions("SHIFT_CD");
+    List<ResponseSelect2> productTypes = (List<ResponseSelect2>) CommonHelper.getCmbOptions("PRODUCT_TYPE");*@
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<!--begin::Head-->
+<head>
+    <base href="../" />
+    <title>@Html.Toyota().Application.Name - @ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Casting Traceability System | CASPER" />
+    <link rel="shortcut icon" href="@Url.Content("~/Content/assets/media/logos/favicon.ico")" />
+    <!--begin::Fonts(mandatory for all pages)-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/fonts/fonts.googleapis.com_css_family=plus_jakarta_300,400,500,600,700.css")" />
+    <!--end::Fonts-->
+    <!--begin::Vendor Stylesheets(used for this page only)-->
+    <link href="@Url.Content("~/Content/assets/plugins/custom/datatables/datatables.bundle.css")" rel="stylesheet" type="text/css" />
+    <!--end::Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="@Url.Content("~/Content/assets/plugins/global/plugins.bundle.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/assets/css/style.bundle.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/assets/plugins/custom/jquery-typehead/jquery.typeahead.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/assets/plugins/custom/sweetalert2/sweetalert2.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/assets/css/style-custom.css")" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle-->
+
+    @if (IsSectionDefined("HeadScript"))
+    {
+        @RenderSection("HeadScript", false)
+    }
+
+    <!--begin::Javascript-->
+    <script>var hostUrl = "assets/";</script>
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script src="@Url.Content("~/Content/assets/plugins/global/plugins.bundle.js")"></script>
+    <script src="@Url.Content("~/Content/assets/plugins/custom/chart/chart.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/plugins/custom/moment/moment.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/scripts.bundle.js")"></script>
+    <!--end::Global Javascript Bundle-->
+    <!--begin::Vendors Javascript(used for this page only)-->
+    <script src="@Url.Content("~/Content/assets/plugins/custom/fslightbox/fslightbox.bundle.js")"></script>
+    <script src="@Url.Content("~/Content/assets/plugins/custom/datatables/datatables.bundle.js")"></script>
+    <!--end::Vendors Javascript-->
+    <!--end::Vendors Javascript-->
+    <!--begin::Custom Javascript(used for this page only)-->
+    <script src="@Url.Content("~/Content/assets/js/widgets.bundle.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/custom/widgets.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/custom/apps/chat/chat.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/custom/utilities/modals/upgrade-plan.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/custom/utilities/modals/create-app.js")"></script>
+    <script src="@Url.Content("~/Content/assets/js/custom/utilities/modals/users-search.js")"></script>
+    <script src="@Url.Content("~/Content/assets/plugins/custom/autonumeric/AutoNumeric.js")"></script>
+    <script src="@Url.Content("~/Content/assets/plugins/custom/jquery-typehead/jquery.typeahead.min.js")"></script>
+    <script src="@Url.Content("~/Content/assets/plugins/custom/sweetalert2/sweetalert2.min.js")"></script>
+    <!--end::Custom Javascript-->
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed toolbar-tablet-and-mobile-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
+    <!--begin::Theme mode setup on page load-->
+    <script>
+        var defaultThemeMode = "light";
+        var themeMode;
+
+        if (document.documentElement) {
+            if (document.documentElement.hasAttribute("data-theme-mode")) {
+                themeMode = document.documentElement.getAttribute("data-theme-mode");
+            } else {
+                if (localStorage.getItem("data-theme") !== null) {
+                    themeMode = localStorage.getItem("data-theme");
+                } else {
+                    themeMode = defaultThemeMode;
+                }
+            } if (themeMode === "system") {
+                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            }
+
+            document.documentElement.setAttribute("data-theme", themeMode);
+        }
+    </script>
+
+    <!--end::Theme mode setup on page load-->
+    <!--begin::Page-->
+    <div id="wrapper"></div>
+    <div class="d-flex flex-column flex-row-fluid" id="kt_wrapper">
+        <div id="wrapper"></div>
+        <!--begin::Header-->
+        <div class="d-flex justify-content-between position-sticky top-0 custom-bg-header-white">
+            <div class="m-2">
+                <a href="@Url.Action("/")">
+                    <img alt="Logo" src="@Url.Content("~/Content/assets/media/logos/tmmin_logo.jpg")" class="h-50px logo" />
+                </a>
+            </div>
+            <div class="d-flex m-2">
+                <div class="d-flex align-items-center mx-2">
+                    <img src="@Url.Content("~/Content/assets/media/personal-information/najwaprofile.jpg")" style="width:50px;height:50px; border-radius:100%" alt="">
+                    <div class="d-flex flex-column  mx-2">
+                        <span class="fw-bold">Najwa fathiadisa</span>
+                        <span>Internship</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mx-2">
+                    <a href="#" class="d-flex flex-column mx-3 h-100">
+                        <span class="d-flex justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 29 29" fill="none">
+                                <g clip-path="url(#clip0_865_167)">
+                                    <path d="M24 24.6665L24.3706 22.8185C24.5653 21.8412 25.088 20.9385 25.2746 19.9598C25.3146 19.7563 25.3342 19.5474 25.3333 19.3332C25.3327 18.8692 25.2353 18.4105 25.0473 17.9864C24.8593 17.5623 24.5848 17.1821 24.2415 16.8701C23.8981 16.5581 23.4934 16.3212 23.0532 16.1747C22.613 16.0281 22.1471 15.975 21.6853 16.0188C21.2234 16.0626 20.7758 16.2023 20.371 16.429C19.9662 16.6557 19.6133 16.9645 19.3346 17.3354C19.056 17.7064 18.8579 18.1314 18.753 18.5833C18.6481 19.0352 18.6386 19.5041 18.7253 19.9598C18.912 20.9398 19.4346 21.8398 19.6306 22.8185L20 24.6665M24 24.6665H20M24 24.6665L27.3293 25.5545C27.8977 25.681 28.406 25.9975 28.7703 26.4517C29.1347 26.906 29.3332 27.4709 29.3333 28.0532C29.3333 28.7598 28.76 29.3332 28.0533 29.3332H15.9466C15.6071 29.3332 15.2816 29.1983 15.0415 28.9583C14.8015 28.7182 14.6666 28.3926 14.6666 28.0532C14.6666 26.8532 15.5 25.8145 16.6706 25.5545L20 24.6665M22.6666 11.9998V10.6665C22.6666 6.89584 22.6666 5.00917 21.4946 3.8385C20.324 2.6665 18.4373 2.6665 14.6666 2.6665H10.6666C6.89596 2.6665 5.00929 2.6665 3.83863 3.8385C2.66663 5.00917 2.66663 6.89584 2.66663 10.6665V21.3332C2.66663 25.1038 2.66663 26.9905 3.83863 28.1612C5.00929 29.3332 6.89596 29.3332 10.6666 29.3332" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M9.33333 11.556C9.33333 11.556 10.1667 11.556 11 13.3333C11 13.3333 13.6467 8.88933 16 8M8 18.6667H13.3333M8 22.6667H13.3333" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M21.75 22.354L22.0859 20.6793C22.2623 19.7935 22.736 18.9755 22.9051 18.0886C22.9414 17.9041 22.9591 17.7148 22.9583 17.5207C22.9578 17.1002 22.8695 16.6845 22.6991 16.3002C22.5287 15.9158 22.28 15.5712 21.9688 15.2885C21.6576 15.0058 21.2909 14.7911 20.892 14.6583C20.4931 14.5254 20.0708 14.4773 19.6523 14.517C19.2337 14.5567 18.828 14.6833 18.4612 14.8888C18.0944 15.0943 17.7745 15.374 17.522 15.7102C17.2695 16.0464 17.09 16.4316 16.9949 16.8411C16.8998 17.2507 16.8913 17.6755 16.9698 18.0886C17.139 18.9767 17.6126 19.7923 17.7903 20.6793L18.125 22.354M21.75 22.354H18.125M21.75 22.354L24.7672 23.1588C25.2823 23.2734 25.7429 23.5602 26.0731 23.9718C26.4033 24.3835 26.5832 24.8955 26.5833 25.4232C26.5833 26.0636 26.0637 26.5832 25.4233 26.5832H14.4516C14.144 26.5832 13.8489 26.461 13.6314 26.2434C13.4138 26.0259 13.2916 25.7308 13.2916 25.4232C13.2916 24.3357 14.0468 23.3944 15.1078 23.1588L18.125 22.354M20.5416 10.8748V9.6665C20.5416 6.24934 20.5416 4.53955 19.4795 3.47863C18.4186 2.4165 16.7088 2.4165 13.2916 2.4165H9.66663C6.24946 2.4165 4.53967 2.4165 3.47875 3.47863C2.41663 4.53955 2.41663 6.24934 2.41663 9.6665V19.3332C2.41663 22.7503 2.41663 24.4601 3.47875 25.521C4.53967 26.5832 6.24946 26.5832 9.66663 26.5832" stroke="#3E3E3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M8.45833 10.4726C8.45833 10.4726 9.21354 10.4726 9.96875 12.0833C9.96875 12.0833 12.3673 8.05596 14.5 7.25M7.25 16.9167H12.0833M7.25 20.5417H12.0833" stroke="#3E3E3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_865_167">
+                                        <rect width="29" height="29" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </span>
+                        <span class="fw-bold text-dark">APPROVAL</span>
+                    </a>
+                    <a href="#" class="d-flex flex-column mx-3 h-100">
+                        <span class="d-flex justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                                <path d="M5.11863 22.4373C3.16663 20.876 3.16663 19.6947 3.16663 14.6667C3.16663 9.63867 3.16663 7.124 5.11863 5.56267C7.07329 4 10.2146 4 16.5 4C22.7853 4 25.928 4 27.88 5.56267C29.8333 7.124 29.8333 9.63867 29.8333 14.6667C29.8333 19.6947 29.8333 20.876 27.88 22.4373C25.9293 24 22.7853 24 16.5 24C13.1533 24 11.4333 26.3173 8.49996 28V23.7173C7.04129 23.5 5.96796 23.1173 5.11863 22.4373Z" stroke="#3E3E3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                        <span class="fw-bold text-dark">CHAT</span>
+                    </a>
+                    <a href="#" class="d-flex flex-column mx-3 h-100">
+                        <span class="d-flex justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                                <path d="M16.5 26.6667C13.6711 26.6667 10.958 25.5429 8.95757 23.5425C6.95718 21.5421 5.83337 18.829 5.83337 16M27.1667 16C27.1682 17.5992 26.8093 19.1782 26.1168 20.6198C25.4243 22.0613 24.416 23.3283 23.1667 24.3267" stroke="#3E3E3E" stroke-width="2" stroke-linecap="round" />
+                                <path d="M16.5 18.6668V5.3335M16.5 5.3335L20.5 9.3335M16.5 5.3335L12.5 9.3335" stroke="#3E3E3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                        <span class="fw-bold text-dark">EXPORT</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end::Header-->
+
+        <!--begin::Content-->
+        <div class="d-flex flex-column flex-column-fluid" id="kt_content">
+            @RenderBody()
+        </div>
+        <!--end::Content-->
+
+        <!--begin::Footer hidden for optional load
+        <div id="kt_footer">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="text-end my-2">
+                            <a href="@Url.Action("/")">
+                                <img alt="Logo" src="@Url.Content("~/Content/assets/media/logos/tmmin_logo.jpg")" class="h-40px logo" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="text-start">
+                            <div class="mb-1">
+                                <div class="d-flex my-2">
+                                    <div class="mx-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 2C10.0222 2 8.08879 2.58649 6.4443 3.6853C4.79981 4.78412 3.51809 6.3459 2.76121 8.17317C2.00433 10.0004 1.8063 12.0111 2.19215 13.9509C2.578 15.8907 3.53041 17.6725 4.92894 19.0711C6.32746 20.4696 8.10929 21.422 10.0491 21.8079C11.9889 22.1937 13.9996 21.9957 15.8268 21.2388C17.6541 20.4819 19.2159 19.2002 20.3147 17.5557C21.4135 15.9112 22 13.9778 22 12C22 10.6868 21.7413 9.38642 21.2388 8.17317C20.7363 6.95991 19.9997 5.85752 19.0711 4.92893C18.1425 4.00035 17.0401 3.26375 15.8268 2.7612C14.6136 2.25866 13.3132 2 12 2ZM12 18.25C11.7528 18.25 11.5111 18.1767 11.3055 18.0393C11.1 17.902 10.9398 17.7068 10.8452 17.4784C10.7505 17.2499 10.7258 16.9986 10.774 16.7561C10.8223 16.5137 10.9413 16.2909 11.1161 16.1161C11.2909 15.9413 11.5137 15.8222 11.7561 15.774C11.9986 15.7258 12.25 15.7505 12.4784 15.8452C12.7068 15.9398 12.902 16.1 13.0393 16.3055C13.1767 16.5111 13.25 16.7528 13.25 17C13.25 17.3315 13.1183 17.6495 12.8839 17.8839C12.6495 18.1183 12.3315 18.25 12 18.25ZM13.41 12.79L13 13V14H11V11.79L12.49 11C13.82 10.34 14 9.77 14 9.3C14 8.52 13.08 8 11.7 8C10.3753 8.0607 9.09379 8.49016 8 9.24V7C9.13409 6.37179 10.4039 6.0286 11.7 6C14.7 6 16 7.55 16 9.3C15.962 10.0727 15.6956 10.8167 15.2346 11.438C14.7735 12.0592 14.1386 12.5298 13.41 12.79Z" fill="black" fill-opacity="0.75" />
+                                        </svg>
+                                    </div>
+                                    <div class="d-flex flex-column mx-2">
+                                        <span class="fw-bold">Question?</span>
+                                        <span>Visit our Help Center.</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex my-2">
+                                    <div class="mx-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M9.18 2L4.88 4.52L6.22 8L5.7 8.91L2 9.46V14.46L5.64 15L6.18 15.93L4.84 19.46L9.14 22L11.43 19.1H12.52L14.82 22L19.14 19.48L17.79 16L18.32 15.07L22 14.54V9.54L18.32 9L17.81 8.1L19.17 4.59L14.86 2L12.53 5H11.53L9.18 2ZM12 9C12.5933 9 13.1734 9.17595 13.6667 9.50559C14.1601 9.83524 14.5446 10.3038 14.7716 10.8519C14.9987 11.4001 15.0581 12.0033 14.9424 12.5853C14.8266 13.1672 14.5409 13.7018 14.1213 14.1213C13.7018 14.5409 13.1672 14.8266 12.5853 14.9424C12.0033 15.0581 11.4001 14.9987 10.8519 14.7716C10.3038 14.5446 9.83524 14.1601 9.50559 13.6667C9.17595 13.1734 9 12.5933 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9Z" fill="black" fill-opacity="0.75" />
+                                        </svg>
+                                    </div>
+                                    <div class="d-flex flex-column mx-2">
+                                        <span class="fw-bold">Manage your account and privacy</span>
+                                        <span>Go to your Settings.</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex my-2">
+                                    <div class="mx-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 2L3 5V11C3 16 6.12 19.81 10.77 21.56L12 22L13.27 21.56C17.9 19.81 21.01 16 21.01 11V5L12 2ZM11.47 19.8C7.6 18.35 5.01 15.1 5.01 11V6.44L12.01 4.12V20L11.47 19.8Z" fill="black" fill-opacity="0.75" />
+                                        </svg>
+                                    </div>
+                                    <div class="d-flex flex-column mx-2">
+                                        <span class="fw-bold">Recommendation transparency</span>
+                                        <span>Learn more about Recommended Content.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-4">
+                                TMMIN Corporation © 2024
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        end::Footer-->
+    </div>
+
+    <script>
+
+        var appAlias = $('#app_alias').val();
+
+        if ($("#role_id").val() == "CASPER-ADMIN") {
+            $("#button-refresh").show();
+        } else {
+            $("#button-refresh").hide();
+        }
+
+        $.fn.dataTable.ext.errMode = function (settings, helpPage, message) {
+            console.log(message);
+        };
+        //setting default datatable
+
+        $(document).ajaxComplete(function (event, request, settings) {
+            //var _ret = request.responseJSON;
+            KTApp.hidePageLoading();
+            var responseText = request.responseText;
+
+            if (responseText != null
+                && responseText.includes("Sign In")
+                && responseText.includes("username")
+                && responseText.includes("password")) {
+
+                toastr.remove();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Session Expired',
+                    text: "Session expired, please login to access page.",
+                    showConfirmButton: false,
+                    timer: 3000
+                }).then(function () {
+                    localStorage.removeItem("jwtToken");
+                    window.location.reload();
+                });
+
+            } else {
+                setTimeout(function (e) {
+                    var isOnline = navigator.onLine;
+
+                    if (isOnline == false) {
+                        toastr.remove();
+                        toastr["error"]("Internet connection error.");
+                    }
+                }, 5000);
+            }
+        });
+
+    </script>
+
+    @if (IsSectionDefined("FootScript"))
+    {
+        @RenderSection("FootScript", false)
+    }
+    <script>
+        const defaultLoadingEl = document.createElement("div");
+            document.body.prepend(defaultLoadingEl);
+            defaultLoadingEl.classList.add("page-loader");
+            defaultLoadingEl.classList.add("flex-column");
+            defaultLoadingEl.classList.add("bg-dark");
+            defaultLoadingEl.classList.add("bg-opacity-25");
+            defaultLoadingEl.innerHTML = `
+            <span class="spinner-border text-primary" role="status"></span>
+            <span class="text-gray-800 fs-6 fw-semibold mt-5">Loading...</span>
+        `;
+
+        const downloadDefaultYear = '@DateTime.Now.Year';
+        const downloadDefaultMonth = '@DateTime.Now.Month';
+
+        $(".download-select2").select2({});
+
+        function onLogout() {
+            localStorage.removeItem("jwtToken");
+            window.location = "/Login/Logout";
+        }
+
+        function showDashboardHangfire() {
+            var baseUrl = window.location.origin;
+            window.open(baseUrl + "/hangfire", "_blank");
+        }
+
+        function notifWarning(msgId, param1 = "", param2 = "", param3 = "", param4 = "") {
+            var msg = getMessage(msgId, param1, param2, param3, param4);
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                html: `<b>Warning</b><br> ${msg}`,
+                showConfirmButton: false,
+                toast: true,
+                timer: 3000,
+                showCloseButton: true,
+                customClass: {
+                    container: 'z-sweetalert2',
+                    popup: 'toastify-failed',
+                },
+            })
+        }
+
+        function notifSuccess(msg = "", msgId = "", param1 = "", param2 = "", param3 = "", param4 = "") {
+            if (msg == "") {
+                msg = getMessage(msgId, param1, param2, param3, param4);
+            }
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                html: `<b>Success</b><br> ${msg}`,
+                showConfirmButton: false,
+                toast: true,
+                timer: 3000,
+                showCloseButton: true,
+                customClass: {
+                    container: 'z-sweetalert2',
+                    popup: 'toastify-success',
+                },
+            })
+        }
+
+        function notifFailed(msg = "", msgId = "", param1 = "", param2 = "", param3 = "", param4 = "") {
+            if (msg == "") {
+                msg = getMessage(msgId, param1, param2, param3, param4);
+            }
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                html: `<b>Failed</b><br> ${msg}`,
+                showConfirmButton: false,
+                toast: true,
+                timer: 3000,
+                showCloseButton: true,
+                customClass: {
+                    container: 'z-sweetalert2',
+                    popup: 'toastify-failed',
+                },
+            })
+        }
+
+        function getMessage(MESSAGE_ID, PARAM_1, PARAM_2, PARAM_3, PARAM_4) {
+            var message = "";
+            $.ajax({
+                async: false,
+                global: false,
+                url: "SharedApi/GetMessage",
+                type: 'POST',
+                data: {
+                    MESSAGE_ID,
+                    PARAM_1,
+                    PARAM_2,
+                    PARAM_3,
+                    PARAM_4
+                },
+                dataType: "json",
+                complete: function (e) {
+                    message = e.responseJSON.message;
+                }
+            });
+            return message;
+        }
+    </script>
+    <!--end::Javascript-->
+</body>
+<!--end::Body-->
+</html>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report Width="7.48031489054362in" Name="File" ShowSnapGrid="True" xmlns="http://schemas.telerik.com/reporting/2012/3.3">
+  <Style Visible="True" />
+  <DataSources>
+    <ObjectDataSource Name="objectDataSource" />
+    <ObjectDataSource Name="objectDataSource1" />
+    <OpenAccessDataSource Name="openAccessDataSource1" />
+    <SqlDataSource Name="sqlDataSource1" />
+  </DataSources>
+  <Items>
+    <DetailSection Height="35.5889409383138in" Name="detailSection1">
+      <Items>
+        <TextBox Width="0.50000011920929cm" Height="0.499999791383743cm" Left="7.78791750544142cm" Top="3.00000008602936cm" Value=":" Name="textBox7">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="1.22355331077228cm" Height="0.500000178813934cm" Left="6.22457547357866cm" Top="3.00000008602936cm" Value="Shift" Name="textBox8">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.69999980926514cm" Height="0.499999761581421cm" Left="8.80000040372212cm" Top="3.00000008602936cm" Value="=Parameters.SHIFT_CD.Value" Name="textBox12">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.69999980926514cm" Height="0.499999761581421cm" Left="2.4cm" Top="3.00000069161253cm" Value="=Parameters.DATE.Value" Name="textBox13">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.50000011920929cm" Height="0.499999791383743cm" Left="1.39999969720841cm" Top="3.00000069161253cm" Value=":" Name="textBox16">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.999899736645621cm" Height="0.500000178813934cm" Left="0.00010007261653323cm" Top="3.00000008602936cm" Value="Date" Name="textBox17">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="0.999999435941405cm" Height="0.600199937820435cm" Left="9.00000003457068cm" Top="30.5000011458cm" Value="1 TR" Name="textBox3">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="1.11593327442228cm" Height="0.600199937820435cm" Left="4.00571850346359cm" Top="31.5000046783685cm" Value="Cope" Name="textBox1" />
+        <PictureBox Url="=Parameters.COPE1TR.Value" Width="8.9999007189331cm" Height="6.50000015954175cm" Left="0.00009992122074422cm" Top="32.500008210937cm" Sizing="Stretch" MimeType="" Name="pictureBox6" />
+        <PictureBox Url="=Parameters.DRAG1TR.Value" Width="8.99979796758797cm" Height="6.50000236471483cm" Left="9.99999950011573cm" Top="32.500008210937cm" Sizing="Stretch" MimeType="" Name="pictureBox7" />
+        <TextBox Width="1.11593329906464cm" Height="0.600199937820435cm" Left="13.9840681029598cm" Top="31.5000046783685cm" Value="Drag" Name="textBox2" />
+        <TextBox Width="1.11593329906464cm" Height="0.600199937820435cm" Left="13.9840685197175cm" Top="42.0000224065774cm" Value="Drag" Name="textBox4" />
+        <PictureBox Url="=Parameters.DRAG2TR.Value" Width="8.99979753164476cm" Height="6.50000238418579cm" Left="9.99999979813894cm" Top="43.0054390303768cm" Sizing="Stretch" MimeType="" Name="pictureBox1" />
+        <PictureBox Url="=Parameters.COPE2TR.Value" Width="8.99999992524925cm" Height="6.5cm" Left="0cm" Top="43.0054390303768cm" Sizing="Stretch" MimeType="" Name="pictureBox2" />
+        <TextBox Width="1.11593329906464cm" Height="0.600199937820435cm" Left="4.00571872377383cm" Top="42.0000223916763cm" Value="Cope" Name="textBox5" />
+        <TextBox Width="0.999999463558197cm" Height="0.600199937820435cm" Left="9.00000030279159cm" Top="40.9999994953474cm" Value="2 TR" Name="textBox6">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="2.19562246553356cm" Height="0.600199937820435cm" Left="8.4666664311621cm" Top="56.2486710224919cm" Value="CAMSHAFT" Name="textBox9">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="1.11593329906464cm" Height="0.600199937820435cm" Left="4.00571872377383cm" Top="57.2486680955065cm" Value="Cope" Name="textBox10" />
+        <PictureBox Url="=Parameters.COPECAMS.Value" Width="8.99999992524925cm" Height="6.5cm" Left="0cm" Top="58.5595053596634cm" Sizing="Stretch" MimeType="" Name="pictureBox3" />
+        <PictureBox Url="=Parameters.DRAGCAMS.Value" Width="8.99999983628585cm" Height="6.50000238418579cm" Left="9.99999979813894cm" Top="58.5595053596634cm" Sizing="Stretch" MimeType="" Name="pictureBox4" />
+        <TextBox Width="1.11593329906464cm" Height="0.600199937820435cm" Left="13.9840685197175cm" Top="57.2486680955065cm" Value="Drag" Name="textBox11" />
+        <TextBox Width="2.65656733159952cm" Height="0.600199937820435cm" Left="8.11805561373079cm" Top="67.3999990916252cm" Value="CRANKSHAFT" Name="textBox14">
+          <Style>
+            <Font Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="1.11593329906464cm" Height="0.600199937820435cm" Left="3.9840662992459cm" Top="68.2121523384847cm" Value="Cope" Name="textBox15" />
+        <PictureBox Url="=Parameters.COPECRANK.Value" Width="8.99999992524925cm" Height="6.50000645955386cm" Left="0cm" Top="69.5179705292948cm" Sizing="Stretch" MimeType="" Name="pictureBox5" />
+        <PictureBox Url="=Parameters.DRAGCRANK.Value" Width="8.99979797522782cm" Height="6.50000238418579cm" Left="9.99999979813894cm" Top="69.5179705292948cm" Sizing="Stretch" MimeType="" Name="pictureBox8" />
+        <TextBox Width="1.11593329906464cm" Height="0.600199937820435cm" Left="13.9840685197175cm" Top="68.2121523384847cm" Value="Drag" Name="textBox18" />
+        <Table DataSourceName="objectDataSource" Width="18.9996970971656cm" Height="2.53999993036439cm" Left="0.00010022401530929cm" Top="86.1209036713985cm" Name="table1">
+          <Body>
+            <Cells>
+              <TableCell RowIndex="0" ColumnIndex="0" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="4.56051976642765cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="=Fields.PRODUCT_TYPE_NM" Name="DEFECT_AREA">
+                    <Style Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="LightGray" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="1" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.8878355227711cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="=Fields.LOT_NO" Name="textBox20" StyleName="">
+                    <Style Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="LightGray" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="2" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.8878355227711cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="=Fields.FLASK_NO" Name="textBox22" StyleName="">
+                    <Style Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="LightGray" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="4" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.8878355227711cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="=Fields.DEFECT_NO" Name="textBox26" StyleName="">
+                    <Style Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="LightGray" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="5" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.8878355227711cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="=Fields.DEFECT_NM" Name="textBox28" StyleName="">
+                    <Style Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="LightGray" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+              <TableCell RowIndex="0" ColumnIndex="3" RowSpan="1" ColumnSpan="1">
+                <ReportItem>
+                  <TextBox Width="2.8878355227711cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="=Fields.DEFECT_AREA" Name="textBox29" StyleName="">
+                    <Style Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                      <BorderStyle Default="Solid" />
+                      <BorderColor Default="LightGray" />
+                    </Style>
+                  </TextBox>
+                </ReportItem>
+              </TableCell>
+            </Cells>
+            <Columns>
+              <Column Width="4.56052004954506cm" />
+              <Column Width="2.88783523965346cm" />
+              <Column Width="2.88783523965346cm" />
+              <Column Width="2.88783523965346cm" />
+              <Column Width="2.88783523965346cm" />
+              <Column Width="2.88783523965346cm" />
+            </Columns>
+            <Rows>
+              <Row Height="1.26999996518219cm" />
+            </Rows>
+          </Body>
+          <Corner />
+          <Style Color="LightGray" LineColor="Transparent">
+            <BorderStyle Default="Solid" />
+            <BorderColor Default="Transparent" />
+          </Style>
+          <RowGroups>
+            <TableGroup Name="detailTableGroup">
+              <Groupings>
+                <Grouping />
+              </Groupings>
+            </TableGroup>
+          </RowGroups>
+          <ColumnGroups>
+            <TableGroup Name="tableGroup">
+              <ReportItem>
+                <TextBox Width="4.56051976642765cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="Product Type" Name="MOULDING_ID">
+                  <Style BackgroundColor="Yellow" Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                    <BorderStyle Default="Solid" />
+                    <BorderColor Default="LightGray" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="group">
+              <ReportItem>
+                <TextBox Width="2.8878355227711cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="Lot" Name="textBox19" StyleName="">
+                  <Style BackgroundColor="Yellow" Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                    <BorderStyle Default="Solid" />
+                    <BorderColor Default="LightGray" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="group1">
+              <ReportItem>
+                <TextBox Width="2.8878355227711cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="Flask" Name="textBox21" StyleName="">
+                  <Style BackgroundColor="Yellow" Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                    <BorderStyle Default="Solid" />
+                    <BorderColor Default="LightGray" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="group2">
+              <ReportItem>
+                <TextBox Width="2.8878355227711cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="Area" Name="textBox23" StyleName="">
+                  <Style BackgroundColor="Yellow" Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                    <BorderStyle Default="Solid" />
+                    <BorderColor Default="LightGray" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="group3">
+              <ReportItem>
+                <TextBox Width="2.8878355227711cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="No Cavity/Zone" Name="textBox25" StyleName="">
+                  <Style BackgroundColor="Yellow" Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                    <BorderStyle Default="Solid" />
+                    <BorderColor Default="LightGray" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+            <TableGroup Name="group4">
+              <ReportItem>
+                <TextBox Width="2.8878355227711cm" Height="1.26999996518219cm" Left="0cm" Top="0cm" Value="Defect" Name="textBox27" StyleName="">
+                  <Style BackgroundColor="Yellow" Color="Black" TextAlign="Center" VerticalAlign="Middle" LineColor="LightGray">
+                    <BorderStyle Default="Solid" />
+                    <BorderColor Default="LightGray" />
+                  </Style>
+                </TextBox>
+              </ReportItem>
+            </TableGroup>
+          </ColumnGroups>
+        </Table>
+        <PictureBox Url="=Parameters.TABLEMOULDING.Value" Width="18.9996981001073cm" Height="11.499999711911cm" Left="0.00010007261653278cm" Top="4.00000018695989cm" Sizing="ScaleProportional" MimeType="" Name="pictureBox9" />
+        <TextBox Width="18.9996979542748cm" Height="2.49989965101661cm" Left="0.00010022401232223cm" Top="0cm" Value="Moulding Data Visualization" Name="textBox24">
+          <Style TextAlign="Center" VerticalAlign="Middle">
+            <Font Size="24pt" Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="18.9998991704015cm" Height="1.00000030279159cm" Left="0.00010012308478036cm" Top="88.6610973873628cm" Value="No data available in table" Name="no_data_field">
+          <Style Visible="True" TextAlign="Center" VerticalAlign="Middle" />
+          <Bindings>
+            <Binding Path="Visible" Expression="=Parameters.IsAvailableDefect.Value" />
+          </Bindings>
+        </TextBox>
+      </Items>
+    </DetailSection>
+  </Items>
+  <StyleSheet>
+    <StyleRule>
+      <Style>
+        <Padding Left="2pt" Right="2pt" />
+      </Style>
+      <Selectors>
+        <TypeSelector Type="TextItemBase" />
+        <TypeSelector Type="HtmlTextBox" />
+      </Selectors>
+    </StyleRule>
+  </StyleSheet>
+  <PageSettings>
+    <PageSettings PaperKind="A4" Landscape="False">
+      <Margins>
+        <MarginsU Left="1cm" Right="1cm" Top="1cm" Bottom="1cm" />
+      </Margins>
+    </PageSettings>
+  </PageSettings>
+  <ReportParameters>
+    <ReportParameter Name="DATE" />
+    <ReportParameter Name="SHIFT_CD" />
+    <ReportParameter Name="COPE1TR" />
+    <ReportParameter Name="DRAG1TR" />
+    <ReportParameter Name="COPE2TR" />
+    <ReportParameter Name="DRAG2TR" />
+    <ReportParameter Name="COPECAMS" />
+    <ReportParameter Name="DRAGCAMS" />
+    <ReportParameter Name="COPECRANK" />
+    <ReportParameter Name="DRAGCRANK" />
+    <ReportParameter Name="TABLEMOULDING" />
+    <ReportParameter Name="ISAVAILABLEDEFECT" />
+  </ReportParameters>
+</Report>

@@ -1,0 +1,83 @@
+﻿<div class="modal fade" id="modal-education-history" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-between">
+                    <label class="border border-primary border-2 p-2 fs-6 fw-bold text-primary" style="border-radius: 10px">
+                        Education History
+                    </label>
+                    <button type="button" onclick="ModalEducationInfromationClose()" class="btn-close"></button>
+                </div>
+
+                <form id="assign_form" class="form" action="#" autocomplete="off">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="MODE" name="MODE" />
+                    <div class="row">
+                        <div class="col-md-12 row mt-5">
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="education-level" class="mb-1 fw-bold">Education Level</label>
+                                    <select style="border-radius: 10px" class="form-select" id="education-level" name="education-level" placeholder="Enter education level">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="start-year" class="mb-1 fw-bold">Year</label>
+                                    <div class="col-md-12 row">
+                                        <div class="col-md-6">
+                                            <input type="date" style="border-radius: 10px" class="form-control" id="start-year" placeholder="Enter start year">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="date" style="border-radius: 10px" class="form-control" id="end-year" placeholder="Enter end year">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="school-name" class="mb-1 fw-bold">School Name</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="school-name" placeholder="Enter school name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="major" class="mb-1 fw-bold">Major</label>
+                                    <select style="border-radius: 10px" class="form-select" id="major" name="major" placeholder="Enter major">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="country" class="mb-1 fw-bold">Country</label>
+                                    <select style="border-radius: 10px" class="form-select" id="country" name="country" placeholder="Enter country">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="gpa" class="mb-1 fw-bold">GPA</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="gpa" placeholder="Enter gpa">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="upload-transcription" class="mb-1 fw-bold">Upload Transcription</label>
+                                    <input type="file" style="border-radius: 10px" class="form-control" id="upload-transcription" placeholder="Enter upload transcription">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="button" class="btn btn-primary w-250px mx-2">Save</button>
+                    <button type="button" class="btn btn-danger w-250px mx-2" onclick="ModalEducationInfromationClose()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

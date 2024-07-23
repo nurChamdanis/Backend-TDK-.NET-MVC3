@@ -1,0 +1,83 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Repositories\MasterMenuRepoTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
+    <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
+    <PackageReference Include="coverlet.collector" Version="3.2.0" />
+    <PackageReference Include="PetaPoco" Version="5.1.304" />
+    <PackageReference Include="PetaPoco.Compiled" Version="6.0.677" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ASPNETMVC3TDK\ASPNETMVC3TDK.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\ASPNETMVC3TDK\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Configuration">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Credential">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Credential.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Credential.Provider">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Credential.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Database">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Database.Petapoco">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Database.Petapoco.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Download">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Download.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Logging">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.SSO.Lib">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.SSO.Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.SSO.Service">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.SSO.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Task">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Task.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Web.Platform">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Web.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Web.Service">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Web.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="Toyota.Common.Web.UI.Layout">
+      <HintPath>..\ASPNETMVC3TDK\bin\Toyota.Common.Web.UI.Layout.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

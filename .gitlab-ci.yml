@@ -1,0 +1,47 @@
+variables:
+  DEPLOY_PATH_STG: 'D:\var\www\1100_TMMIN\1109_talentdigi'
+  DEPLOY_PATH_DEV: 'D:\var\www\1100_TMMIN\1117_TALENTDIGI_BE_DEV'
+  SOLUTION_FILE: "ASPNETMVC3TDK.csproj"
+  MSBUILD_PATH: C:\Program Files\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe
+  FOLDER_NAME: "ASPNETMVC3TDK"
+
+stages:
+  - deploy
+  - clean
+
+deploy staging:
+  stage: deploy
+  only:
+    - staging
+  script:
+    - nuget restore
+    - '& "$env:MSBUILD_PATH" /p:Configuration=Release /m .\ASPNETMVC3TDK\"$env:SOLUTION_FILE" /p:DeployOnBuild=true /p:PublishProfile="D:\FolderProfile.pubxml" /p:publishUrl="$env:DEPLOY_PATH_STG"'
+  tags:
+    - ip4.4
+    - winserv-19
+    - shared
+
+deploy dev:
+  stage: deploy
+  only:
+    - development
+  script:
+    - nuget restore
+    - '& "$env:MSBUILD_PATH" /p:Configuration=Release /m .\ASPNETMVC3TDK\"$env:SOLUTION_FILE" /p:DeployOnBuild=true /p:PublishProfile="D:\FolderProfile.pubxml" /p:publishUrl="$env:DEPLOY_PATH_DEV"'
+  tags:
+    - ip4.4
+    - winserv-19
+    - shared
+
+clean:
+  stage: clean
+  script:
+    - Remove-Item -Recurse .\*
+    - echo "Directory has been clean"
+  tags:
+    - ip4.4
+    - winserv-19
+    - shared
+  only:
+    - development
+    - staging

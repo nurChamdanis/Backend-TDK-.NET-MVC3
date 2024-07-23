@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report Width="6.5in" Name="Home_Report" Zoom="1.5" xmlns="http://schemas.telerik.com/reporting/2012/3.3">
+  <Items>
+    <PageHeaderSection Height="1in" Name="pageHeaderSection1">
+      <Style>
+        <Font Size="14pt" Bold="True" />
+      </Style>
+      <Items>
+        <TextBox Width="16.5099004942736cm" Height="0.999999899069471cm" Left="0cm" Top="0.539699761955347cm" Value="TOYOTA MOTOR MANUFACTURING INDONESIA" Name="textBox1">
+          <Style TextAlign="Center" VerticalAlign="Top">
+            <Font Size="14pt" Bold="True" />
+          </Style>
+        </TextBox>
+        <TextBox Width="16.5099010467529cm" Height="0.99999988079071cm" Left="0cm" Top="1.53990004176842cm" Value="HOME REPORT" Name="textBox2">
+          <Style TextAlign="Center" VerticalAlign="Top">
+            <Font Size="14pt" Bold="True" />
+          </Style>
+        </TextBox>
+      </Items>
+    </PageHeaderSection>
+    <DetailSection Height="2.07086626688639in" Name="detailSection1">
+      <Style>
+        <Font Size="14pt" Bold="True" />
+      </Style>
+      <Items>
+        <TextBox Width="2.70000011775228cm" Height="0.500000151395793cm" Left="0.299999983178245cm" Top="0.260000003364351cm" Value="Check Date :" Name="textBox3">
+          <Style>
+            <Font Size="12pt" Bold="False" />
+          </Style>
+        </TextBox>
+        <TextBox Width="7.10000024954477cm" Height="0.500000178813934cm" Left="3.2999998149607cm" Top="0.260000003364351cm" Value="=Parameters.CHECK_DATE.Value" Name="textBox4">
+          <Style>
+            <Font Size="12pt" Bold="False" />
+          </Style>
+        </TextBox>
+        <PictureBox Url="=Parameters.IMAGE.Value" Width="5cm" Height="5cm" Left="11.1999997308519cm" Top="0.260000272512428cm" MimeType="" Name="pictureBox1" />
+      </Items>
+    </DetailSection>
+    <PageFooterSection Height="1in" Name="pageFooterSection1">
+      <Style>
+        <Font Size="14pt" Bold="True" />
+      </Style>
+    </PageFooterSection>
+  </Items>
+  <StyleSheet>
+    <StyleRule>
+      <Style>
+        <Padding Left="2pt" Right="2pt" />
+      </Style>
+      <Selectors>
+        <TypeSelector Type="TextItemBase" />
+        <TypeSelector Type="HtmlTextBox" />
+      </Selectors>
+    </StyleRule>
+  </StyleSheet>
+  <PageSettings>
+    <PageSettings PaperKind="Letter" Landscape="False">
+      <Margins>
+        <MarginsU Left="1in" Right="1in" Top="1in" Bottom="1in" />
+      </Margins>
+    </PageSettings>
+  </PageSettings>
+  <ReportParameters>
+    <ReportParameter Name="CHECK_DATE" />
+    <ReportParameter Name="IMAGE" />
+  </ReportParameters>
+</Report>

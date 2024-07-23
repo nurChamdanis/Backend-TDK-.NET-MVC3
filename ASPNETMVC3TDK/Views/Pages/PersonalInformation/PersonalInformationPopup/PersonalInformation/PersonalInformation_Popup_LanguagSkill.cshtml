@@ -1,0 +1,68 @@
+﻿<div class="modal fade" id="modal-language" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-between">
+                    <label class="border border-primary border-2 p-2 fs-6 fw-bold text-primary" style="border-radius: 10px">
+                        Language Skill
+                    </label>
+                    <button type="button" onclick="ModalLanguageInfromationClose()" class="btn-close"></button>
+                </div>
+
+                <form id="assign_form" class="form" action="#" autocomplete="off">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="MODE" name="MODE" />
+                    <div class="row">
+                        <div class="col-md-12 row mt-5">
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="language" class="mb-1 fw-bold">Language</label>
+                                    <select style="border-radius: 10px" class="form-select" id="language" name="language" placeholder="Enter language">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="valid-until" class="mb-1 fw-bold">Valid Until</label>
+                                    <input type="date" style="border-radius: 10px" class="form-control" id="valid-until" placeholder="Enter valid until">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="language-test" class="mb-1 fw-bold">Language Test</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="language-test" placeholder="Enter language test">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="self-rating" class="mb-1 fw-bold">Self Rating</label>
+                                    <select style="border-radius: 10px" class="form-select" id="self-rating" name="self-rating" placeholder="Enter self rating">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="test-score" class="mb-1 fw-bold">Test Score</label>
+                                    <input type="text" style="border-radius: 10px" class="form-control" id="test-score" placeholder="Enter test score">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group my-2">
+                                    <label for="upload-certificate" class="mb-1 fw-bold">Upload Certificate</label>
+                                    <input type="file" style="border-radius: 10px" class="form-control" id="upload-certificate" placeholder="Enter upload certificate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <button type="button" class="btn btn-primary w-250px mx-2">Save</button>
+                    <button type="button" class="btn btn-danger w-250px mx-2" onclick="ModalLanguageInfromationClose()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

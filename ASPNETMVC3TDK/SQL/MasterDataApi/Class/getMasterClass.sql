@@ -1,0 +1,16 @@
+﻿DECLARE 
+    @@QUERY VARCHAR(MAX),
+    @@CLASS_CD VARCHAR(MAX) = REPLACE(@P_CLASS_CD, '''', '`'),
+    @@CLASS VARCHAR(MAX) =  REPLACE(@P_CLASS, '''', '`');
+
+SET @@QUERY = 'SELECT * FROM TB_M_CLASS WHERE 1=1';
+
+IF(@@CLASS_CD != '')  BEGIN
+    SET @@QUERY = @@QUERY + ' AND CLASS_CD  = ''' + @@CLASS_CD + '''';
+END;
+
+IF(@@CLASS != '')  BEGIN
+    SET @@QUERY = @@QUERY + ' AND CLASS LIKE ''%' + @@CLASS + '%''';
+END;
+
+EXECUTE (@@QUERY);

@@ -1,0 +1,12 @@
+DECLARE @@QUERY VARCHAR(MAX)
+DECLARE @@APP_ID varchar(50) = @APP_ID
+
+SET @@QUERY = '
+		SELECT DISTINCT
+			MENU_ID as id,
+			MENU_TEXT as text
+		FROM 
+			TB_M_MENU
+		WHERE IS_ACTIVE = ''Y'' AND APP_ID = '''+@@APP_ID+'''';
+
+EXEC(@@QUERY);

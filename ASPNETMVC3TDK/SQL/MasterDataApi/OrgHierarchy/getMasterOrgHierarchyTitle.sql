@@ -1,0 +1,23 @@
+﻿DECLARE 
+    @@QUERY VARCHAR(MAX),  
+    @@ORG_TITLE VARCHAR(MAX) = @P_ORG_TITLE,
+    @@LEVEL_ID VARCHAR(MAX) =  @P_LEVEL_ID
+    ;
+
+SET @@QUERY = '
+        SELECT DISTINCT
+            A.ORG_TITLE 
+        FROM
+            PDI.TB_M_ORG_HIERARCHY A 
+        WHERE
+            A.LEVEL_ID = '+@@LEVEL_ID; 
+
+IF(@@ORG_TITLE != '')
+BEGIN
+    SET @@QUERY = @@QUERY + ' AND A.ORG_PARENT IN ( SELECT SUB_A.ORG_ID FROM PDI.TB_M_ORG_HIERARCHY SUB_A WHERE SUB_A.ORG_TITLE = '''+@@ORG_TITLE+''' )'; 
+END
+
+EXECUTE (@@QUERY);
+
+
+-- select @@QUERY AS ORG_TITLE;

@@ -1,0 +1,38 @@
+﻿DECLARE 
+    @@QUERY VARCHAR(MAX),  
+    @@NOREG VARCHAR(MAX) = @P_NOREG,
+    @@ORDER_TYPE VARCHAR(MAX) = REPLACE(@P_ORDER_TYPE, '''', '`'),
+    @@REQ_STATUS VARCHAR(MAX) = @P_STATUS;
+
+
+
+SET @@QUERY = ' 
+   SELECT
+        NOREG ,
+        CLASS ,
+        POSITION_ABBR ,
+        DIVISION_ID ,
+        DIVISION_NAME ,
+        DEPARTMENT_ID ,
+        DEPARTMENT_NAME ,
+        SECTION_ID ,
+        SECTION_NAME ,
+        PROJECT_NAME ,
+        VALID_FROM ,
+        VALID_TO ,
+        RESPONSIBILITY ,
+        ACCOMPLISHMENT ,
+        REMARK_1 ,
+        REMARK_2 ,
+        CREATED_DT ,
+        CREATED_BY
+   FROM PDI.TB_M_PROJECT_ASSIGNMENT
+	WHERE 
+		1=1 
+';
+ 
+IF(@@REQ_STATUS != '')  BEGIN
+    SET @@QUERY = @@QUERY + ' AND  NOREG = '''+@@NOREG+''' ';
+END;
+
+EXECUTE (@@QUERY)

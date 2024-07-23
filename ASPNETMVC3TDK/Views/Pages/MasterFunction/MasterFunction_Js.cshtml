@@ -1,0 +1,468 @@
+<script>
+    var editDisabledFields = [];
+    var form = document.getElementById('function_form');
+    var validator = FormValidation.formValidation(
+        form,
+        {
+            fields: {
+                'ID': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Function ID is required'
+                        },
+                        stringLength: {
+                            max: 50, // Set the maximum length constraint
+                            message: 'The Function ID must not exceed 50 characters'
+                        }
+                    },
+
+                },
+                'NAME': {
+                    validators: {
+                        notEmpty: {
+                            message: 'Function Name is required'
+                        },
+                        stringLength: {
+                            max: 100, // Set the maximum length constraint
+                            message: 'The Function Name must not exceed 100 characters'
+                        }
+                    }
+                },
+                'DESCRIPTION': {
+                    validators: {
+                        stringLength: {
+                            max: 200, // Set the maximum length constraint
+                            message: 'The Description must not exceed 200 characters'
+                        }
+                    }
+                },
+            },
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger(),
+                bootstrap: new FormValidation.plugins.Bootstrap5({
+                    rowSelector: '.fv-row',
+                    eleInvalidClass: '',
+                    eleValidClass: ''
+                })
+            }
+        }
+    );
+
+    var myTable;
+    $(document).ready(function () {
+        load_table();
+        $('#sc_applicationName').select2();
+        $('#sc_applicationName').append($('<option>', {
+            value: "",
+            text: "--  Select All --"
+        }));
+        $.ajax({
+            url: "MasterFunctionApi/GetListApplications",
+            type: "POST",
+            dataType: "json",
+            success: function (response) {
+                // Append options to select tag
+                $.each(response, function (index, item) {
+                    $('#sc_applicationName').append($('<option>', {
+                        value: item.id,
+                        text: item.text
+                    }));
+                });
+
+                // Select the desired option
+                $('#sc_applicationName').val(initAppId);
+                load_table();
+
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+        //$('#sc_applicationName').append($('<option>', {
+        //    value: "",
+        //    text: "--  Select All --"
+        //}));
+        //$.ajax({
+        //    url: "MasterFunctionApi/GetListApplications",
+        //    type: "POST",
+        //    dataType: "json",
+        //    success: function (response) {
+        //        // Append options to select tag
+        //        $.each(response, function (index, item) {
+        //            $('#sc_applicationName').append($('<option>', {
+        //                value: item.id,
+        //                text: item.text
+        //            }));
+        //        });
+
+        //        // Select the desired option
+        //        $('#sc_applicationName').val(response[0].id);
+        //    },
+        //    error: function (xhr, status, error) {
+        //        console.error("Error:", error);
+        //    }
+        //});
+    });
+
+    //$('#sc_applicationName').select2({
+    //    allowClear: false,
+    //    width: "100%",
+    //    ajax:
+    //    {
+    //        type: 'POST',
+    //        url: 'MasterFunctionApi/GetListApplications',
+    //        dataType: 'json',
+    //        delay: 1000,
+    //        async: true,
+    //        data: null,
+    //        processResults: function (data, params) {
+
+    //            return { results: data };
+    //        },
+    //        cache: true
+    //    },
+    //    minimumInputLength: 0,
+    //    escapeMarkup: function (markup) {
+    //        return markup;
+    //    },
+    //});
+
+    function load_table() {
+        myTable = $('#datatable').DataTable({
+            order: [[1, 'DESC']],
+            processing: true,
+            serverSide: true,
+            ajax: {
+                type: 'POST',
+                url: 'MasterFunctionApi/GetDatatables',
+                data: function (d) {
+                    d.ID = $('#sc_functionId').val();
+                    d.NAME = $('#sc_functionName').val();
+                    d.APP_ID = $('#sc_applicationName').val();
+                    d.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+                }
+            },
+            columns: [
+                {
+                    'data': null,
+                    bSortable: false,
+                    className: 'text-center',
+                    'render': function (data, type, full, meta) {
+                        return '<input type="checkbox" class="select-checkbox">';
+                    }
+                },
+                { 'data': 'ID', 'name': 'ID', bSortable: true, className: 'text-center' },
+                { 'data': 'NAME', 'name': 'NAME', bSortable: true, className: 'text-start' },
+                { 'data': 'DESCRIPTION', 'name': 'DESCRIPTION', bSortable: false, className: 'text-start' },
+            ],
+            initComplete: function () {
+                $('#datatable thead th:eq(0)').css('width', '1rem');
+                $('#datatable thead th:eq(1)').css('width', '5rem');
+            }
+        });
+
+        $('#checkAll').on('change', function () {
+            var isChecked = $(this).prop('checked');
+            var checkboxes = $('#datatable tbody .select-checkbox');
+            checkboxes.prop('checked', isChecked);
+            checkboxes.closest('tr').toggleClass('selected', isChecked);
+
+            var checkedboxes = $('#datatable tbody .select-checkbox:checked');
+            var editButton = $('#editButton');
+            var deleteButton = $('#deleteButton');
+
+            if (checkedboxes.length === 1) {
+                editButton.prop('disabled', false);
+            } else {
+                editButton.prop('disabled', true);
+            }
+
+            if (checkedboxes.length > 0) {
+                deleteButton.prop('disabled', false);
+            } else {
+                deleteButton.prop('disabled', true);
+            }
+        });
+
+        $('#datatable tbody').on('change', '.select-checkbox', function () {
+            var checkbox = $(this);
+            var isChecked = checkbox.prop('checked');
+            var row = checkbox.closest('tr');
+
+            // Toggle the 'selected' class based on the checkbox state
+            if (isChecked) {
+                row.addClass('selected');
+            } else {
+                row.removeClass('selected');
+            }
+
+            var checkedboxes = $('#datatable tbody .select-checkbox:checked');
+            var editButton = $('#editButton');
+            var deleteButton = $('#deleteButton');
+
+            if (checkedboxes.length === 1) {
+                editButton.prop('disabled', false);
+            } else {
+                editButton.prop('disabled', true);
+            }
+
+            if (checkedboxes.length > 0) {
+                deleteButton.prop('disabled', false);
+            } else {
+                deleteButton.prop('disabled', true);
+            }
+
+            var allChecked = checkedboxes.length === $('#datatable tbody .select-checkbox').length;
+            $('#checkAll').prop('checked', allChecked);
+        });
+    }
+
+    function showModalAdd() {
+        resetForm();
+        $("#MODE").val("ADD");
+        $("#modal-form-title").html("Add Function");
+        $("#modal-form").modal("show");
+        $("#ID").removeAttr("disabled");
+        $("#is-active-wrapper").hide();
+        setTimeout(function () {
+            $("#ID").focus();
+        }, 500);
+    }
+
+    function showModalEdit() {
+        resetForm();
+        var selectedRowsData = myTable.rows('.selected').data();
+        
+        if (selectedRowsData.length === 1) {
+            var rowData = selectedRowsData[0];
+            $("#ID").val(rowData.ID);
+            $("#NAME").val(rowData.NAME);
+            $("#DESCRIPTION").val(rowData.DESCRIPTION);
+            $("#MODE").val("EDIT");
+            $("#modal-form-title").html("Edit Function");
+            $("#modal-form").modal("show");
+            editDisabledFields.push(rowData)
+            $("#ID").attr("disabled", true);
+            $("#is-active-wrapper").show();
+            setTimeout(function () {
+                $("#NAME").focus();
+            }, 500);
+        } else {
+            alert("Please select a single row to edit.");
+        }
+    }
+
+
+    function resetForm() {
+        $("#MODE").val("");
+        $("#ID").val("")
+        $("#NAME").val("");
+        $("#DESCRIPTION").val("");
+    }
+
+    function saveConfirmation() {
+        if (validator) {
+            validator.validate().then(function (status) {
+                if (status == "Valid") {
+                    Swal.fire({
+                        html: `Are you sure want to save this data?`,
+                        icon: "info",
+                        buttonsStyling: false,
+                        showCancelButton: true,
+                        confirmButtonText: "OK",
+                        cancelButtonText: 'Cancel',
+                        customClass: {
+                            confirmButton: "btn btn-primary mx-5 w-125px",
+                            cancelButton: 'btn btn-danger w-125px'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            processSave();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "warning",
+                        title: getMessage("MSG230320004W"),
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    setTimeout(function () {
+                        if (!$("#ID").val()) {
+                            $("#ID").focus();
+                        } else if (!$("#NAME").val()) {
+                            $("#NAME").focus();
+                        } else if (!$("#DESCRIPTION").val()) {
+                            $("#DESCRIPTION").focus();
+                        } 
+                    }, 1800);
+                }
+            });
+        } else {
+
+        }
+    }
+
+    function deleteConfirmation() {
+        var checkboxes = $('#datatable tbody .select-checkbox:checked');
+
+        Swal.fire({
+            html: `Are you sure want to delete ${checkboxes.length} data?`,
+            icon: "info",
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            cancelButtonText: 'Cancel',
+            customClass: {
+                confirmButton: "btn btn-primary mx-5 w-125px",
+                cancelButton: 'btn btn-danger w-125px'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                processDelete();
+            }
+        });
+    }
+
+    function processSave() {
+        var formData = new FormData($("#function_form")[0]);
+
+        if ($("#MODE").val() == "EDIT") {
+            editDisabledFields.forEach(function (val) {
+                formData.append("ID", val.ID);
+            });
+        }
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'MasterFunctionApi/SaveData',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.result == "false") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.msg,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        $("#modal-form").modal("hide");
+                        myTable.ajax.reload();
+                        //getDetailQcGate(data.extra_attr);
+                    });
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire(
+                    "Failed!",
+                    "Internal server error.",
+                    "error"
+                );
+            }
+        });
+    }
+
+    function processDelete() {
+        var APPLICATION = []
+        var ID = []
+        var selectedRowsData = myTable.rows('.selected').data();
+
+        formData = new FormData()
+        $.each(selectedRowsData, function (index, row) {
+            APPLICATION.push(row.APPLICATION);
+            ID.push(row.ID);
+        });
+        var criteria = APPLICATION.map((application, index) => {
+            const id = ID[index].replace(/['"]+/g, ''); // Remove extra quotes
+            return `{"APPLICATION":"${application}","ID":"${id}"}`;
+        });
+
+        formData.append('criteria', '[' + criteria + ']');
+
+        formData.append('__RequestVerificationToken', $("input[name=__RequestVerificationToken]").val())
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'MasterFunctionApi/DeleteData',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                showOverlay("Loading");
+            },
+            success: function (data) {
+                if (data.result === "false") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: data.msg,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.msg,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        $("#modal-form").modal("hide");
+                        myTable.ajax.reload();
+                        //getDetailQcGate(data.extra_attr);
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                Swal.fire(
+                    "Failed!",
+                    "Internal server error.",
+                    "error"
+                );
+            }
+        });
+    }
+
+
+    function onCancel() {
+        setTimeout(function () {
+            validator.resetForm()
+        }, 500)
+    }
+
+    function refresh_table() {
+        myTable.destroy();
+        load_table();
+    }
+
+    function onClear() {
+        $('#sc_functionId').val("");
+        $('#sc_functionName').val("");
+        myTable.destroy();
+        load_table();
+    }
+
+    function showOverlay(process) {
+        Swal.fire({
+            title: process,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading()
+            },
+        }).then((result) => {
+        })
+    }
+</script>

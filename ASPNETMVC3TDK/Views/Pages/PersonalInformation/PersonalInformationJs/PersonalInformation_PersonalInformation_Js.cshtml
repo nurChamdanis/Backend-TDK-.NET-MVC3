@@ -1,0 +1,144 @@
+﻿<script>
+    @* function for profil *@
+    function ModalProfileInfromationClose() {
+        $("#modal-personal-data").modal('hide');
+    }
+
+    function ModalProfileInfromationView() {
+        $("#modal-personal-data").modal('show');
+    }
+
+    @* cmd for show modal profile *@
+    function loadProfileInformation() {
+        $.ajax({
+            url: "UserProfileApi/GetUserProfile",
+            type: "POST",
+            dataType: "json",
+            success: function (response) {
+                Object.keys(response[0]).forEach(key => {
+                    $(`#${key}`).html("<strong>" + response[0][key] + "</strong>");
+                })
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+
+    let staticDataEducationHistory = [
+        {
+            SCHOOLNAME: "University Of Cambridge",
+            EDUCATIONLEVEL: "University",
+            MAJOR: "S2 - Computer Science",
+            GPA: "GPA 3.8",
+            COUNTRY: "ENGLISH",
+            STARTYEAR: "2022",
+            ENDYEAR: "2023",
+        },
+        {
+            SCHOOLNAME: "University Of Indonesia",
+            EDUCATIONLEVEL: "University",
+            MAJOR: "S2 - Computer Science",
+            GPA: "GPA 3.8",
+            COUNTRY: "ENGLISH",
+            STARTYEAR: "2022",
+            ENDYEAR: "2023",
+        },
+        {
+            SCHOOLNAME: "University Of Singapure",
+            EDUCATIONLEVEL: "University",
+            MAJOR: "S2 - Computer Science",
+            GPA: "GPA 3.8",
+            COUNTRY: "ENGLISH",
+            STARTYEAR: "2022",
+            ENDYEAR: "2023",
+        },
+    ];
+
+    @* function for education *@
+    function ModalEducationInfromationClose() {
+        $("#modal-education-history").modal('hide');
+    }
+
+    function ModalEducationInfromationView() {
+        $("#modal-education-history").modal('show');
+    }
+
+    @* cmd for show modal edit education *@
+    function loadEducationInformation() {
+        let html = ''
+        staticDataEducationHistory.forEach((item, index) => {
+            html += `<div class="my-5">
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-bold" style="font-size: 1.3em">`+ item.SCHOOLNAME +`</span>
+                            <div id="show-edit-education-history-`+ index +`" class="d-none d-flex justify-content-center align-items-center cursor-pointer" style="width: 34px; height: 34px;"
+                                 onclick="ModalEducationInfromationView()">
+                                <img src="@Url.Content("~/Content/assets/icons/pen-primary.svg")" alt="pen" />
+                            </div>
+                        </div>
+                        <div style="font-weight: 300 ">` + item.EDUCATIONLEVEL +`</div>
+                        <div style="font-weight: 300 ">` + item.MAJOR + `</div>
+                        <div style="font-weight: 300 ">`+ item.GPA +` <a href="#">View Certificate</a></div>
+                        <div style="font-weight: 300 ; color: #0275B1">` + item.STARTYEAR + `-` + item.ENDYEAR + `</div>
+                    </div>
+            `;
+        })
+
+        $('#content-education-history').append(html)
+    }
+
+    @* function for language *@
+    function ModalLanguageInfromationClose() {
+        $("#modal-language").modal('hide');
+    }
+
+    function ModalLanguageInfromationView() {
+        $("#modal-language").modal('show');
+    }
+
+    @* cmd for show modal edit language *@
+    function loadLanguageInformation() {
+        $.ajax({
+            url: "MasterFunctionApi/GetListApplications",
+            type: "POST",
+            dataType: "json",
+            success: function (response) {
+                $.each(response, function (index, item) { });
+                ModalLanguageInfromationView();
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+
+    function showCardModeEditableProfile(type, data) {
+        $("#card-personal-data").addClass('d-none')
+        $("#card-education-history").addClass('d-none')
+        $("#card-language-skills").addClass('d-none')
+        $(`#change-mode-edit-${type}`).addClass('d-none')
+
+        $(`#card-${type}`).removeClass('d-none')
+        $(`#close-${type}`).removeClass('d-none')
+        $(`#show-add-${type}`).removeClass('d-none')
+
+        for (let i = 0; i < data.length; i++) {
+            $(`#show-edit-${type}-${i}`).removeClass('d-none')
+        }
+    }
+
+    function closeCardModeEditableProfile(type, data) {
+        $("#card-personal-data").removeClass('d-none')
+        $("#card-education-history").removeClass('d-none')
+        $("#card-language-skills").removeClass('d-none')
+        $(`#change-mode-edit-${type}`).removeClass('d-none')
+
+        $(`#close-${type}`).addClass('d-none')
+        $(`#show-add-${type}`).addClass('d-none')
+
+        for (let i = 0; i < data.length; i++) {
+            $(`#show-edit-${type}-${i}`).addClass('d-none')
+        }
+    }
+</script>
+    
